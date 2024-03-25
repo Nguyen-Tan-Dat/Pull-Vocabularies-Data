@@ -11,7 +11,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Test {
-
     public static String readFile(String fileName) throws IOException {
         StringBuilder content = new StringBuilder();
 
@@ -57,7 +56,6 @@ public class Test {
                         i++;
                     }
                 }
-
             }
             array += "];";
             System.out.println(array);
@@ -84,11 +82,11 @@ public class Test {
 
                 if (!containsNumber(line)) {
                     count++;
-//                    System.out.println(line);
+                    System.out.println(line);
 //                    writer=new BufferedWriter(new FileWriter("data_group"+count+".txt"));
                 } else {
                     if (!startsWithDigit(line)) {
-//                        System.out.println(line);
+                        System.out.println(line);
                         countTopic++;
                     } else {
                         String regex = "(\\d+\\.\\s.*?)(?=(\\d+\\.\\s|$))";
@@ -101,44 +99,51 @@ public class Test {
                         for (String item : result) {
 //                            System.out.println(item.replaceFirst(". ", ".\t"));
 //                            if(item.trim().contains(". "))
-                            String row=item.toLowerCase().trim().replaceFirst(" ", "\t");
-                            row=removeNumberAndDot(row).replaceAll("\t","");
+                            String row = item.toLowerCase().trim().replaceFirst(" ", "\t");
+                            row = removeNumberAndDot(row).replaceAll("\t", "");
                             String[] parts = row.split("\\s*/\\s*");
-                            if(parts.length>3){
-                                parts[0].replaceAll(":","").replaceAll(".","").trim();
-                                if(isEnglish(parts[0])){
-                                    row = parts[0] + " = " + parts[parts.length-1];
-//                                    countVocab++;
-//                                    System.out.println(row);
-                                }
-                                else{
-//                                    countVocab++;
-//                                    System.out.println(parts[0]);
-                                }
-                            }
-                            else if (parts.length == 3) {
-                                parts[0].replaceAll(":","").replaceAll(".","").trim();
-                                if(isEnglish(parts[0])){
-                                    row = parts[0] + " = " + parts[2];
-//                                    countVocab++;
-//                                    System.out.println(row);
-                                }
-                                else{
-                                    row = parts[2] + " = " + parts[0];
-//                                    countVocab++;
-//                                    System.out.println(row);
-                                }
-
-                            }else {
-                                row.replaceAll("–",":");
-                                parts=row.split(":");
-                                if(parts.length==2){
-                                    row=parts[0].trim()+" = "+parts[1].trim();
-//                                    System.out.println(row);
-//                                    countVocab++;
-                                }else{
+                            if (parts.length > 3) {
+                                String e=parts[0].replaceAll(":", "").replace(".", "").trim();
+                                if (isEnglish(e)) {
+                                    row = e + " => " + parts[parts.length - 1].replaceAll(":","");
                                     countVocab++;
                                     System.out.println(row);
+                                }
+//                                else {
+//                                    countVocab++;
+//                                    System.out.println(parts[0]);
+//                                }
+                            } else if (parts.length == 3) {
+                                String e=parts[0].replaceAll(":", "").trim();
+                                if (isEnglish(e)) {
+                                    row = e + " => " + parts[2].replaceAll(":","");
+                                    countVocab++;
+                                    System.out.println(row);
+                                }
+                                else {
+                                    row = parts[2] + " => " + parts[0];
+                                    countVocab++;
+                                    System.out.println(row);
+                                }
+
+                            } else {
+                                parts = row.split(":");
+                                if (parts.length > 2) {
+                                    row = parts[0].trim() + " => " + parts[parts.length-1].trim();
+                                    System.out.println(row);
+                                    countVocab++;
+                                }
+                                else if (parts.length == 2) {
+                                    row = parts[0].trim() + " => " + parts[1].trim();
+                                    System.out.println(row);
+                                    countVocab++;
+                                } else {
+                                    parts = row.split("\\(.*?\\)");
+                                    if (parts.length == 2) {
+                                        row = parts[0].trim() + " => " + parts[1].trim();
+                                        System.out.println(row);
+                                        countVocab++;
+                                    }
                                 }
 
                             }
@@ -163,6 +168,7 @@ public class Test {
         }
         return false;
     }
+
     public static String removeNumberAndDot(String text) {
         // Biểu thức chính quy để tìm số và dấu chấm ở đầu dòng
         String regex = "^\\d+\\.\\s";
@@ -176,18 +182,20 @@ public class Test {
         }
         return false;
     }
+
     public static boolean isEnglish(String text) {
         // Kiểm tra từng ký tự trong chuỗi
         for (int i = 0; i < text.length(); i++) {
             char ch = text.charAt(i);
             // Kiểm tra nếu ký tự không nằm trong phạm vi chữ cái tiếng Anh (a-z, A-Z)
-            if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')|| ch==' '|| ch=='-')) {
+            if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == ' ' || ch == '-'|| ch == '('|| ch == ')'|| ch == '&')) {
                 return false;
             }
         }
         // Nếu không có ký tự nào không phải tiếng Anh, trả về true
         return true;
     }
+
     public static int getNumberBeforeDot(String text) {
         int dotIndex = text.indexOf('.');
 

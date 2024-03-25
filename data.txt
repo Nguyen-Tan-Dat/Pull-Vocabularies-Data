@@ -23,7 +23,8 @@ Chủ đề 1: Động vật (Animals)
 21.	Monkey/ˈmʌŋki/ (noun): Con khỉ
 22.	Mouse/maʊs/ (noun): Con chuột
 23.	Ox/ɑks/ (noun): Con bò đực
-24.	Penguin/ˈpeŋɡwɪn/: chim cánh cụt 25. Pig/pɪg/ (noun): Con lợn/heo
+24.	Penguin/ˈpeŋɡwɪn/: chim cánh cụt
+25. Pig /pɪg/ (noun): Con lợn/heo
 26.	Porcupine/ˈpɔːrkjupaɪn/: con nhím
 27.	Rabbit /ˈræbət/(noun): Con thỏ
 28.	Raccoon: con gấu mèo
@@ -125,7 +126,7 @@ Chủ đề 3: Trái cây (Fruits)
 122.	Cherry (noun) /ˈʧɛri/: Quả anh đào
 123.	Coconut /ˈkoʊkəˌnʌt/(noun): Quả dừa
 124.	Cucumber /ˈkjuːkʌmbə(r)/ Dưa leo, dưa chuột
-125.	Custard apple /ˈkʌstəd/ /æpl/ Quả na, mãng cầu ta (mãng cầu giống việt nam)
+125.	Custard apple : Quả na, mãng cầu ta (mãng cầu giống việt nam)
 126.	Dragon fruit /ˈdræɡən/ /fruːt/ Thanh long
 127.	Durian /ˈdʊəriən/ Sầu riêng
 128.	Granadilla /ɡranəˈdɪlə/ Chanh dây
@@ -263,7 +264,7 @@ Chủ đề 4: Rau củ (Vegetables)
 262.	Spinach /ˈspɪnɪtʃ/ cải bó xôi
 263.	Táo: apple
 264.	Thai Basil: /taɪ ˈbæz.əl/ Húng Quế
-265.	Thanh long: dragon fruit
+265.	Dragon fruit : Thanh long
 266.	Tomato /təˈmeɪˌtoʊ/(noun): Cà chua
 267.	Trái cóc: ambarella
 268.	Turmeric/ˈtɜːrmərɪk/: nghệ
@@ -553,7 +554,7 @@ Chủ đề 9: Ngoại hình (Appearance)
 552.	Of medium/ average height: chiều cao trung bình
 553.	Of medium/average built: hình thể trung bình
 554.	Old /əʊld/: già
-555.	Old age pensioner / əʊld eidʒ 'pen∫ənə[r]/: tuổi nghỉ hư
+555.	Old age pensioner / əʊld eidʒ 'pen∫ənə:r]/: tuổi nghỉ hư
 556.	Olive-skinned: da nâu, vàng nhạt
 557.	Oriental: da vàng châu á
 558.	Oval face: khuôn mặt hình trái xoan
@@ -569,7 +570,7 @@ Chủ đề 9: Ngoại hình (Appearance)
 568.	Sallow: vàng vọt
 569.	Scar: sẹo
 570.	Scowl: cau có
-571.	senior citizen /'si:niə*r+ 'sitizn/: người cao tuổi
+571.	senior citizen /'si:niə:r+ 'sitizn/: người cao tuổi
 572.	Short /ʃɔːt/: lùn
 573.	Shortish: hơi lùn
 574.	Skinny: ốm, gầy
@@ -588,7 +589,7 @@ Chủ đề 9: Ngoại hình (Appearance)
 587.	Tallish: cao dong dỏng
 588.	Thin /θɪn/(adjective): gầy
 589.	Thin: khuôn mặt gầy
-590.	toddler /'tɒdlə[r]/: trẻ em ở độ tuổi mới biết đi
+590.	toddler /'tɒdlə:r]/: trẻ em ở độ tuổi mới biết đi
 591.	Turned up: mũi cao
 592.	Ugly/ˈʌgli/ (adjective): xấu xí
 593.	Untidy: không chải chuốt, rối xù 594. Wavy: tóc lượn sóng
@@ -1169,7 +1170,7 @@ Chủ đề 19: Đồ ăn & Thức uống (Foods & Drinks)
 1173.	Stir- fry /stɜr- fraɪ/(verb): Xào 	 
 1174.	Sweet /swit/(adjective): Ngọt 
 1175.	Tasty/ˈteɪsti/ (adjective): Ngon lành 
-1176.	Tea/ti/ (noun): Trà 
+1176.	Tea : Trà 
 1177.	Vegetable /ˈvɛʤtəbəl/(noun): Rau củ 
 1178.	Wine/waɪn/ (noun): Rượu vang 
 Chủ đề 20: Nhà cửa (Houses & Buildings) 
@@ -1302,7 +1303,8 @@ Chủ đề 21: Nội thất (furniture):
 1307.	Locker: tủ nhiều ngăn, có khóa mỗi ngăn 
 1308.	Ottoman: Ghế dài có đệm 
 1309.	Poster: Bức ảnh lớn trong nhà 
-1310.	Radiator: Lò sưởi Cup broad: Tủ đựng bát đũa 
+1310.	Radiator: Lò sưởi
+1310.	Cup broad: Tủ đựng bát đũa 
 1311.	Reading lamp: Đèn học 
 1312.	Recliner: Ghế đệm thông minh,để thư giãn,có thể điều chỉnh phần gác chân 1313. Rocking chair: ghế lật đật 
 1314.	Shower: Vòi hoa sen 
@@ -1320,85 +1322,85 @@ Chủ đề 21: Nội thất (furniture):
 1326.	Wardrobe: Tủ đựng quần áo 
 1327.	Window curtain: rèm cửa sổ 
 Chủ đề 22: Thể thao (Sports) 
-1328.	Aerobics [eə’roubiks+: thể dục thẩm mỹ/thể dục nhịp điệu 
+1328.	Aerobics :eə’roubiks+: thể dục thẩm mỹ/thể dục nhịp điệu 
 1329.	American football: bóng bầu dục 
-1330.	Archery *‘ɑ:t∫əri+: bắn cung 
+1330.	Archery :‘ɑ:t∫əri+: bắn cung 
 1331.	Athlete /ˈæˌθlit/(noun): Vận động viên 
-1332.	Athletics *æθ’letiks+: điền kinh 
-1333.	Badminton *‘bædmintən]: cầu lông 
+1332.	Athletics :æθ’letiks+: điền kinh 
+1333.	Badminton :‘bædmintən]: cầu lông 
 1334.	Badminton/ˈbædˌmɪntən/ (noun): Môn cầu lông 
 1335.	Baseball /beɪs bɔl/(noun): Bóng chày 
-1336.	Baseball *‘beisbɔ:l]: bóng chày 
-1337.	Basketball *‘bɑ:skitbɔ:l+: bóng rổ 
+1336.	Baseball :‘beisbɔ:l]: bóng chày 
+1337.	Basketball :‘bɑ:skitbɔ:l+: bóng rổ 
 1338.	Basketball/ˈbæskətˌbɔl/: Bóng rổ 
 1339.	Beach volleyball: bóng chuyền bãi biển 
 1340.	Beat /bit/(verb): Đánh bại 
-1341.	Bowls [boul]: trò ném bóng gỗ 
-1342.	Boxing *‘bɔksiη+: đấm bốc 
-1343.	Canoeing [kə’nu:+: chèo thuyền ca-nô 
+1341.	Bowls :boul]: trò ném bóng gỗ 
+1342.	Boxing :‘bɔksiη+: đấm bốc 
+1343.	Canoeing :kə’nu:+: chèo thuyền ca-nô 
 1344.	Champion/ˈʧæmpiən/ (noun): Nhà vô địch 
-1345.	Climbing *‘klaimiη+: leo núi 
+1345.	Climbing :‘klaimiη+: leo núi 
 1346.	Coach/koʊʧ/ (noun): Huấn luyện viên 	 
 1347.	Competition /ˌkɑmpəˈtɪʃən/(noun): Cuộc thi 
 1348.	Competition: cuộc thi đấu 
-1349.	Cricket *‘krikit+: crikê 
-1350.	Cycling *‘saikliη+: đua xe đạp 
-1351.	Darts [dɑ:t+: trò ném phi tiêu 
+1349.	Cricket :‘krikit+: crikê 
+1350.	Cycling :‘saikliη+: đua xe đạp 
+1351.	Darts :dɑ:t+: trò ném phi tiêu 
 1352.	Defeat: đánh bại/thua trận 
-1353.	Diving *‘daiviη+: lặn 
-1354.	Fishing *‘fi∫iη+: câu cá 
+1353.	Diving :‘daiviη+: lặn 
+1354.	Fishing :‘fi∫iη+: câu cá 
 1355.	Fixture: cuộc thi đấu 
-1356.	Football *‘futbɔ:l+: bóng đá 
+1356.	Football :‘futbɔ:l+: bóng đá 
 1357.	Football/Soccer/ˈfʊtˌbɔl/ /ˈsɑkər/ (noun): Môn bóng đá 
 1358.	Game/geɪm/ (noun): Trận đấu, ván đấu (thường dùng cho các môn với các cầu thủ không chuyên) 
-1359.	Golf [gɔlf]: đánh gôn 
-1360.	Gymnastics [,dʒim’næstiks+: tập thể hình 
-1361.	Handball *‘hændbɔ:l]: bóng ném 
-1362.	Hiking *haik+: đi bộ đường dài 
-1363.	Hockey *‘hɔki]: khúc côn cầu 
+1359.	Golf :gɔlf]: đánh gôn 
+1360.	Gymnastics :,dʒim’næstiks+: tập thể hình 
+1361.	Handball :‘hændbɔ:l]: bóng ném 
+1362.	Hiking :haik+: đi bộ đường dài 
+1363.	Hockey :‘hɔki]: khúc côn cầu 
 1364.	Horse racing: đua ngựa 
 1365.	Horse riding: cưỡi ngựa 
-1366.	Hunting *‘hʌntiη+: đi săn 
+1366.	Hunting :‘hʌntiη+: đi săn 
 1367.	Ice hockey: khúc côn cầu trên sân băng 
 1368.	Ice skating: trượt băng 
 1369.	Inline skating hoặc rollerblading: trượt pa-tanh 
-1370.	Jogging *‘dʒɔgiη+: chạy bộ 
+1370.	Jogging :‘dʒɔgiη+: chạy bộ 
 1371.	Jogging/ˈʤɑgɪŋ/ (noun): Chạy bộ 
-1372.	Judo *‘dʒu:dou]: võ judo 
-1373.	Karate [kə’rɑ:ti+: võ karate 
-1374.	Karting *ka:tiη+: đua xe kart (ô tô nhỏ không mui) 
+1372.	Judo :‘dʒu:dou]: võ judo 
+1373.	Karate :kə’rɑ:ti+: võ karate 
+1374.	Karting :ka:tiη+: đua xe kart (ô tô nhỏ không mui) 
 1375.	Kickboxing: võ đối kháng 
-1376.	Lacrosse [lə’krɔs]: bóng vợt 
+1376.	Lacrosse :lə’krɔs]: bóng vợt 
 1377.	Martial arts: võ thuật 
 1378.	Match/mæʧ/ (noun): Trận đấu (dùng cho bóng đá, bóng bầu dục, cầu lông,… có 2 cầu thủ/2 đội đối đầu) 
 1379.	Motor racing: đua ô tô 
-1380.	Mountaineering *,maunti’niəriη: leo núi 
+1380.	Mountaineering :,maunti’niəriη: leo núi 
 1381.	Net: lưới 
-1382.	Netball *‘netbɔ:l]: bóng rổ nữ 
+1382.	Netball :‘netbɔ:l]: bóng rổ nữ 
 1383.	Offside: việt vị 
 1384.	Opponent /əˈpoʊnənt/(noun): Đối thủ 
 1385.	Pass: chuyền bóng 
 1386.	Penalty: phạt đền 
 1387.	Player: cầu thủ 
-1388.	Pool [pu:l]: bi-a 
+1388.	Pool :pu:l]: bi-a 
 1389.	Practice/ˈpræktəs/ (verb): Luyện tập 
 1390.	Referee/ˌrɛfəˈri/ (noun): Trọng tài 
-1391.	Rowing *‘rauiη+: chèo thuyền 
-1392.	Rugby *‘rʌgbi]: bóng bầu dục 
-1393.	Running *‘rʌniη+: chạy đua 
+1391.	Rowing :‘rauiη+: chèo thuyền 
+1392.	Rugby :‘rʌgbi]: bóng bầu dục 
+1393.	Running :‘rʌniη+: chạy đua 
 1394.	Running/ˈrʌnɪŋ/ (noun): Chạy bộ 
-1395.	Sailing *‘seiliη+: chèo thuyền 1396. Score/skɔr/ (noun): Điểm số 
-1397.	Scuba diving *‘sku:bə+ *‘daiviη+: lặn có bình khí 
-1398.	Shooting *‘∫u:tiη+: bắn súng 
-1399.	Skateboarding *skeit+ *‘bɔ:diη+: trượt ván 
-1400.	Skiing *‘ski:iη+: trượt tuyết 
-1401.	Snooker *‘snu:kə]: bi-a 
-1402.	Snowboarding *snou+ *‘bɔ:diη+: trượt tuyết ván 
+1395.	Sailing :‘seiliη+: chèo thuyền 1396. Score/skɔr/ (noun): Điểm số 
+1397.	Scuba diving :‘sku:bə+ :‘daiviη+: lặn có bình khí 
+1398.	Shooting :‘∫u:tiη+: bắn súng 
+1399.	Skateboarding :skeit+ :‘bɔ:diη+: trượt ván 
+1400.	Skiing :‘ski:iη+: trượt tuyết 
+1401.	Snooker :‘snu:kə]: bi-a 
+1402.	Snowboarding :snou+ :‘bɔ:diη+: trượt tuyết ván 
 1403.	Sporty/ˈspɔrti/ (adjective): Có tính chất thể thao 
-1404.	Squash [skwɔ∫+: bóng quần 
+1404.	Squash :skwɔ∫+: bóng quần 
 1405.	Stadium /ˈsteɪdiəm/(noun): Sân vận động 
-1406.	Surfing *‘sɜ:fiη+: lướt sóng 
-1407.	Swimming *‘swimiη+: bơi lội 
+1406.	Surfing :‘sɜ:fiη+: lướt sóng 
+1407.	Swimming :‘swimiη+: bơi lội 
 1408.	Swimming/ˈswɪmɪŋ/ (noun): Môn bơi lội 
 1409.	Table tennis: bóng bàn 
 1410.	Team /tim/(noun): Đội  
@@ -1406,13 +1408,13 @@ Chủ đề 22: Thể thao (Sports)
 1412.	Ten-pin bowling: bowling 
 1413.	Tournament/ˈtʊrnəmənt/ (noun): Giải đấu 
 1414.	Volleyball /ˈvɑliˌbɔl/(noun): Bóng chuyền 
-1415.	Volleyball *‘vɔlibɔ:l]: bóng chuyền 
+1415.	Volleyball :‘vɔlibɔ:l]: bóng chuyền 
 1416.	Walking: đi bộ 
-1417.	Water polo *‘poulou+: bóng nước 
+1417.	Water polo :‘poulou+: bóng nước 
 1418.	Water skiing: lướt ván nước do tàu kéo 
-1419.	Weightlifting *‘weit’liftiη+: cử tạ 
-1420.	Windsurfing *‘windsə:fiη+: lướt ván buồm 
-1421.	Wrestling *‘resliη+: môn đấu vật 
+1419.	Weightlifting :‘weit’liftiη+: cử tạ 
+1420.	Windsurfing :‘windsə:fiη+: lướt ván buồm 
+1421.	Wrestling :‘resliη+: môn đấu vật 
 Chủ đề 19: Giao thông (Transportation) 
 1422.	Airplane/ɛr pleɪn/ (noun): Máy bay 
 1423.	Airport /ˈɛrˌpɔrt/(noun): Sân bay 
@@ -1425,7 +1427,8 @@ Chủ đề 19: Giao thông (Transportation)
 1430.	Delay /dɪˈleɪ/(verb): Chậm trễ, trì hoãn (chuyến bay) 
 1431.	Departure/dɪˈpɑrʧər/ (noun): Sự rời đi 
 1432.	Drive/draɪv/ (verb): Lái xe 
-1433.	Get on/get off/gɛt ɑn/ /gɛt ɔf/: Lên xe/Xuống xe 
+1433.	Get on : Lên xe
+1433.	Get off : Xuống xe 
 1434.	Motorbike/ˈmoʊtərˌbaɪk/ (noun): Xe máy 
 1435.	Passenger/ˈpæsənʤər/ (noun): Hành khách 
 1436.	Public transportation/ˈpʌblɪk ˌtrænspərˈteɪʃən/ (noun): Phương tiện giao thông công cộng 
@@ -1924,14 +1927,14 @@ Chủ đề 37: Food and Drink (thức ăn và nước uống)
 1927.	Pork /pɔːk/ Thịt lợn 1928. Beef /biːf/ Thịt bò 
 1929.	Bacon /ˈbeɪkən/ Thịt xông khói. 
 1930.	Salad /ˈsæləd/ Rau trộn 
-1931.	Cooking Methods Phương pháp nấu ăn 
+1931.	Cooking Methods : Phương pháp nấu ăn 
 1932.	Boil (v) /bɔɪl/ Luộc  
 1933.	Bake (v) /beɪk/ Nướng bằng lò 
 1934.	Roast (v) /rəʊst/ Quay, nướng 
 1935.	Fry (v) /fraɪ/ Chiên, rán 
 1936.	Grill (v) /ɡrɪl/ Nướng than (trực tiếp) 
 1937.	Steam (v) /stiːm/ Hấp 
-1938.	Food Tastes Hương vị của món ăn 
+1938.	Food Tastes : Hương vị của món ăn 
 1939.	Sweet (adj) /swiːt/ Ngọt 
 1940.	Sour (adj) /ˈsaʊə(r)/ Chua; ôi; thiu 
 1941.	Salty (adj) /ˈsɔːlti/ Mặn 
@@ -1958,7 +1961,6 @@ Chủ đề 37: Food and Drink (thức ăn và nước uống)
 1963.	Hot chocolate /ˌhɒt/ /ˈtʃɒklət/ Sô cô la nóng 
 1964.	Milk /mɪlk/ Sữa 
 1965.	Soda /ˈsəʊdə/ Nước có ga 
-1966.	Tea /tiː/ 
 1969.	Salt/sɒlt/: muối 
 1970.	Sugar/ˈʃʊɡər/: đường 
 1971.	Pepper/ˈpepər/: tiêu 
@@ -2047,7 +2049,7 @@ Chủ đề 40: Đời sống công sở (Working life)
 2058.	Deadline/ˈdɛˌdlaɪn/ (noun): Hạn chót 
 2059.	Experience/ɪkˈspɪriəns/ (noun): Kinh nghiệm, trải nghiệm 
 2060.	Fire /ˈfaɪər/(verb): Sa thải, đuổi việc 
-2061.	Interview (noun): Buổi phỏng vấn; (verb): Phỏng vấn 
+2061.	Interview : Phỏng vấn 
 2062.	Meeting /ˈmitɪŋ/(noun): Cuộc họp 
 2063.	Offer/ˈɔfər/ (verb): Đề nghị; (noun): Lời đề nghị 
 2064.	Office/ˈɔfəs/ (noun): Văn phòng 
@@ -2112,7 +2114,7 @@ Chủ đề 41: Nghệ thuật (Arts)
 2122.	Sculpture /ˈskʌlpʧər/(noun): Bức tượng điêu khắc 
 2123.	Show /ʃoʊ/(noun): Buổi biểu diễn 
 2124.	Singer/ˈsɪŋər/ (noun): Ca sĩ 
-2125.	Sketch/skɛʧ/ (noun): Bản nháp, bản thảo; (verb): viết//vẽ nháp 
+2125.	Sketch/skɛʧ/ (noun): Bản nháp, bản thảo
 2126.	Song/sɔŋ/ (noun): Bài hát, ca khúc 
 2127.	Story/ˈstɔri/ (noun): Câu chuyện 
 2128.	Studio/ˈstudiˌoʊ/ (noun): Xưởng (vẽ, làm phim, chụp ảnh,…) 
@@ -2783,11 +2785,12 @@ Chủ đề 55: Những từ cơ bản hay nhầm lẫn trong tiếng Anh:
 2792.	Desert /'dezət/ (n) = sa mạc 
 2793.	Later /`leitə/ (adv) = sau đó, rồi thì (thường dùng với động từ thời tương lai) 
 2794.	Latter/'lætə/ (adj) = cái thứ 2, người thứ 2, cái sau, người sau. 
-2795.	Affect /ə'fekt/ (v) = tác động đến  Effect /i'fekt/ (n) = ảnh hưởng, hiệu quả; (v) = thực hiện, đem 
+2795.	Affect /ə'fekt/ (v) = tác động đến
+2795.	Effect /i'fekt/ (n) = ảnh hưởng, hiệu quả; (v) = thực hiện, đem 
 2796.	Emigrant /'emigrənt/ (n) = người di cư  
 2797.	Immigrant /'imigrənt/ (n) = người nhập cư 
 2798.	Elude /iˈluːd/(v) = tránh khỏi, lảng tránh, vượt ngoài tầm hiểu biết. 
-2799.	Allude /ə'lu:d/ (v) = nói đến ai/cái gì một cách rút gọn hoặc gián tiếp; ám chỉ; nói bóng gió 
+2799.	Allude : nói đến ai/cái gì một cách rút gọn hoặc gián tiếp; ám chỉ; nói bóng gió 
 2800.	Complement /'kɔmpliment/ (n) = bổ ngữ 
 2801.	Complement / 'kɔmplimənt/ (n) = lời khen ngợi 
 2802.	Formerly /'fɔ:məli/ (adv) = trước kia 
@@ -2831,7 +2834,7 @@ Chủ đề 56: Dụng cụ học tập:
 2843.	Highlighter: bút đánh dấu màu 
 2844.	Magnifying Glass: Kính lúp 
 2845.	Map: bản đồ 
-2846.	Marker; bút lông 
+2846.	Marker : bút lông 
 2847.	Notebook: sổ ghi chép 
 2848.	Paint: sơn, màu 
 2849.	Paint Brush: bút tô màu 
@@ -2904,7 +2907,7 @@ Chủ đề 57: Con số (number):
 2916.	Total /'təʊtl/ tổng      
 2917.	Triangle /'traiæηgl/ hình tam giác      
 2918.	Volume /'vɔlju:m/ dung lượng      
-2919.	Width wɪtθ/ chiều rộng 
+2919.	Width : chiều rộng 
 Khác 
 Chủ đề 57: Âm nhạc(music): 
 2920.	(cd)composer /kəmˈpoʊzər/: nhà soạn nhạc 
@@ -2962,14 +2965,17 @@ Chủ đề 57: Âm nhạc(music):
 2973.	Pop /pɑːp/: nhạc po 
 2974.	R&B /ˌɑːr ən ˈbiː/: dòng nhạc Rhythm and Blues, kết hợp dòng nhạc jazz, nhạc phúc âm và Blues 2975. Rap /ræp/: nhạc rap 
 2976.	Rapper /ˈræpər/: người hát rap 
-2977.	Recording studio /rɪˈkɔːrdɪŋ stuːdioʊ/: phòng thu âm rock /rɑːk/: nhạc rock 
+2977.	Recording studio /rɪˈkɔːrdɪŋ stuːdioʊ/: phòng thu âm
+2977.	Rock /rɑːk/: nhạc rock 
 2978.	Mandolin /ˌmændəˈlɪn/: măng cầm 
 2979.	Saxophone /ˈsæksəfoʊn/: kèn saxophone 
-2980.	Saxophonist /ˈsæksəfoʊnɪst/: nghệ sĩ kèn saxophone singer /ˈsɪŋər/: ca sĩ  2981. sing /sɪŋ/: hát 
+2980.	Saxophonist /ˈsæksəfoʊnɪst/: nghệ sĩ kèn
+2981.	Saxophone singer /ˈsɪŋər/: ca sĩ  2981. sing /sɪŋ/: hát 
 2982.	Solo /ˈsoʊloʊ/: độc diễn 
 2983.	sonata /səˈnɑːtə/: bản xô-nát, soạn cho piano hoặc piano và violin 2984. Song /sɔːŋ/: bài hát 
 2985.	soul /soʊl/: nhạc linh hồn, có nguồn gốc từ nhạc phúc âm và R&B 
-2986.	Speaker /ˈspiːkər/: loastage /steɪdʒ/: sân khấu  
+2986.	Speaker /ˈspiːkər/:: sân khấu  
+2986.	Loastage /steɪdʒ/: sân khấu  
 2987.	string /strɪŋ/: nhạc cụ có dây 
 2988.	Symphony /ˈsɪmfəni/: bản giao hưởng 
 2989.	Theme song /ðəm sɔːŋ/: nhạc nền cho phim 
