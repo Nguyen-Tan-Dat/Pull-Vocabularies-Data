@@ -6,7 +6,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -70,7 +70,61 @@ public class Test {
 //        partArrayCode("sft_lhfa_boys_z_0_5.xlsx");
 //        partArrayCode("sft_lhfa_girls_z_0_5.xlsx");
 //    }
+    static class Vocab{
+        private int en,vi,to;
+
+        public Vocab(int en, int vi, int to) {
+            this.en = en;
+            this.vi = vi;
+            this.to = to;
+        }
+
+        public int getEn() {
+            return en;
+        }
+
+        public void setEn(int en) {
+            this.en = en;
+        }
+
+        public int getVi() {
+            return vi;
+        }
+
+        public void setVi(int vi) {
+            this.vi = vi;
+        }
+
+        public int getTo() {
+            return to;
+        }
+
+        public void setTo(int to) {
+            this.to = to;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            Vocab vocab = (Vocab) o;
+            return en == vocab.en && vi == vocab.vi;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(en, vi, to);
+        }
+    }
     public static void main(String[] args) {
+        int id=2;
+        String topic="No name";
+        HashMap<String,Integer> topics=new HashMap<>();
+        HashMap<String,Integer> english=new HashMap<>();
+        int enMax=1;
+        int viMax=1;
+        HashMap<String,Integer> vietnamese=new HashMap<>();
+        Set<String> vocab=new HashSet<>();
+        Set<Vocab> vList=new HashSet<>();
         byte count = 0;
         byte countTopic = 0;
         int countVocab = 0;
@@ -82,11 +136,14 @@ public class Test {
 
                 if (!containsNumber(line)) {
                     count++;
-                    System.out.println(line);
+//                    System.out.println(line);
 //                    writer=new BufferedWriter(new FileWriter("data_group"+count+".txt"));
                 } else {
                     if (!startsWithDigit(line)) {
-                        System.out.println(line);
+                        topic=line;
+//                        System.out.println(line);
+                        id++;
+                        topics.put(line,id);
                         countTopic++;
                     } else {
                         String regex = "(\\d+\\.\\s.*?)(?=(\\d+\\.\\s|$))";
@@ -97,17 +154,19 @@ public class Test {
                             result.add(matcher.group(1));
                         }
                         for (String item : result) {
+                            String en="";
+                            String vi="";
 //                            System.out.println(item.replaceFirst(". ", ".\t"));
 //                            if(item.trim().contains(". "))
                             String row = item.toLowerCase().trim().replaceFirst(" ", "\t");
-                            row = removeNumberAndDot(row).replaceAll("\t", "");
+                            row = removeNumberAndDot(row).replaceFirst("\t", " ");
                             String[] parts = row.split("\\s*/\\s*");
                             if (parts.length > 3) {
                                 String e=parts[0].replaceAll(":", "").replace(".", "").trim();
                                 if (isEnglish(e)) {
-                                    row = e + " => " + parts[parts.length - 1].replaceAll(":","");
                                     countVocab++;
-                                    System.out.println(row);
+                                    en=e;
+                                    vi= parts[parts.length - 1].replaceAll(":","");
                                 }
 //                                else {
 //                                    countVocab++;
@@ -116,37 +175,61 @@ public class Test {
                             } else if (parts.length == 3) {
                                 String e=parts[0].replaceAll(":", "").trim();
                                 if (isEnglish(e)) {
-                                    row = e + " => " + parts[2].replaceAll(":","");
+                                    en=e;
+                                    vi=parts[2].replaceAll(":","");
                                     countVocab++;
-                                    System.out.println(row);
                                 }
                                 else {
-                                    row = parts[2] + " => " + parts[0];
+                                    en = parts[2] ;
+                                    vi=parts[0];
                                     countVocab++;
-                                    System.out.println(row);
                                 }
 
                             } else {
                                 parts = row.split(":");
                                 if (parts.length > 2) {
-                                    row = parts[0].trim() + " => " + parts[parts.length-1].trim();
-                                    System.out.println(row);
+                                    en=parts[0].trim();
+                                    vi=parts[parts.length-1].trim();
                                     countVocab++;
                                 }
                                 else if (parts.length == 2) {
-                                    row = parts[0].trim() + " => " + parts[1].trim();
-                                    System.out.println(row);
+                                    en=parts[0].trim();
+                                    vi=parts[1].trim();
                                     countVocab++;
                                 } else {
                                     parts = row.split("\\(.*?\\)");
                                     if (parts.length == 2) {
-                                        row = parts[0].trim() + " => " + parts[1].trim();
-                                        System.out.println(row);
+                                        en=parts[0].trim();
+                                        vi=parts[1].trim();
                                         countVocab++;
                                     }
                                 }
 
                             }
+                            en=removeParenthesesContent(en).trim();
+                            en=en.split("/")[0];
+                            int enID=0;
+                            if(english.containsKey(en)){
+                                enID=english.get(en);
+                            }else {
+                                enID=enMax;
+                                english.put(en,enMax++);
+                            }
+                            vi=removeParenthesesContent(vi).trim();
+                            int viID=0;
+                            if(vietnamese.containsKey(vi)){
+                                viID=vietnamese.get(vi);
+                            }else {
+                                viID=viMax;
+                                vietnamese.put(vi,viMax++);
+                            }
+                            if(vocab.contains(enID+","+viID)) {
+//                                System.out.println(enID);
+                            }else{
+                                vList.add(new Vocab(enID,viID,id));
+                                vocab.add(enID+","+viID);
+                            }
+//                            System.out.println(en+" => "+vi);
                         }
                     }
 
@@ -158,8 +241,42 @@ public class Test {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        for(var i:topics.keySet()){
+            System.out.println("INSERT INTO topics value ("+topics.get(i)+",'"+i+"',1);");
+        }
+        for (var i:english.keySet()){
+            System.out.println("INSERT INTO english value ("+english.get(i)+",'"+i+"','','');");
+        }
+        for (var i:vietnamese.keySet()){
+            System.out.println("INSERT INTO vietnamese value ("+vietnamese.get(i)+",'"+i+"');");
+        }
+        int voID=1;
+        for (var i:vList){
+            String en="";
+            for (var j:english.keySet()){
+                if(i.en==english.get(j))en=j;
+            }
+            String vi="";
+            for (var k:vietnamese.keySet()){
+                if(i.vi==vietnamese.get(k))vi=k;
+            }
+            System.out.println("INSERT INTO vocabularies (id,en,part_of_speech,img,vi,user) VALUE ("+voID+","+i.getEn()+",'noun','',"+i.getVi()+",1);");
+            System.out.println("INSERT INTO vocabularies_topics value ("+i.to+","+voID+");");
+            voID++;
+        }
     }
+    public static String removeParenthesesContent(String input) {
+        // Tạo mẫu regular expression
+        Pattern pattern = Pattern.compile("\\([^\\)]+\\)");
 
+        // Tạo một Matcher để tìm kiếm chuỗi trong ngoặc đơn
+        Matcher matcher = pattern.matcher(input);
+
+        // Thực hiện thay thế chuỗi trong ngoặc đơn bằng chuỗi trống
+        String result = matcher.replaceAll("").trim();
+
+        return result;
+    }
     private static boolean containsNumber(String line) {
         for (char c : line.toCharArray()) {
             if (Character.isDigit(c)) {

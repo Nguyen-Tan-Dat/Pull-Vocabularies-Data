@@ -1,0 +1,305 @@
+Chủ đề 28: Giáo dục (Education) 
+1549.	Biology/baɪˈɑləʤi/ (noun): Sinh học 
+1550.	Calculator/ˈkælkjəˌleɪtər/ (noun): Máy tính cầm tay 
+1551.	Chemistry/ˈkɛmɪstri/ (noun): Hóa học 
+1552.	Class/Klæs/ (noun): Lớp học 
+1553.	College /ˈkɑlɪʤ/(noun): Trường cao đẳng 
+1554.	Computer science/kəmˈpjutər ˈsaɪəns/ (noun): Tin học 
+1555.	Computer/kəmˈpjutər/ (noun): Máy tính 
+1556.	Degree /dɪˈgri/(noun): Bằng 
+1557.	Eraser/ɪˈreɪsər/ (noun): Cục tẩy 
+1558.	Exam/ɪgˈzæm/ (noun): Bài thi 
+1559.	Final exam/ˈfaɪnəl ɪgˈzæm/: Bài thi cuối kì 
+1560.	Geography /ʤiˈɑgrəfi/(noun): Địa lý 
+1561.	Graduate /ˈgræʤuɪt/(verb): Tốt nghiệp 
+1562.	High school /haɪ skul/(noun): Trường trung học phổ thông 
+1563.	History /ˈhɪstəri/(noun): Môn lịch sử, lịch sử 
+1564.	Kindergarten/ˈkɪndərˌgɑrtən/ (noun): Trường mầm non, mẫu giáo 
+1565.	Laboratory/Lab/ˈlæbrəˌtɔri/ – /læb/ (noun): Phòng thí nghiệm 
+1566.	Learn/lɜrn/ (verb): Học hỏi 
+1567.	Lecture /ˈlɛkʧər/(noun): Bài giảng 
+1568.	Lecturer /ˈlɛkʧərər/(noun): Giảng viên 
+1569.	Literature /ˈlɪtərəʧər/(noun): Văn học 
+1570.	Mathematics/Maths /ˌmæθəˈmætɪks/ – /mæθ/(noun): Toán học 
+1571.	Mid-term exam/mɪd-tɜrm ɪgˈzæm/: Bài thi giữa kì 
+1572.	Notebook/ˈnoʊtˌbʊk/ (noun): Quyển vở, quyển sổ 
+1573.	Pen/pɛn/ (noun): Bút mực, bút bi  
+1574.	Pencil/ˈpɛnsəl/ (noun): Bút chì 
+1575.	Period /ˈpɪriəd/(noun): Tiết học 
+1576.	Physical education/ˈfɪzɪkəl ˌɛʤəˈkeɪʃən/: Môn thể dục 
+1577.	Physics /ˈfɪzɪks/(noun): Môn vật lí 
+1578.	Primary school /ˈpraɪˌmɛri skul/(noun): Trường tiểu học 
+1579.	Principal /ˈprɪnsəpəl/(noun): Hiệu trưởng 
+1580.	Professor/prəˈfɛsər/ (noun): Giáo sư 
+1581.	Ruler /ˈrulər/(noun): Thước kẻ 
+1582.	School year /skul jɪr/(noun): Năm học 	 
+1583.	School/skul/ (noun): Trường học 
+1584.	Secondary school /ˈsɛkənˌdɛri skul/(noun): Trường trung học cơ sở 
+1585.	Semester /səˈmɛstər/(noun): Học kì 
+1586.	Student /ˈstudənt/(noun): Học sinh, sinh viên 
+1587.	Study (verb): Học tập 
+1588.	Subject /ˈsʌbʤɪkt/(noun): Môn học 
+1589.	Teacher/ˈtiʧər/ (noun): Giáo viên 
+1590.	Test/tɛst/ (noun): Bài kiểm tra 
+1591.	Textbook/ˈtɛkstˌbʊk/ (noun): Sách giáo khoa 
+1592.	Uniform /ˈjunəˌfɔrm/(noun): Đồng phục 
+1593.	University/ˌjunəˈvɜrsəti/ (noun): Trường đại học 
+Chủ đề 29: Sức khỏe (Health) 
+1594.	Ache /eɪk/(noun): Cơn đau; (verb): Đau 
+1595.	Backache/ˈbæˌkeɪk/ (noun): Đau lưng 
+1596.	Bandage/ˈbændɪʤ/ (noun): Băng cá nhân 
+1597.	Bleed/blid/ (verb): Chảy máu 
+1598.	Broken arm/ˈbroʊkən ɑrm/: Gãy tay 
+1599.	Broken leg/ˈbroʊkən lɛg/: Gãy chân 
+1600.	Broken/ˈbroʊkən/ (adjective): Gãy 1601. Bruise /bruz/(noun): Vết bầm tím 
+1602.	Clinic/ˈklɪnɪk/ (noun): Phòng khám 
+1603.	Cold /koʊld/(noun): Cảm lạnh 
+1604.	Cure/kjʊr/ (verb): Chữa trị; (noun): Cách chữa trị 
+1605.	Diet/ˈdaɪət/ (noun): Chế độ ăn uống, ăn kiêng 
+1606.	Disease /dɪˈziz/(noun): Căn bệnh 
+1607.	Disorder/dɪˈsɔrdər/ (noun): Chứng rối loạn 
+1608.	Dizzy/ˈdɪzi/ (adjective): Hoa mắt chóng mặt 
+1609.	Doctor/ˈdɑktər/ (noun): Bác sĩ  1610. Fever/ˈfivər/ (noun): Cơn sốt 
+1611.	Flu/flu/ (noun): Bệnh cảm cúm  
+1612.	Hea/hill/(verb): Chữa lành, lành lại 
+1613.	Headache /ˈhɛˌdeɪk/(noun): Đau đầu 
+1614.	Healthy /ˈhɛlθi/(adjective): Lành mạnh, tốt cho sức khỏe 
+1615.	Hospital/ˈhɑˌspɪtəl/ (noun): Bệnh viện 
+1616.	Ill/ɪl/ (adjective): Bị ốm 
+1617.	Illness/ˈɪlnəs/ (noun): Căn bệnh 
+1618.	Medicine/Drug/ˈmɛdəsən/ – /drʌg/ (noun): Thuốc 
+1619.	Nurse /nɜrs/(noun): Y tá 
+1620.	Obesity /oʊˈbisəti/(noun): Bệnh béo phì 
+1621.	Patient/ˈpeɪʃənt/ (noun): Bệnh nhân 
+1622.	Pharmacy/Drug store/ˈfɑrməsi/ – /drʌg stɔr/: Nhà thuốc 1623. Pill /pɪl/(noun): Viên thuốc 1624. Sick/sɪk/ (adjective): Bị ốm 
+1625.	Stomach Ache/ˈstʌmək–eɪk / (noun): Đau bụng, đau dạ dày 
+1626.	Surgery/ˈsɜrʤəri/ (noun): Ca phẫu thuật 
+1627.	Toothache/tuθ–eɪk / (noun): Đau răng 
+1628.	Wound/wund/ (noun): Vết thương 
+Chủ đề 30: Sở thích (Hobbies) 
+1629.	Activity/ækˈtɪvɪti/ (noun): Hoạt động 
+1630.	Baking/beɪk/ (noun): Nướng bánh 
+1631.	Ballet/bæˈleɪ/ (noun): Múa ba lê 
+1632.	Chess /ʧɛs/(noun): Cờ vua 
+1633.	Collect/kəˈlɛkt/ (verb): Sưu tầm, thu thập 
+1634.	Cook /kʊk/(verb): Nấu nướng 
+1635.	Dance – /dæns/: Nhảy 
+1636.	Dance /dæns/(verb): Nhảy múa 
+1637.	Fishing /’fɪʃɪŋ/(noun): Câu cá 
+1638.	Gardening – /ˈɡɑːr.dən/: Làm vườn 
+1639.	Gardening/ˈgɑrdəɪŋ/ (noun): Làm vườn 
+1640.	Go for a walk – /gəʊ fɔːr ə wɔːk/: Đi dạo 1641. Go partying – /gəʊ ˈpɑːtɪɪŋ/: Đi dự tiệc 
+1642.	Go shopping – /gəʊ ˈʃɒpɪŋ/: Đi mua sắm 
+1643.	Go swimming – /gəʊ ˈswɪmɪŋ/: Đi bơi 
+1644.	Go to gym – /gəʊ tuː ʤɪm/: Đi tập thể hình 
+1645.	Go to the pub – /gəʊ tuː ðə pʌb/: Đến quán bia, rượu 
+1646.	Hang out with friends – /hæŋ/: Đi chơi với bạn 
+1647.	Hobby/ˈhɑbi/ (noun): Sở thích 
+1648.	Jogging – /ˈdʒɑː.ɡɪŋ/: Chạy bộ 
+1649.	Knitting /’nɪtɪŋ/(noun): Đan len 
+1650.	Leisure/Free time /ˈlɛʒər/ – /fri taɪm/(noun): Thời gian rảnh 
+1651.	Listen to music – /ˈlɪs.ən tə ˈmjuː.zɪk/: Nghe nhạc 
+1652.	Listening + to music/ˈlɪsənɪŋ/ + tu ˈmjuzɪk: Nghe nhạc 	 
+1653.	Mountaineering – /ˌmaʊn.tənˈɪr.ɪŋ/: Đi leo núi 
+1654.	Musical instrument/ˈmjuzɪkəl ˈɪnstrəmənt/ (noun): Nhạc cụ 
+1655.	Play sports – /pleɪ spɔːts/: Chơi thể thao 
+1656.	Read books – /ri:d bʊks/: Đọc sách 
+1657.	Reading/ridɪŋ/ (noun): Đọc sách 
+1658.	Relax/rɪˈlæks/ (verb): Thư giãn 
+1659.	Sewing/soʊɪŋ/ (noun): May vá 
+1660.	Sing – /sɪŋ/: Hát 
+1661.	Sleep – /slip/: Ngủ 
+1662.	Surf net – /sɜːf nɛt/: Lướt net 
+1663.	Take photographs – /teɪk ˈfəʊ.tə.ɡrɑːf/: Chụp ảnh 
+1664.	Travel – /ˈtræv.əl/: Du lịch 
+1665.	Watching + TV/movie/wɑʧɪŋ/ + ˈtiˈvi/ˈmuvi (verb): Xem TV/phim 
+Chủ đề 31: Mua sắm (Shopping) 
+1666.	Afford/əˈfɔrd/ (verb): Có khả năng chi trả 
+1667.	Affordable /əˈfɔrdəbəl/(adjective): Giá cả hợp lí, phải chăng 
+1668.	Aisle /aɪl/: lối đi giữa các dãy hàng 
+1669.	Bargain/ˈbɑrgən/ (verb): Trả giá, mặc cả 
+1670.	Basket /ˈbæskɪt/: cái rổ, cái giỏ, cái thúng 
+1671.	Basket/ˈbæskət/ (noun): Giỏ hàng 
+1672.	Bookstore /ˈbʊkˌstɔr/(noun): Hiệu sách 1673. Cart/kɑrt/ (noun): Xe đẩy trong siêu thị 
+1674.	Cash /kæʃ/: tiền mặt 
+1675.	Cashier /kæˈʃɪr/: nhân viên thu ngân 
+1676.	Cashier/kæˈʃɪr/ (noun): Nhân viên thu ngân 
+1677.	Cheap/ʧip/ (adjective): Rẻ 
+1678.	Clerk/klɜrk/ (noun): Nhân viên bán hàng 
+1679.	Clothing shop/Boutique /ˈkloʊðɪŋ ʃɑp/ – /buˈtik/(noun): Cửa hàng quần áo, thời trang 
+1680.	Complain /kəmˈpleɪn/(verb): Phàn nàn 
+1681.	Complaint /kəmˈpleɪnt/: lời phàn nàn 
+1682.	Convenience store/kənˈvinjəns stɔr/ (noun): Cửa hàng tiện lợi 
+1683.	Counter /ˈkaʊntər/: quầy 
+1684.	Credit card /ˈkredɪt kɑːrd/: thẻ tín dụng 
+1685.	Credit card /ˈkrɛdət kɑrd/(noun): Thẻ tín dụng 
+1686.	Customer/ˈkʌstəmər/ (noun): Khách hàng 
+1687.	Discount /dɪˈskaʊnt/(noun): Ưu đãi, giảm giá 
+1688.	Discount /ˈdɪskaʊnt/: chiết khấu 
+1689.	Expensive /ɪkˈspɛnsɪv/(adjective): Đắt đỏ 1690. Fitting room /ˈfɪtɪŋ ruːm/: phòng thay đồ 
+1691.	In stock /ɪn stɑːk/: còn hàng 
+1692.	Mall/Department store/mɔl/ – /dɪˈpɑrtmənt stɔr/ (noun): Trung tâm thương mại 1693. Manager /ˈmænɪdʒər/: quản lí cửa hàng 
+1694.	Out of stock /aʊt əv stɑːk/: hết hàng 
+1695.	Out of stock/aʊt ʌv stɑk/: Hết hàng, cháy hàng 
+1696.	Price /praɪs/(noun): Giá cả 
+1697.	Price /praɪs/: giá 
+1698.	Purse /pɜːrs/: ví phụ nữ 
+1699.	Queue /kjuː/: xếp hàng 
+1700.	Receipt /rɪˈsiːt/: giấy biên nhận 1701. Receipt /rɪˈsit/(noun): Hóa đơn 
+1702.	Refund /ˈriːfʌnd/: hoàn tiền 
+1703.	Refund /ˈriˌfʌnd/(verb): Hoàn lại tiền; (noun): sự hoàn tiền 
+1704.	Sale /seɪl/: giảm giá 
+1705.	Salon /səˈlɑn/(noun): salon làm đẹp 
+1706.	Shelf /ʃelf/: kệ, ngăn, giá 
+1707.	Shop assistant /ˈʃɑːp əsɪstənt/: nhân viên bán hàng 
+1708.	Shop window /ˌʃɑːp ˈwɪndoʊ/: cửa kính trưng bày hàng 
+1709.	Shop/ʃɑp/ (noun): Cửa hàng 
+1710.	Shopping bag /ˈʃɑːpɪŋ bæɡ/: túi mua hàng 
+1711.	Shopping list /ˈʃɑːpɪŋ lɪst/: danh sách các món đồ cần mua 
+1712.	Special offer /ˈspeʃlˈɔːfər/: ưu đãi đặc biệt 
+1713.	Stock/stɑk/ (noun): Hàng hóa trong kho 1714. Stockroom /ˈstɑːkruːm/: kho chứa hàng 
+1715.	Store/stɔr/ (noun): Cửa hàng 
+1716.	To buy /tu baɪ/: mua 
+1717.	To go shopping /tu ɡoʊˈʃɑːpɪŋ/: đi mua sắm 
+1718.	To order /tuˈɔːrdər/: đặt hàng 
+1719.	To sell /tu sel/: bán 
+1720.	Trolley /ˈtrɑːli/: xe đẩy hàng 
+1721.	Wallet /ˈwɑːlɪt/: ví tiền 
+1722.	Wallet/Purse/ˈwɔlət/ – /pɜrs/ (noun): Ví 
+Chủ đề 32: Du lịch (Traveling) 
+1723.	Accommodation /əˌkɑməˈdeɪʃən/(noun): Chỗ ở, điều kiện ăn ở 
+1724.	Adventure /ædˈvɛnʧər/(noun): Cuộc khám phá 
+1725.	Attraction/əˈtrækʃən/ (noun): Sự hấp dẫn, thu hút 
+1726.	Backpack /ˈbækˌpæk/(noun): Ba lô 
+1727.	Coach /kəʊtʃ/ hoặc /koʊtʃ/ (n): xe buýt chạy đường dài 
+1728.	Cruise /kruːz/ (n): chuyến đi (bằng tàu thuỷ) 
+1729.	Custom/ˈkʌstəm/ (noun): Phong tục tập quán 
+1730.	Destination /ˌdes.tɪˈneɪ.ʃən/ (n): điểm đến 
+1731.	Destination/ˌdɛstəˈneɪʃən/ (noun): Điểm đến 
+1732.	Explore /ɪkˈsplɔr/(verb): Khám phá 
+1733.	Ferry /ˈfer.i/ (n): phà; bến phà 
+1734.	Flight attendant /əˈtɛndənt/(noun): Tiếp viên hàng không 
+1735.	Flight/flaɪt/ (noun): Chuyến bay 
+1736.	Harbour /ˈhɑː.bər/ hoặc /ˈhɑːr.bɚ/ (n): bến tàu, cảng 
+1737.	Journey (/ˈʤɜrni/noun): Hành trình 
+1738.	Map /mæp/(noun): Bản đồ 
+1739.	Memorable/ˈmɛmərəbəl/ (adjective): Đáng nhớ 
+1740.	Memory/ˈmɛməri/ (noun): Kỉ niệm 
+1741.	Passport /ˈpɑːs.pɔːt/ hoặc /ˈpæs.pɔːrt/ (n): hộ chiếu 
+1742.	Passport/ˈpæˌspɔrt/ (noun): Hộ chiếu 
+1743.	Platform /ˈplæt.fɔːm/ (n): Thềm ga, sân ga (xe lửa), bậc lên xuống (xe búyt) 
+1744.	Public transport (n phr): phương tiện giao thông công cộng 
+1745.	Resort /rɪˈzɔːt/ hoặc /rɪˈzɔːrt/ (n): nơi nghỉ, khu nghỉ dưỡng 
+1746.	Sightseeing /ˈsaɪtˈsiɪŋ/(noun): Tham quan 
+1747.	Souvenir/ˌsuvəˈnɪr/ (noun): Quà lưu niệm 
+1748.	Suitcase /ˈsutˌkeɪs/(noun): Va li 
+1749.	Ticket/ˈtɪkət/ (noun): Vé (máy bay, tàu hỏa,…) 
+1750.	Tour guide /tʊr gaɪd/(noun): Hướng dẫn viên du lịch 
+1751.	Tour/tʊr/ (noun): Chuyến du lịch 
+1752.	Tourist /ˈtʊrəst/(noun): Khách du lịch 
+1753.	Travel/ˈtrævəl/ (verb): Đi du lịch 
+1754.	Trip /trɪp/(noun): Chuyến đi 
+1755.	Vacation/veɪˈkeɪʃən/ (noun): Kì nghỉ 
+Chủ đề 33: Phương tiện giao thông (transport): 
+1756.	A three-wheeler /ə θriː-ˈwiːlər/: xe ba bánh 
+1757.	Ambulance /ˈæmbjələns/: xe cứu thương 
+1758.	Bicycle /ˈbaɪsɪkl/: xe đạp 
+1759.	Bulldozer /ˈbʊldoʊzər/: xe ủi 
+1760.	Bus /bʌs/: xe buýt 
+1761.	Camel /ˈkæml/: lạc là 
+1762.	Canoe /kəˈnuː/: xuồng 
+1763.	Car /kɑːr/: xe hơi 
+1764.	Caravan /ˈkærəvæn/: nhà lưu động 
+1765.	Cargo ship /ˈkɑːrɡoʊ ʃɪp/: tàu chở hàng 
+1766.	Concrete mixer truck /ˈkɑːŋkriːtˈmɪksərtrʌk/: xe trộn bê tông 
+1767.	Crane truck /kreɪn trʌk/: xe cần cẩu 
+1768.	Cruise ship /kruːz ʃɪp/: tàu du lịch 
+1769.	Donkey /ˈdɑːŋki/: con lừa 
+1770.	Dump truck /ˈdʌmp trʌk/: xe chở cát 
+1771.	Ferry /ˈferi/: phà 
+1772.	Fire truck /ˈfaɪər trʌk/: xe cứu hỏa 
+1773.	Helicopter /ˈhelɪkɑːptər/: máy bay trực thăng 
+1774.	Horse /hɔːrs/: ngựa 
+1775.	Horse-drawn carriage /hɔːrs – drɔːn ˈkærɪdʒ/: xe ngựa kéo 
+1776.	Hot-air balloon /ˌhɑːt ˈer bəluːn/: khinh khí cầu 
+1777.	Jet /dʒet/: máy bay phản lực 
+1778.	Litter = sedan chair /ˈlɪtər/ = /sɪˈdæn tʃer/: cái kiệu 
+1779.	Motor canoe /ˈmoʊtər kəˈnuː/: xuồng máy 
+1780.	Motorbike /ˈmoʊtərbaɪk/: xe máy 
+1781.	Ox wagon /ɑːksˈwæɡən/: xe bò 
+1782.	Propeller plane /prəˈpelər pleɪn/: máy bay xài động cơ cánh quạt 
+1783.	Rocket /ˈrɑːkɪt/: tên lửa 
+1784.	Sailboat /ˈseɪlboʊt/: thuyền buồm 
+1785.	Scooter /ˈskuːtər/: xe tay ga 
+1786.	Snow plough truck /snoʊ plaʊ trʌk/: xe ủi tuyết 
+1787.	Snow sled /snoʊ slɛd/: ván trượt tuyết 
+1788.	Submarine /ˈsʌbməriːn/: tàu ngầm 
+1789.	Tank truck /tæŋk trʌk/: xe bồn (chở chất lỏng) 
+1790.	Train /treɪn/: xe lửa 
+1791.	Tram /træm/: tàu điện trên mặt đất 
+1792.	Truck /trʌk/: xe tải 
+1793.	Vietnamese tricycle /ˌvjetnəˈmiːzˈtraɪsɪkl/: xe xích lô 
+1794.	Wheelchair /ˈwiːltʃer/: xe lăn 
+Chủ đề 34: Ngày & Giờ (Dates & time) 
+1795.	Afternoon/ˌæftərˈnun/ (noun): Buổi chiều 
+1796.	April/ˈeɪprəl/: Tháng Tư 
+1797.	August/ˈɑgəst/: Tháng Tám 
+1798.	Calendar /ˈkæləndər/(noun): Lịch 
+1799.	Century/ˈsɛnʧəri/ (noun): Thế kỉ 
+1800.	Date /deɪt/ (noun): Ngày (thường chỉ ngày trong tháng) 1801. Day/deɪ/ (noun): Ngày (thường chỉ ngày trong tuần) 
+1802.	Decade/dɛˈkeɪd/ (noun): Thập kỉ 
+1803.	December/dɪˈsɛmbər/: Tháng Mười hai 
+1804.	Evening /ˈivnɪŋ/(noun): Buổi tối 
+1805.	Fall/Autumn /fɔl/ – /ˈɔtəm/(noun): Mùa thu 
+1806.	February/fɛbruˌɛri/: Tháng Hai 
+1807.	Frida/ˈfraɪdi/y: Thứ Sáu 
+1808.	Hour /ˈaʊər/(noun): Giờ, tiếng 
+1809.	January/ˈʤænjuˌɛri/: Tháng Một 
+1810.	July/ˌʤuˈlaɪ/: Tháng Bảy 
+1811.	June/ʤun/: Tháng Sáu 
+1812.	March/mɑrʧ/: Tháng Ba 
+1813.	May/meɪ/: Tháng Năm 
+1814.	Minute /ˈmɪnət/(noun): Phút 
+1815.	Monday/ˈmʌndi/: Thứ Hai 
+1816.	Month/mʌnθ/ (noun): Tháng 
+1817.	Morning/ˈmɔrnɪŋ/ (noun): Buổi sáng 
+1818.	Night (noun): Buổi đêm 
+1819.	Noon (noun): Buổi trưa  
+1820.	November/noʊˈvɛmbər/: Tháng Mười một 
+1821.	October/ɑkˈtoʊbər/: Tháng Mười 
+1822.	Quarter /ˈkwɔrtər/(noun): Quý 
+1823.	Saturday/ˈsætərdi/: Thứ Bảy 
+1824.	Season /ˈsizən/(noun): Mùa 
+1825.	Second/ˈsɛkənd/ (noun): Giây 
+1826.	September/sɛpˈtɛmbər/: Tháng Chín 
+1827.	Spring/sprɪŋ/ (noun): Mùa xuân 
+1828.	Summer /ˈsʌmər/(noun): Mùa hè 
+1829.	Sunday/ˈsʌnˌdeɪ/: Chủ nhật 
+1830.	Thursday/ˈθɜrzˌdeɪ/: Thứ Năm 
+1831.	Time/taɪm/ (noun): Thời gian 
+1832.	Tuesday/ˈtuzdi/: Thứ Ba 
+1833.	Watch/wɑʧ/ (noun): Đồng hồ đeo tay 
+1834.	Wednesday/ˈwɛnzdi/: Thứ Tư 
+1835.	Week /wi:k/(noun): Tuần 
+1836.	Winter/ˈwɪntər/ (noun): Mùa đông 
+1837.	Year /jɪr/(noun): Năm 
+Chủ đề 35: Ngôn ngữ (Language) 
+1838.	Adjective /ˈæʤɪktɪv/(noun): Tính từ 
+1839.	Advanced/ədˈvænst/ (adjective): Nâng cao 
+1840.	Adverb/ˈædvərb/ (noun): Trạng từ 
+1841.	Apostrophe/əˈpɑːstrəfi/: dấu phẩy phía trên bên phải 1842. Beginner /bɪˈgɪnər/(noun): Người mới bắt đầu 
+1843.	Colon/ˈkoʊlən/: hai chấm 
+1844.	Comma/ˈkɑːmə/: dấu phẩy 
+1845.	Conversation/ˌkɑnvərˈseɪʃən/ (noun): Cuộc trò chuyện 
+1846.	Dash: dấu gạch ngang dài 
+1847.	Dialogue /ˈdaɪəˌlɔg/(noun): Cuộc hội thoại 
+1848.	Dictionary /ˈdɪkʃəˌnɛri/(noun): Từ điển 
+1849.	Dot/dɒt/:dấu chấm 
+1850.	Ellipsis/ɪˈlɪpsɪs/: dấu ba chấm 
+1851.	Exclamation mark: dấu chấm than 
+1852.	Fluent /ˈfluənt/(adjective): Trôi chảy 
+1853.	Grammar /ˈgræmər/(noun): Ngữ pháp  
+1854.	Hyphen/ˈhaɪfn/: dấu gạch ngang 
+1855.	Intermediate /ˌɪntərˈmidiɪt/(adjective): Trung bình 
+1856.	Language/ˈlæŋgwəʤ/ (noun): Ngôn ngữ 
+1857
