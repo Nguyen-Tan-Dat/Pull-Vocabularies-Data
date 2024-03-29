@@ -37,14 +37,7 @@ public class Request {
                     pronunciation = new JSONObject(responseBody).getString("data");
                 }
             }
-        } catch (URISyntaxException | IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                httpClient.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
         }
         return pronunciation;
     }
@@ -63,7 +56,6 @@ public class Request {
                 int statusCode = response.getStatusLine().getStatusCode();
                 if (statusCode == 200) {
                     String responseBody = EntityUtils.toString(response.getEntity());
-                    System.out.println(responseBody);
                     String data=new JSONObject(responseBody).getJSONObject("enEnData").getJSONObject("best").getString("details");
                     Document document = Jsoup.parse(data);
 
@@ -75,14 +67,7 @@ public class Request {
                     }
                 }
             }
-        } catch (URISyntaxException | IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                httpClient.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
         }
         return phonetic;
     }
@@ -110,9 +95,7 @@ public class Request {
             // Xây dựng URL cho yêu cầu API
             URI uri = new URI("https", "api.wordnik.com", "/v4/word.json/" + word + "/definitions", "api_key=" + apiKey, null);
             HttpGet httpGet = new HttpGet(uri);
-
-            // Thực hiện yêu cầu GET và nhận phản hồi
-            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+            CloseableHttpResponse response = httpClient.execute(httpGet);
                 // Xử lý phản hồi
                 int statusCode = response.getStatusLine().getStatusCode();
                 if (statusCode == 200) {
@@ -125,11 +108,7 @@ public class Request {
 
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (URISyntaxException | IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
         }
         return partOfSpeech;
     }
@@ -163,8 +142,7 @@ public class Request {
                 image = firstPhoto.getJSONObject("src").getString("original");
 
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
         }
         return image;
     }

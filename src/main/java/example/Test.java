@@ -116,7 +116,7 @@ public class Test {
         }
     }
     public static void main(String[] args) {
-        int id=2;
+        int id=0;
         String topic="No name";
         HashMap<String,Integer> topics=new HashMap<>();
         HashMap<String,Integer> english=new HashMap<>();
@@ -140,8 +140,8 @@ public class Test {
 //                    writer=new BufferedWriter(new FileWriter("data_group"+count+".txt"));
                 } else {
                     if (!startsWithDigit(line)) {
-                        topic=line;
 //                        System.out.println(line);
+                        topic=line;
                         id++;
                         topics.put(line,id);
                         countTopic++;
@@ -245,7 +245,7 @@ public class Test {
             System.out.println("INSERT INTO topics value ("+topics.get(i)+",'"+i+"',1);");
         }
         for (var i:english.keySet()){
-            System.out.println("INSERT INTO english value ("+english.get(i)+",'"+i+"','','');");
+            System.out.println("INSERT INTO english value ("+english.get(i)+",'"+i+"','"+Request.phonetic(i)+"','"+Request.pronunciationsDictionary(i)+"');");
         }
         for (var i:vietnamese.keySet()){
             System.out.println("INSERT INTO vietnamese value ("+vietnamese.get(i)+",'"+i+"');");
@@ -260,7 +260,7 @@ public class Test {
             for (var k:vietnamese.keySet()){
                 if(i.vi==vietnamese.get(k))vi=k;
             }
-            System.out.println("INSERT INTO vocabularies (id,en,part_of_speech,img,vi,user) VALUE ("+voID+","+i.getEn()+",'noun','',"+i.getVi()+",1);");
+            System.out.println("INSERT INTO vocabularies (id,en,part_of_speech,img,vi,user) VALUE ("+voID+","+i.getEn()+",'','',"+i.getVi()+",1);");
             System.out.println("INSERT INTO vocabularies_topics value ("+i.to+","+voID+");");
             voID++;
         }
