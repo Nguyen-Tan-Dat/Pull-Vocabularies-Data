@@ -1,17 +1,302 @@
 package example;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.*;
+import java.sql.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Test {
-    public static String readFile(String fileName) throws IOException {
+    public static void printVocabularies(String en,int number) {
+        var html = DownloadTopic.getHTML("https://dictionary.cambridge.org/dictionary/english-vietnamese/" + en);
+        Document doc = Jsoup.parse(html);
+        var el = doc.getElementsByClass("d pr di english-vietnamese kdic");
+        String phonetic="";
+        for (var e : el) {
+            var ps = e.getElementsByClass("di-info");
+            if (ps.size() > 0){
+                var pns=ps.first().getElementsByClass("pos dpos");
+                if(pns.size()>0) {
+                    String part = pns.first().text();
+                    var p=ps.first().getElementsByClass("ipa dipa");
+                    if(p.size()>0) {
+                        phonetic = p.first().text();
+                    }
+
+                    var vis = e.getElementsByClass("trans dtrans");
+                    for (var vi : vis) {
+                        System.out.println(en + "\t" + vi.text() + "\t" + part+"\t"+phonetic);
+                        String filePath = "cambridge-vocabularies-"+number+".xlsx";
+
+                        // Kiểm tra xem tệp đã tồn tại hay chưa
+                        File file = new File(filePath);
+                        Workbook workbook;
+                        Sheet sheet;
+
+                        if (file.exists()) {
+                            try (FileInputStream fis = new FileInputStream(file)) {
+                                // Mở workbook và sheet nếu tệp đã tồn tại
+                                workbook = new XSSFWorkbook(fis);
+                                sheet = workbook.getSheetAt(0);
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                                return;
+                            }
+                        } else {
+                            // Tạo workbook và sheet mới nếu tệp chưa tồn tại
+                            workbook = new XSSFWorkbook();
+                            sheet = workbook.createSheet("Data");
+                        }
+
+                        // Tạo hàng mới ở cuối sheet
+                        int lastRowNum = sheet.getLastRowNum();
+                        Row row = sheet.createRow(lastRowNum + 1);
+
+                        // Tạo các ô và đặt giá trị vào các ô
+                        Cell cell1 = row.createCell(2);
+                        cell1.setCellValue(en);
+
+                        Cell cell2 = row.createCell(3);
+                        cell2.setCellValue(vi.text());
+
+                        Cell cell3 = row.createCell(4);
+                        cell3.setCellValue(part);
+
+                        Cell cell4 = row.createCell(5);
+                        cell4.setCellValue(phonetic);
+
+                        // Ghi workbook vào file
+                        try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+                            workbook.write(fileOut);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+
+                        // Đóng workbook để giải phóng tài nguyên
+                        try {
+                            workbook.close();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        var data = databaseEnglish();
+        var list = dataBook();
+        System.out.println("Database : " + data.size());
+        System.out.println("Read total: " + list.size());
+        HashSet<String> toLo = new HashSet<>();
+        for (var i : list) {
+            i = i.replaceAll("…", "...");
+            i = i.replaceAll("’", "'");
+            i = i.replaceAll("–", "-");
+            i = i.replaceAll(" - ", "-");
+            if (!containsNumber(i)
+                    && isEnglish(i)
+//            &&!i.contains("…")
+//            &&!i.contains("’")
+                    && !i.isEmpty()
+            ) {
+                toLo.add(i);
+                if (i.contains("[")
+//                        && !i.contains("]")
+                ) toLo.remove(i);
+                if (i.contains("(")
+//                        && !i.contains(")")
+                ) toLo.remove(i);
+            }
+        }
+        list = toLo;
+        System.out.println("Get total: " + toLo.size());
+        int count=0;
+        for (var i : list) {
+            if(!data.contains(i)) {
+                System.out.println(i);
+//                printVocabularies(i,0);
+                count++;
+            }
+
+        }
+        System.out.println(count);
+
+//        System.out.println("Data: " + data.size());
+//        System.out.println("CI size: " + list.size());
+//        HashSet<String> learnHad = new HashSet<>();
+//        HashSet<String> learnAdd = new HashSet<>();
+//        for (var i : list) {
+//            learnAdd.add(i.toLowerCase());
+//        }
+//        data.remove("");
+//        data.remove(" ");
+//        list.remove("");
+//        list.remove(" ");
+//        for (var i : data) {
+//            for (var j : list) {
+//                if (i.equals(j)) {
+//                    learnHad.add(i);
+//                    learnAdd.remove(i);
+//                    break;
+//                }
+//            }
+//        }
+//        HashSet<String> drop = new HashSet<>();
+//        for (var i : data) {
+//            if (!learnHad.contains(i.toLowerCase())) {
+//                drop.add(i);
+//            }
+//        }
+//        System.out.println("Drop: " + drop.size());
+//        System.out.print("[ ");
+//        for (var array : drop) {
+//            System.out.print("\"" + array + "\", ");
+//        }
+//        System.out.println("]");
+//        System.out.println("Learn " + learnHad.size());
+//        System.out.print("[ ");
+//        for (var array : learnHad) {
+//            System.out.print("\"" + array + "\", ");
+//        }
+//        System.out.println("]");
+//        System.out.println("Learn Add: " + learnAdd.size());
+//        String s = "";
+//        for (var i : learnAdd) {
+//
+////            if (s.length() < 5000) {
+//                s += i + "\n";
+////            } else {
+////                break;
+////            }
+//        }
+//        System.out.println(s);
+////        System.out.print("[ ");
+////        for (var array : learnAdd) {
+////            System.out.print("\"" + array + "\", ");
+////        }
+////        System.out.println("]");
+
+    }
+
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/cic";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "CpqaFVYJ9Mkz6pOj";
+
+    public static HashSet<String> databaseEnglish() {
+        HashSet<String> data = new HashSet<>();
+        try {
+            // Kết nối với cơ sở dữ liệu
+            Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+            if (connection != null) {
+                String sqlQuery = "SELECT * FROM english";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(sqlQuery);
+                while (resultSet.next()) {
+                    // Đọc các cột từ ResultSet bằng các phương thức get<kiểu dữ liệu cột>()
+                    int id = resultSet.getInt("id");
+                    String name = resultSet.getString("word");
+                    // Đọc các cột khác tương tự
+                    data.add(name);
+                    // In ra dữ liệu
+//                    System.out.println("ID: " + id + ", Name: " + name);
+                }
+
+                // Đóng ResultSet, Statement và Connection sau khi sử dụng xong
+                resultSet.close();
+                statement.close();
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Không thể kết nối đến cơ sở dữ liệu!");
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public static HashSet<String> dataBook() {
+        HashSet<String> list = new HashSet<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("new 1.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (containsNumber(line)) {
+                    String w = br.readLine();
+                    if (w != null) {
+                        w = w.trim();
+                        list.add(w);
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader("new 2.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (containsNumber(line)) {
+                    String w = br.readLine();
+                    if (w != null) {
+                        w = w.trim();
+                        list.add(w);
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader("new 3.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.contains("/")) {
+                    var dataline = line.split("/");
+                    String w = dataline[0].trim();
+                    if (w != null) {
+                        list.add(w);
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader("new 4.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.contains("/")) {
+                    var dataline = line.split("/");
+                    String w = dataline[0].trim();
+                    if (w != null) {
+                        list.add(w);
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+
+    public static String readFile(String fileName) {
         StringBuilder content = new StringBuilder();
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
@@ -19,6 +304,10 @@ public class Test {
             while ((line = br.readLine()) != null) {
                 content.append(line).append("\n");
             }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         return content.toString();
@@ -70,8 +359,8 @@ public class Test {
 //        partArrayCode("sft_lhfa_boys_z_0_5.xlsx");
 //        partArrayCode("sft_lhfa_girls_z_0_5.xlsx");
 //    }
-    static class Vocab{
-        private int en,vi,to;
+    static class Vocab {
+        private int en, vi, to;
 
         public Vocab(int en, int vi, int to) {
             this.en = en;
@@ -115,16 +404,17 @@ public class Test {
             return Objects.hash(en, vi, to);
         }
     }
-    public static void main(String[] args) {
-        int id=0;
-        String topic="No name";
-        HashMap<String,Integer> topics=new HashMap<>();
-        HashMap<String,Integer> english=new HashMap<>();
-        int enMax=1;
-        int viMax=1;
-        HashMap<String,Integer> vietnamese=new HashMap<>();
-        Set<String> vocab=new HashSet<>();
-        Set<Vocab> vList=new HashSet<>();
+
+    public static void main1(String[] args) {
+        int id = 0;
+        String topic = "No name";
+        HashMap<String, Integer> topics = new HashMap<>();
+        HashMap<String, Integer> english = new HashMap<>();
+        int enMax = 1;
+        int viMax = 1;
+        HashMap<String, Integer> vietnamese = new HashMap<>();
+        Set<String> vocab = new HashSet<>();
+        Set<Vocab> vList = new HashSet<>();
         byte count = 0;
         byte countTopic = 0;
         int countVocab = 0;
@@ -141,9 +431,9 @@ public class Test {
                 } else {
                     if (!startsWithDigit(line)) {
 //                        System.out.println(line);
-                        topic=line;
+                        topic = line;
                         id++;
-                        topics.put(line,id);
+                        topics.put(line, id);
                         countTopic++;
                     } else {
                         String regex = "(\\d+\\.\\s.*?)(?=(\\d+\\.\\s|$))";
@@ -154,80 +444,78 @@ public class Test {
                             result.add(matcher.group(1));
                         }
                         for (String item : result) {
-                            String en="";
-                            String vi="";
+                            String en = "";
+                            String vi = "";
 //                            System.out.println(item.replaceFirst(". ", ".\t"));
 //                            if(item.trim().contains(". "))
                             String row = item.toLowerCase().trim().replaceFirst(" ", "\t");
                             row = removeNumberAndDot(row).replaceFirst("\t", " ");
                             String[] parts = row.split("\\s*/\\s*");
                             if (parts.length > 3) {
-                                String e=parts[0].replaceAll(":", "").replace(".", "").trim();
+                                String e = parts[0].replaceAll(":", "").replace(".", "").trim();
                                 if (isEnglish(e)) {
                                     countVocab++;
-                                    en=e;
-                                    vi= parts[parts.length - 1].replaceAll(":","");
+                                    en = e;
+                                    vi = parts[parts.length - 1].replaceAll(":", "");
                                 }
 //                                else {
 //                                    countVocab++;
 //                                    System.out.println(parts[0]);
 //                                }
                             } else if (parts.length == 3) {
-                                String e=parts[0].replaceAll(":", "").trim();
+                                String e = parts[0].replaceAll(":", "").trim();
                                 if (isEnglish(e)) {
-                                    en=e;
-                                    vi=parts[2].replaceAll(":","");
+                                    en = e;
+                                    vi = parts[2].replaceAll(":", "");
                                     countVocab++;
-                                }
-                                else {
-                                    en = parts[2] ;
-                                    vi=parts[0];
+                                } else {
+                                    en = parts[2];
+                                    vi = parts[0];
                                     countVocab++;
                                 }
 
                             } else {
                                 parts = row.split(":");
                                 if (parts.length > 2) {
-                                    en=parts[0].trim();
-                                    vi=parts[parts.length-1].trim();
+                                    en = parts[0].trim();
+                                    vi = parts[parts.length - 1].trim();
                                     countVocab++;
-                                }
-                                else if (parts.length == 2) {
-                                    en=parts[0].trim();
-                                    vi=parts[1].trim();
+                                } else if (parts.length == 2) {
+                                    en = parts[0].trim();
+                                    vi = parts[1].trim();
                                     countVocab++;
                                 } else {
                                     parts = row.split("\\(.*?\\)");
                                     if (parts.length == 2) {
-                                        en=parts[0].trim();
-                                        vi=parts[1].trim();
+                                        en = parts[0].trim();
+                                        vi = parts[1].trim();
                                         countVocab++;
                                     }
                                 }
 
                             }
-                            en=removeParenthesesContent(en).trim();
-                            en=en.split("/")[0];
-                            int enID=0;
-                            if(english.containsKey(en)){
-                                enID=english.get(en);
-                            }else {
-                                enID=enMax;
-                                english.put(en,enMax++);
+                            en = removeParenthesesContent(en).trim();
+                            en = en.split("/")[0];
+                            int enID = 0;
+                            if (english.containsKey(en)) {
+                                enID = english.get(en);
+                            } else {
+                                enID = enMax;
+                                english.put(en, enMax++);
                             }
-                            vi=removeParenthesesContent(vi).trim();
-                            int viID=0;
-                            if(vietnamese.containsKey(vi)){
-                                viID=vietnamese.get(vi);
-                            }else {
-                                viID=viMax;
-                                vietnamese.put(vi,viMax++);
+                            vi = removeParenthesesContent(vi).trim();
+                            int viID = 0;
+                            if (vietnamese.containsKey(vi)) {
+                                viID = vietnamese.get(vi);
+                            } else {
+                                viID = viMax;
+                                vietnamese.put(vi, viMax++);
                             }
-                            if(vocab.contains(enID+","+viID)) {
+                            if (vocab.contains(enID + "," + viID)) {
 //                                System.out.println(enID);
-                            }else{
-                                vList.add(new Vocab(enID,viID,id));
-                                vocab.add(enID+","+viID);
+                            } else {
+                                vList.add(new Vocab(enID, viID, id));
+                                vocab.add(enID + "," + viID);
                             }
 //                            System.out.println(en+" => "+vi);
                         }
@@ -241,30 +529,31 @@ public class Test {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        for(var i:topics.keySet()){
-            System.out.println("INSERT INTO topics value ("+topics.get(i)+",'"+i+"',1);");
+        for (var i : topics.keySet()) {
+            System.out.println("INSERT INTO topics value (" + topics.get(i) + ",'" + i + "',1);");
         }
-        for (var i:english.keySet()){
-            System.out.println("INSERT INTO english value ("+english.get(i)+",'"+i+"','"+Request.phonetic(i)+"','"+Request.pronunciationsDictionary(i)+"');");
+        for (var i : english.keySet()) {
+            System.out.println("INSERT INTO english value (" + english.get(i) + ",'" + i + "','" + Request.phonetic(i) + "','" + Request.pronunciationsDictionary(i) + "');");
         }
-        for (var i:vietnamese.keySet()){
-            System.out.println("INSERT INTO vietnamese value ("+vietnamese.get(i)+",'"+i+"');");
+        for (var i : vietnamese.keySet()) {
+            System.out.println("INSERT INTO vietnamese value (" + vietnamese.get(i) + ",'" + i + "');");
         }
-        int voID=1;
-        for (var i:vList){
-            String en="";
-            for (var j:english.keySet()){
-                if(i.en==english.get(j))en=j;
+        int voID = 1;
+        for (var i : vList) {
+            String en = "";
+            for (var j : english.keySet()) {
+                if (i.en == english.get(j)) en = j;
             }
-            String vi="";
-            for (var k:vietnamese.keySet()){
-                if(i.vi==vietnamese.get(k))vi=k;
+            String vi = "";
+            for (var k : vietnamese.keySet()) {
+                if (i.vi == vietnamese.get(k)) vi = k;
             }
-            System.out.println("INSERT INTO vocabularies (id,en,part_of_speech,img,vi,user) VALUE ("+voID+","+i.getEn()+",'','',"+i.getVi()+",1);");
-            System.out.println("INSERT INTO vocabularies_topics value ("+i.to+","+voID+");");
+            System.out.println("INSERT INTO vocabularies (id,en,part_of_speech,img,vi,user) VALUE (" + voID + "," + i.getEn() + ",'',''," + i.getVi() + ",1);");
+            System.out.println("INSERT INTO vocabularies_topics value (" + i.to + "," + voID + ");");
             voID++;
         }
     }
+
     public static String removeParenthesesContent(String input) {
         // Tạo mẫu regular expression
         Pattern pattern = Pattern.compile("\\([^\\)]+\\)");
@@ -277,6 +566,7 @@ public class Test {
 
         return result;
     }
+
     private static boolean containsNumber(String line) {
         for (char c : line.toCharArray()) {
             if (Character.isDigit(c)) {
@@ -305,7 +595,7 @@ public class Test {
         for (int i = 0; i < text.length(); i++) {
             char ch = text.charAt(i);
             // Kiểm tra nếu ký tự không nằm trong phạm vi chữ cái tiếng Anh (a-z, A-Z)
-            if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == ' ' || ch == '-'|| ch == '('|| ch == ')'|| ch == '&')) {
+            if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')  || ch == '\'' || ch == ' ' || ch == ',' || ch == '-' ||  ch == '&' || ch == '.')) {
                 return false;
             }
         }

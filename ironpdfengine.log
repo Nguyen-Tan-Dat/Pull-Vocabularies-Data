@@ -1,0 +1,264 @@
+[2024-06-08 13:52:15] ---------- Microsoft Windows NT 10.0.22631.0 (C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\ironpdfengine.log) ----------
+[2024-06-08 13:52:15] Initializing 'AppAnalytics' module
+[2024-06-08 13:52:15] Error 0x01 while validating license key
+[2024-06-08 13:52:15] Failed to create LicenseKey, returning null. Exception occurred:'Error 0x01 while validating license key'
+[2024-06-08 13:52:15] Using deployment directory 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:52:15] Creating deployment candidates using root path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\' (download: False)
+[2024-06-08 13:52:15] Creating folder deployments for win-x64
+[2024-06-08 13:52:15] Creating embedded deployments for win-x64
+[2024-06-08 13:52:15] Successfully located 'IronPdfInterop' at 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:52:15] Determining deployment commands for platform 'Windows' v10.0.22631.0
+[2024-06-08 13:52:15] Using deployment instructions for 'default' v
+[2024-06-08 13:52:15] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfInterop.dll'
+[2024-06-08 13:52:15] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfInterop.dll'
+[2024-06-08 13:52:15] Successfully loaded native library from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfInterop.dll'
+[2024-06-08 13:52:15] Successfully loaded 'IronPdfInterop' version '2024.5.0.11' from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:52:15] Successfully deployed 'Pdfium' using 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:52:15] Creating new job collection resource
+[2024-06-08 13:52:15] Creating new document collection resource
+[2024-06-08 13:52:15] Successfully initialized local pdf client
+[2024-06-08 13:52:15] Initializing local Chrome client...
+[2024-06-08 13:52:15] Using deployment directory 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:52:15] Creating deployment candidates using root path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\' (download: False)
+[2024-06-08 13:52:15] Creating folder deployments for win-x64
+[2024-06-08 13:52:15] Creating embedded deployments for win-x64
+[2024-06-08 13:52:15] Successfully located 'IronInterop' at 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:52:15] Determining deployment commands for platform 'Windows' v10.0.22631.0
+[2024-06-08 13:52:15] Using deployment instructions for 'default' v
+[2024-06-08 13:52:15] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronInterop.dll'
+[2024-06-08 13:52:16] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronInterop.dll'
+[2024-06-08 13:52:16] Successfully loaded native library from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronInterop.dll'
+[2024-06-08 13:52:16] Successfully loaded 'IronInterop' version '2024.5.0.11' from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:52:16] Successfully deployed 'Chrome' using 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:52:16] Initializing Chrome renderer for OS Name: Windows, Identifier: win, Version: 10.0.22631.0, VersionName: , Domain: IronPdfEngineConsole, Thread: , Path: C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code
+[2024-06-08 13:52:16] 13:52:16 (19152): ~ Chrome renderer v2024.5.0.11~
+[2024-06-08 13:52:16] 13:52:16 (19152): Debugging enabled for Chrome renderer using log path 'IronSoftware.ChromeRenderer.log'
+[2024-06-08 13:52:16] 13:52:16 (19152): register JobManager as publisher for event_readyToInitializeNetworkEventsDevToolsHandler
+[2024-06-08 13:52:16] 13:52:16 (19152): [EventRegistry] Register event_readyToInitializeNetworkEventsDevToolsHandler for a publisher
+[2024-06-08 13:52:16] 13:52:16 (19152): IsSingleProcess: 0
+[2024-06-08 13:52:16] 13:52:16 (19152): Creating Cef proxy controller
+[2024-06-08 13:52:16] 13:52:16 (19152): Creating Cef interface
+[2024-06-08 13:52:16] 13:52:16 (19152): JobManager subscribes a new sub, eventStr=event_readyToInitializeNetworkEventsDevToolsHandler
+[2024-06-08 13:52:16] 13:52:16 (19152): JobManager subscribes a new sub, eventStr=event_readyToInitializeNetworkEventsDevToolsHandler
+[2024-06-08 13:52:16] 13:52:16 (19152): Destroying Cef proxy event handler
+[2024-06-08 13:52:16] 13:52:16 (19152): Initializing Cef proxy controller
+[2024-06-08 13:52:16] 13:52:16 (19152): Using subprocess path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe'
+[2024-06-08 13:52:16] 13:52:16 (19152): Using framework path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:52:16] 13:52:16 (19152): Using locales path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales'
+[2024-06-08 13:52:16] 13:52:16 (19152): Using resources path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:52:16] 13:52:16 (19152): Launching child process '"C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfEngineConsole.exe" --browser-subprocess-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe" --no-sandbox --lang=en-US --log-file=cef.log --log-severity=verbose --resources-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64" --locales-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales" --disable-features=CalculateNativeWinOcclusion,WinUseBrowserSpellChecker,BackForwardCache host=127.0.0.1 port=33350 enable_debug=false log_path=ironpdfengine.log programming_language=java single_process=false docker_build=false linux_and_docker_auto_config=true skip_initialization=false chrome_browser_limit=30 chrome_gpu_mode=0 license_key=null'
+[2024-06-08 13:52:16] 13:52:16 (19152): gpu_mode: '0'
+[2024-06-08 13:52:16] 13:52:16 (996): Launching child process '"C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe" --type=gpu-process --no-sandbox --headless --enable-gpu-service-logging --locales-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales" --log-severity=verbose --resources-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64" --lang=en-US --user-data-dir="C:\Users\NguyenTanDat\AppData\Local\Temp" /prefetch:2'
+[2024-06-08 13:52:16] 13:52:16 (996): gpu_mode: '0'
+[2024-06-08 13:52:16] 13:52:16 (19152): Cef initialization succeeded
+[2024-06-08 13:52:16] Successfully initialized local Chrome client
+[2024-06-08 13:52:16] 13:52:16 (996): Cef context initialized
+[2024-06-08 13:52:16] 13:52:16 (996): Registering custom scheme for rendering raw html
+[2024-06-08 13:52:16] 13:52:16 (996): Successfully registered custom scheme
+[2024-06-08 13:52:16] 13:52:16 (996): Cef engine initialization complete
+[2024-06-08 13:52:16] 13:52:16 (996): Launching child process '"C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --ignore-urlfetcher-cert-requests --no-sandbox --ignore-certificate-errors --mute-audio --ignore-certificate-errors --locales-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales" --log-severity=verbose --resources-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64" --lang=en-US --user-data-dir="C:\Users\NguyenTanDat\AppData\Local\Temp" /prefetch:8'
+[2024-06-08 13:52:16] 13:52:16 (996): gpu_mode: '0'
+[2024-06-08 13:52:18] Error 0x01 while validating license key
+[2024-06-08 13:52:18] 13:52:18 (18992): PdfDocumentFactory created document 000001B8EE7FC880 from 106687 bytes
+[2024-06-08 13:52:18] 13:52:18 (18992): Document opened from vector
+[2024-06-08 13:52:18] 13:52:18 (18992): Storing new document 0
+[2024-06-08 13:52:18] Document 0 has 1 references remaining (+1)
+[2024-06-08 13:52:18] In-memory object store fetching document 2d7bb499-a9d4-46cf-924f-5ba23afda269
+[2024-06-08 13:53:01] ---------- Microsoft Windows NT 10.0.22631.0 (C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\ironpdfengine.log) ----------
+[2024-06-08 13:53:01] Initializing 'AppAnalytics' module
+[2024-06-08 13:53:01] Error 0x01 while validating license key
+[2024-06-08 13:53:01] Failed to create LicenseKey, returning null. Exception occurred:'Error 0x01 while validating license key'
+[2024-06-08 13:53:01] Using deployment directory 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:53:01] Creating deployment candidates using root path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\' (download: False)
+[2024-06-08 13:53:01] Creating folder deployments for win-x64
+[2024-06-08 13:53:01] Creating embedded deployments for win-x64
+[2024-06-08 13:53:01] Successfully located 'IronPdfInterop' at 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:53:01] Determining deployment commands for platform 'Windows' v10.0.22631.0
+[2024-06-08 13:53:01] Using deployment instructions for 'default' v
+[2024-06-08 13:53:01] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfInterop.dll'
+[2024-06-08 13:53:01] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfInterop.dll'
+[2024-06-08 13:53:01] Successfully loaded native library from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfInterop.dll'
+[2024-06-08 13:53:01] Successfully loaded 'IronPdfInterop' version '2024.5.0.11' from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:53:01] Successfully deployed 'Pdfium' using 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:53:01] Creating new job collection resource
+[2024-06-08 13:53:01] Creating new document collection resource
+[2024-06-08 13:53:01] Successfully initialized local pdf client
+[2024-06-08 13:53:01] Initializing local Chrome client...
+[2024-06-08 13:53:01] Using deployment directory 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:53:01] Creating deployment candidates using root path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\' (download: False)
+[2024-06-08 13:53:01] Creating folder deployments for win-x64
+[2024-06-08 13:53:01] Creating embedded deployments for win-x64
+[2024-06-08 13:53:01] Successfully located 'IronInterop' at 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:53:01] Determining deployment commands for platform 'Windows' v10.0.22631.0
+[2024-06-08 13:53:01] Using deployment instructions for 'default' v
+[2024-06-08 13:53:01] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronInterop.dll'
+[2024-06-08 13:53:01] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronInterop.dll'
+[2024-06-08 13:53:01] Successfully loaded native library from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronInterop.dll'
+[2024-06-08 13:53:01] Successfully loaded 'IronInterop' version '2024.5.0.11' from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:53:01] Successfully deployed 'Chrome' using 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:53:01] Initializing Chrome renderer for OS Name: Windows, Identifier: win, Version: 10.0.22631.0, VersionName: , Domain: IronPdfEngineConsole, Thread: , Path: C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code
+[2024-06-08 13:53:01] 13:53:01 (9608): ~ Chrome renderer v2024.5.0.11~
+[2024-06-08 13:53:01] 13:53:01 (9608): Debugging enabled for Chrome renderer using log path 'IronSoftware.ChromeRenderer.log'
+[2024-06-08 13:53:01] 13:53:01 (9608): register JobManager as publisher for event_readyToInitializeNetworkEventsDevToolsHandler
+[2024-06-08 13:53:01] 13:53:01 (9608): [EventRegistry] Register event_readyToInitializeNetworkEventsDevToolsHandler for a publisher
+[2024-06-08 13:53:01] 13:53:01 (9608): IsSingleProcess: 0
+[2024-06-08 13:53:01] 13:53:01 (9608): Creating Cef proxy controller
+[2024-06-08 13:53:01] 13:53:01 (9608): Creating Cef interface
+[2024-06-08 13:53:01] 13:53:01 (9608): JobManager subscribes a new sub, eventStr=event_readyToInitializeNetworkEventsDevToolsHandler
+[2024-06-08 13:53:01] 13:53:01 (9608): JobManager subscribes a new sub, eventStr=event_readyToInitializeNetworkEventsDevToolsHandler
+[2024-06-08 13:53:01] 13:53:01 (9608): Destroying Cef proxy event handler
+[2024-06-08 13:53:01] 13:53:01 (9608): Initializing Cef proxy controller
+[2024-06-08 13:53:01] 13:53:01 (9608): Using subprocess path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe'
+[2024-06-08 13:53:01] 13:53:01 (9608): Using framework path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:53:01] 13:53:01 (9608): Using locales path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales'
+[2024-06-08 13:53:01] 13:53:01 (9608): Using resources path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:53:01] 13:53:01 (9608): Launching child process '"C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfEngineConsole.exe" --browser-subprocess-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe" --no-sandbox --lang=en-US --log-file=cef.log --log-severity=verbose --resources-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64" --locales-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales" --disable-features=CalculateNativeWinOcclusion,WinUseBrowserSpellChecker,BackForwardCache host=127.0.0.1 port=33350 enable_debug=false log_path=ironpdfengine.log programming_language=java single_process=false docker_build=false linux_and_docker_auto_config=true skip_initialization=false chrome_browser_limit=30 chrome_gpu_mode=0 license_key=null'
+[2024-06-08 13:53:01] 13:53:01 (9608): gpu_mode: '0'
+[2024-06-08 13:53:01] 13:53:01 (15264): Launching child process '"C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe" --type=gpu-process --no-sandbox --headless --enable-gpu-service-logging --locales-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales" --log-severity=verbose --resources-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64" --lang=en-US --user-data-dir="C:\Users\NguyenTanDat\AppData\Local\Temp" /prefetch:2'
+[2024-06-08 13:53:01] 13:53:01 (15264): gpu_mode: '0'
+[2024-06-08 13:53:01] 13:53:01 (9608): Cef initialization succeeded
+[2024-06-08 13:53:01] Successfully initialized local Chrome client
+[2024-06-08 13:53:01] 13:53:01 (15264): Cef context initialized
+[2024-06-08 13:53:01] 13:53:01 (15264): Registering custom scheme for rendering raw html
+[2024-06-08 13:53:01] 13:53:01 (15264): Successfully registered custom scheme
+[2024-06-08 13:53:01] 13:53:01 (15264): Cef engine initialization complete
+[2024-06-08 13:53:01] 13:53:01 (15264): Launching child process '"C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --ignore-urlfetcher-cert-requests --no-sandbox --ignore-certificate-errors --mute-audio --ignore-certificate-errors --locales-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales" --log-severity=verbose --resources-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64" --lang=en-US --user-data-dir="C:\Users\NguyenTanDat\AppData\Local\Temp" /prefetch:8'
+[2024-06-08 13:53:01] 13:53:01 (15264): gpu_mode: '0'
+[2024-06-08 13:53:03] Error 0x01 while validating license key
+[2024-06-08 13:53:03] 13:53:03 (17072): PdfDocumentFactory created document 000001B3AA37AD50 from 106687 bytes
+[2024-06-08 13:53:03] 13:53:03 (17072): Document opened from vector
+[2024-06-08 13:53:03] 13:53:03 (17072): Storing new document 0
+[2024-06-08 13:53:03] Document 0 has 1 references remaining (+1)
+[2024-06-08 13:53:03] In-memory object store fetching document dec9c047-b288-4ef1-a472-55343fe49ff1
+[2024-06-08 13:54:22] ---------- Microsoft Windows NT 10.0.22631.0 (C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\ironpdfengine.log) ----------
+[2024-06-08 13:54:22] Initializing 'AppAnalytics' module
+[2024-06-08 13:54:22] Error 0x01 while validating license key
+[2024-06-08 13:54:22] Failed to create LicenseKey, returning null. Exception occurred:'Error 0x01 while validating license key'
+[2024-06-08 13:54:22] Using deployment directory 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:54:22] Creating deployment candidates using root path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\' (download: False)
+[2024-06-08 13:54:22] Creating folder deployments for win-x64
+[2024-06-08 13:54:22] Creating embedded deployments for win-x64
+[2024-06-08 13:54:22] Successfully located 'IronPdfInterop' at 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:54:22] Determining deployment commands for platform 'Windows' v10.0.22631.0
+[2024-06-08 13:54:22] Using deployment instructions for 'default' v
+[2024-06-08 13:54:22] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfInterop.dll'
+[2024-06-08 13:54:22] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfInterop.dll'
+[2024-06-08 13:54:22] Successfully loaded native library from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfInterop.dll'
+[2024-06-08 13:54:22] Successfully loaded 'IronPdfInterop' version '2024.5.0.11' from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:54:22] Successfully deployed 'Pdfium' using 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:54:22] Creating new job collection resource
+[2024-06-08 13:54:22] Creating new document collection resource
+[2024-06-08 13:54:22] Successfully initialized local pdf client
+[2024-06-08 13:54:22] Initializing local Chrome client...
+[2024-06-08 13:54:22] Using deployment directory 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:54:22] Creating deployment candidates using root path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\' (download: False)
+[2024-06-08 13:54:22] Creating folder deployments for win-x64
+[2024-06-08 13:54:22] Creating embedded deployments for win-x64
+[2024-06-08 13:54:22] Successfully located 'IronInterop' at 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:54:22] Determining deployment commands for platform 'Windows' v10.0.22631.0
+[2024-06-08 13:54:22] Using deployment instructions for 'default' v
+[2024-06-08 13:54:22] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronInterop.dll'
+[2024-06-08 13:54:24] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronInterop.dll'
+[2024-06-08 13:54:24] Successfully loaded native library from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronInterop.dll'
+[2024-06-08 13:54:24] Successfully loaded 'IronInterop' version '2024.5.0.11' from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:54:24] Successfully deployed 'Chrome' using 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:54:24] Initializing Chrome renderer for OS Name: Windows, Identifier: win, Version: 10.0.22631.0, VersionName: , Domain: IronPdfEngineConsole, Thread: , Path: C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code
+[2024-06-08 13:54:24] 13:54:24 (18588): ~ Chrome renderer v2024.5.0.11~
+[2024-06-08 13:54:24] 13:54:24 (18588): Debugging enabled for Chrome renderer using log path 'IronSoftware.ChromeRenderer.log'
+[2024-06-08 13:54:24] 13:54:24 (18588): register JobManager as publisher for event_readyToInitializeNetworkEventsDevToolsHandler
+[2024-06-08 13:54:24] 13:54:24 (18588): [EventRegistry] Register event_readyToInitializeNetworkEventsDevToolsHandler for a publisher
+[2024-06-08 13:54:24] 13:54:24 (18588): IsSingleProcess: 0
+[2024-06-08 13:54:24] 13:54:24 (18588): Creating Cef proxy controller
+[2024-06-08 13:54:24] 13:54:24 (18588): Creating Cef interface
+[2024-06-08 13:54:24] 13:54:24 (18588): JobManager subscribes a new sub, eventStr=event_readyToInitializeNetworkEventsDevToolsHandler
+[2024-06-08 13:54:24] 13:54:24 (18588): JobManager subscribes a new sub, eventStr=event_readyToInitializeNetworkEventsDevToolsHandler
+[2024-06-08 13:54:24] 13:54:24 (18588): Destroying Cef proxy event handler
+[2024-06-08 13:54:24] 13:54:24 (18588): Initializing Cef proxy controller
+[2024-06-08 13:54:24] 13:54:24 (18588): Using subprocess path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe'
+[2024-06-08 13:54:25] 13:54:25 (18588): Using framework path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:54:25] 13:54:25 (18588): Using locales path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales'
+[2024-06-08 13:54:25] 13:54:25 (18588): Using resources path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:54:25] 13:54:25 (18588): Launching child process '"C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfEngineConsole.exe" --browser-subprocess-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe" --no-sandbox --lang=en-US --log-file=cef.log --log-severity=verbose --resources-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64" --locales-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales" --disable-features=CalculateNativeWinOcclusion,WinUseBrowserSpellChecker,BackForwardCache host=127.0.0.1 port=33350 enable_debug=false log_path=ironpdfengine.log programming_language=java single_process=false docker_build=false linux_and_docker_auto_config=true skip_initialization=false chrome_browser_limit=30 chrome_gpu_mode=0 license_key=null'
+[2024-06-08 13:54:25] 13:54:25 (18588): gpu_mode: '0'
+[2024-06-08 13:54:25] 13:54:25 (16472): Launching child process '"C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe" --type=gpu-process --no-sandbox --headless --enable-gpu-service-logging --locales-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales" --log-severity=verbose --resources-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64" --lang=en-US --user-data-dir="C:\Users\NguyenTanDat\AppData\Local\Temp" /prefetch:2'
+[2024-06-08 13:54:25] 13:54:25 (16472): gpu_mode: '0'
+[2024-06-08 13:54:25] 13:54:25 (18588): Cef initialization succeeded
+[2024-06-08 13:54:25] Successfully initialized local Chrome client
+[2024-06-08 13:54:25] 13:54:25 (16472): Cef context initialized
+[2024-06-08 13:54:25] 13:54:25 (16472): Registering custom scheme for rendering raw html
+[2024-06-08 13:54:25] 13:54:25 (16472): Successfully registered custom scheme
+[2024-06-08 13:54:25] 13:54:25 (16472): Cef engine initialization complete
+[2024-06-08 13:54:25] 13:54:25 (16472): Launching child process '"C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --ignore-urlfetcher-cert-requests --no-sandbox --ignore-certificate-errors --mute-audio --ignore-certificate-errors --locales-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales" --log-severity=verbose --resources-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64" --lang=en-US --user-data-dir="C:\Users\NguyenTanDat\AppData\Local\Temp" /prefetch:8'
+[2024-06-08 13:54:25] 13:54:25 (16472): gpu_mode: '0'
+[2024-06-08 13:54:26] Error 0x01 while validating license key
+[2024-06-08 13:54:26] 13:54:26 (9644): PdfDocumentFactory created document 000001BC6E58DCD0 from 106687 bytes
+[2024-06-08 13:54:26] 13:54:26 (9644): Document opened from vector
+[2024-06-08 13:54:26] 13:54:26 (9644): Storing new document 0
+[2024-06-08 13:54:26] Document 0 has 1 references remaining (+1)
+[2024-06-08 13:54:26] In-memory object store fetching document 0dc65a32-e8ff-4fe1-92d4-ac8b0a81ae49
+[2024-06-08 13:55:39] ---------- Microsoft Windows NT 10.0.22631.0 (C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\ironpdfengine.log) ----------
+[2024-06-08 13:55:39] Initializing 'AppAnalytics' module
+[2024-06-08 13:55:39] Error 0x01 while validating license key
+[2024-06-08 13:55:39] Failed to create LicenseKey, returning null. Exception occurred:'Error 0x01 while validating license key'
+[2024-06-08 13:55:39] Using deployment directory 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:55:39] Creating deployment candidates using root path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\' (download: False)
+[2024-06-08 13:55:39] Creating folder deployments for win-x64
+[2024-06-08 13:55:39] Creating embedded deployments for win-x64
+[2024-06-08 13:55:39] Successfully located 'IronPdfInterop' at 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:55:40] Determining deployment commands for platform 'Windows' v10.0.22631.0
+[2024-06-08 13:55:40] Using deployment instructions for 'default' v
+[2024-06-08 13:55:40] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfInterop.dll'
+[2024-06-08 13:55:40] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfInterop.dll'
+[2024-06-08 13:55:40] Successfully loaded native library from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfInterop.dll'
+[2024-06-08 13:55:40] Successfully loaded 'IronPdfInterop' version '2024.5.0.11' from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:55:40] Successfully deployed 'Pdfium' using 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:55:40] Creating new job collection resource
+[2024-06-08 13:55:40] Creating new document collection resource
+[2024-06-08 13:55:40] Successfully initialized local pdf client
+[2024-06-08 13:55:40] Initializing local Chrome client...
+[2024-06-08 13:55:40] Using deployment directory 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:55:40] Creating deployment candidates using root path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\' (download: False)
+[2024-06-08 13:55:40] Creating folder deployments for win-x64
+[2024-06-08 13:55:40] Creating embedded deployments for win-x64
+[2024-06-08 13:55:40] Successfully located 'IronInterop' at 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:55:40] Determining deployment commands for platform 'Windows' v10.0.22631.0
+[2024-06-08 13:55:40] Using deployment instructions for 'default' v
+[2024-06-08 13:55:40] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronInterop.dll'
+[2024-06-08 13:55:40] Attempting to load Windows library 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronInterop.dll'
+[2024-06-08 13:55:40] Successfully loaded native library from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronInterop.dll'
+[2024-06-08 13:55:40] Successfully loaded 'IronInterop' version '2024.5.0.11' from 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:55:40] Successfully deployed 'Chrome' using 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:55:40] Initializing Chrome renderer for OS Name: Windows, Identifier: win, Version: 10.0.22631.0, VersionName: , Domain: IronPdfEngineConsole, Thread: , Path: C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code
+[2024-06-08 13:55:40] 13:55:40 (15016): ~ Chrome renderer v2024.5.0.11~
+[2024-06-08 13:55:40] 13:55:40 (15016): Debugging enabled for Chrome renderer using log path 'IronSoftware.ChromeRenderer.log'
+[2024-06-08 13:55:40] 13:55:40 (15016): register JobManager as publisher for event_readyToInitializeNetworkEventsDevToolsHandler
+[2024-06-08 13:55:40] 13:55:40 (15016): [EventRegistry] Register event_readyToInitializeNetworkEventsDevToolsHandler for a publisher
+[2024-06-08 13:55:40] 13:55:40 (15016): IsSingleProcess: 0
+[2024-06-08 13:55:40] 13:55:40 (15016): Creating Cef proxy controller
+[2024-06-08 13:55:40] 13:55:40 (15016): Creating Cef interface
+[2024-06-08 13:55:40] 13:55:40 (15016): JobManager subscribes a new sub, eventStr=event_readyToInitializeNetworkEventsDevToolsHandler
+[2024-06-08 13:55:40] 13:55:40 (15016): JobManager subscribes a new sub, eventStr=event_readyToInitializeNetworkEventsDevToolsHandler
+[2024-06-08 13:55:40] 13:55:40 (15016): Destroying Cef proxy event handler
+[2024-06-08 13:55:40] 13:55:40 (15016): Initializing Cef proxy controller
+[2024-06-08 13:55:40] 13:55:40 (15016): Using subprocess path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe'
+[2024-06-08 13:55:40] 13:55:40 (15016): Using framework path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:55:40] 13:55:40 (15016): Using locales path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales'
+[2024-06-08 13:55:40] 13:55:40 (15016): Using resources path 'C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\'
+[2024-06-08 13:55:40] 13:55:40 (15016): Launching child process '"C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronPdfEngineConsole.exe" --browser-subprocess-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe" --no-sandbox --lang=en-US --log-file=cef.log --log-severity=verbose --resources-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64" --locales-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales" --disable-features=CalculateNativeWinOcclusion,WinUseBrowserSpellChecker,BackForwardCache host=127.0.0.1 port=33350 enable_debug=false log_path=ironpdfengine.log programming_language=java single_process=false docker_build=false linux_and_docker_auto_config=true skip_initialization=false chrome_browser_limit=30 chrome_gpu_mode=0 license_key=null'
+[2024-06-08 13:55:40] 13:55:40 (15016): gpu_mode: '0'
+[2024-06-08 13:55:40] 13:55:40 (19936): Launching child process '"C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe" --type=gpu-process --no-sandbox --headless --enable-gpu-service-logging --locales-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales" --log-severity=verbose --resources-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64" --lang=en-US --user-data-dir="C:\Users\NguyenTanDat\AppData\Local\Temp" /prefetch:2'
+[2024-06-08 13:55:40] 13:55:40 (19936): gpu_mode: '0'
+[2024-06-08 13:55:40] 13:55:40 (15016): Cef initialization succeeded
+[2024-06-08 13:55:40] Successfully initialized local Chrome client
+[2024-06-08 13:55:40] 13:55:40 (19936): Cef context initialized
+[2024-06-08 13:55:40] 13:55:40 (19936): Registering custom scheme for rendering raw html
+[2024-06-08 13:55:40] 13:55:40 (19936): Successfully registered custom scheme
+[2024-06-08 13:55:40] 13:55:40 (19936): Cef engine initialization complete
+[2024-06-08 13:55:40] 13:55:40 (19936): Launching child process '"C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\IronCefSubprocess.exe" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --ignore-urlfetcher-cert-requests --no-sandbox --ignore-certificate-errors --mute-audio --ignore-certificate-errors --locales-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64\\locales" --log-severity=verbose --resources-dir-path="C:\Users\NguyenTanDat\IdeaProjects\Draft_java-code\IronPdfEngine.2024.5.2.Windows.x64" --lang=en-US --user-data-dir="C:\Users\NguyenTanDat\AppData\Local\Temp" /prefetch:8'
+[2024-06-08 13:55:40] 13:55:40 (19936): gpu_mode: '0'
+[2024-06-08 13:55:42] Error 0x01 while validating license key
+[2024-06-08 13:55:42] 13:55:42 (6416): PdfDocumentFactory created document 00000162E3139330 from 106687 bytes
+[2024-06-08 13:55:42] 13:55:42 (6416): Document opened from vector
+[2024-06-08 13:55:42] 13:55:42 (6416): Storing new document 0
+[2024-06-08 13:55:42] Document 0 has 1 references remaining (+1)
+[2024-06-08 13:55:42] In-memory object store fetching document 92f1dadd-65b5-4d66-b5fb-185c772a3d9f

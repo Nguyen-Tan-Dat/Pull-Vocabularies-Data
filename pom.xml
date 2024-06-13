@@ -57,6 +57,24 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.13</version> <!-- Phiên bản có thể được điều chỉnh -->
         </dependency>
+        <!-- https://mvnrepository.com/artifact/net.sf.phat/sphinx4-core -->
+        <dependency>
+            <groupId>net.sf.phat</groupId>
+            <artifactId>sphinx4-core</artifactId>
+            <version>5prealpha</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.sf.phat/sphinx4-data -->
+        <dependency>
+            <groupId>net.sf.phat</groupId>
+            <artifactId>sphinx4-data</artifactId>
+            <version>5prealpha</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itext7-core</artifactId>
+            <version>7.2.2</version>
+        </dependency>
 
     </dependencies>
 </project>
