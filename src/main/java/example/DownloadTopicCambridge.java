@@ -32,7 +32,7 @@ public class DownloadTopicCambridge {
     }
 
     public static void main(String[] args) {
-        String html = readFile("list.txt");
+        String html = readFile("list1.txt");
         Document doc = Jsoup.parse(html);
         var ls=doc.getElementsByTag("a");
         HashSet<String> links=new HashSet<>();

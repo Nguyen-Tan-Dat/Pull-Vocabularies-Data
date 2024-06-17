@@ -1,0 +1,134 @@
+<ul class="lmt-25 hul-u hax fs-18 wordlist-Cambridge_word_lists_-_Beginner" id="wordlistEntries">
+    <li class="pr wordlist-row bg hao hbr-20 lmb-10 sort-cup" data-wordlist-id="74263338">
+        <span class="hdf hflx-c wl-parent">
+            <span class="bh iwc-f19 iwc iwc-40 hao hlh40 hfl lb0 wl-type"><i class="i i-shield iw lpl-1 fs14" aria-hidden="true"></i></span>
+            <span class="hdib tb lml-15 hoh dipa to-e wl-name">
+                <a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/74263338_antonyms-and-opposites">Antonyms and opposites&nbsp;<span class="hdi hdn-xs break">(20)</span></a>
+            </span>
+            <span class="hdn hdi-xs tb"><a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/74263338_antonyms-and-opposites">(20)</a></span><span class="wl-filler"></span>
+            <span class="lpr-10 lpl-10 tw-nw hdn hdi-xs"><a href="https://dictionary.cambridge.org/plus/wordlist/74263338_antonyms-and-opposites" class="fs14 tcu">BEGINNER</a></span>
+        </span>
+        <span class="hdb hdn-xs lpr-10 lpl-10 wl-mobile"><a href="https://dictionary.cambridge.org/plus/wordlist/74263338_antonyms-and-opposites" class="fs14 tculmr-5 lpt-1">BEGINNER</a></span>
+    </li>
+    <li class="pr wordlist-row bg hao hbr-20 lmb-10 sort-cup" data-wordlist-id="73545444">
+        <span class="hdf hflx-c wl-parent">
+            <span class="bh iwc-f19 iwc iwc-40 hao hlh40 hfl lb0 wl-type"><i class="i i-shield iw lpl-1 fs14" aria-hidden="true"></i></span>
+            <span class="hdib tb lml-15 hoh dipa to-e wl-name">
+                <a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/73545444_baths-and-showers">Baths and showers&nbsp;<span class="hdi hdn-xs break">(23)</span></a>
+            </span>
+            <span class="hdn hdi-xs tb"><a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/73545444_baths-and-showers">(23)</a></span><span class="wl-filler"></span>
+            <span class="lpr-10 lpl-10 tw-nw hdn hdi-xs"><a href="https://dictionary.cambridge.org/plus/wordlist/73545444_baths-and-showers" class="fs14 tcu">BEGINNER</a></span>
+        </span>
+        <span class="hdb hdn-xs lpr-10 lpl-10 wl-mobile"><a href="https://dictionary.cambridge.org/plus/wordlist/73545444_baths-and-showers" class="fs14 tculmr-5 lpt-1">BEGINNER</a></span>
+    </li>
+    <li class="pr wordlist-row bg hao hbr-20 lmb-10 sort-cup" data-wordlist-id="56492795">
+        <span class="hdf hflx-c wl-parent">
+            <span class="bh iwc-f19 iwc iwc-40 hao hlh40 hfl lb0 wl-type"><i class="i i-shield iw lpl-1 fs14" aria-hidden="true"></i></span>
+            <span class="hdib tb lml-15 hoh dipa to-e wl-name">
+                <a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/56492795_body-movements">Body movements&nbsp;<span class="hdi hdn-xs break">(20)</span></a>
+            </span>
+            <span class="hdn hdi-xs tb"><a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/56492795_body-movements">(20)</a></span><span class="wl-filler"></span>
+            <span class="lpr-10 lpl-10 tw-nw hdn hdi-xs"><a href="https://dictionary.cambridge.org/plus/wordlist/56492795_body-movements" class="fs14 tcu">BEGINNER</a></span>
+        </span>
+        <span class="hdb hdn-xs lpr-10 lpl-10 wl-mobile"><a href="https://dictionary.cambridge.org/plus/wordlist/56492795_body-movements" class="fs14 tculmr-5 lpt-1">BEGINNER</a></span>
+    </li>
+    <li class="pr wordlist-row bg hao hbr-20 lmb-10 sort-cup" data-wordlist-id="73442865">
+        <span class="hdf hflx-c wl-parent">
+            <span class="bh iwc-f19 iwc iwc-40 hao hlh40 hfl lb0 wl-type"><i class="i i-shield iw lpl-1 fs14" aria-hidden="true"></i></span>
+            <span class="hdib tb lml-15 hoh dipa to-e wl-name">
+                <a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/73442865_children's-party-games">Children's party games&nbsp;<span class="hdi hdn-xs break">(23)</span></a>
+            </span>
+            <span class="hdn hdi-xs tb"><a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/73442865_children's-party-games">(23)</a></span><span class="wl-filler"></span>
+            <span class="lpr-10 lpl-10 tw-nw hdn hdi-xs"><a href="https://dictionary.cambridge.org/plus/wordlist/73442865_children's-party-games" class="fs14 tcu">BEGINNER</a></span>
+        </span>
+        <span class="hdb hdn-xs lpr-10 lpl-10 wl-mobile"><a href="https://dictionary.cambridge.org/plus/wordlist/73442865_children's-party-games" class="fs14 tculmr-5 lpt-1">BEGINNER</a></span>
+    </li>
+    <li class="pr wordlist-row bg hao hbr-20 lmb-10 sort-cup" data-wordlist-id="2289040">
+        <span class="hdf hflx-c wl-parent">
+            <span class="bh iwc-f19 iwc iwc-40 hao hlh40 hfl lb0 wl-type"><i class="i i-shield iw lpl-1 fs14" aria-hidden="true"></i></span>
+            <span class="hdib tb lml-15 hoh dipa to-e wl-name">
+                <a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/2289040_christmas">Christmas&nbsp;<span class="hdi hdn-xs break">(21)</span></a>
+            </span>
+            <span class="hdn hdi-xs tb"><a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/2289040_christmas">(21)</a></span><span class="wl-filler"></span>
+            <span class="lpr-10 lpl-10 tw-nw hdn hdi-xs"><a href="https://dictionary.cambridge.org/plus/wordlist/2289040_christmas" class="fs14 tcu">BEGINNER</a></span>
+        </span>
+        <span class="hdb hdn-xs lpr-10 lpl-10 wl-mobile"><a href="https://dictionary.cambridge.org/plus/wordlist/2289040_christmas" class="fs14 tculmr-5 lpt-1">BEGINNER</a></span>
+    </li>
+    <li class="pr wordlist-row bg hao hbr-20 lmb-10 sort-cup" data-wordlist-id="38278419">
+        <span class="hdf hflx-c wl-parent">
+            <span class="bh iwc-f19 iwc iwc-40 hao hlh40 hfl lb0 wl-type"><i class="i i-shield iw lpl-1 fs14" aria-hidden="true"></i></span>
+            <span class="hdib tb lml-15 hoh dipa to-e wl-name">
+                <a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/38278419_christmas-–-english-简体中文">Christmas – English-简体中文&nbsp;<span class="hdi hdn-xs break">(20)</span></a>
+            </span>
+            <span class="hdn hdi-xs tb"><a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/38278419_christmas-–-english-简体中文">(20)</a></span><span class="wl-filler"></span>
+            <span class="lpr-10 lpl-10 tw-nw hdn hdi-xs"><a href="https://dictionary.cambridge.org/plus/wordlist/38278419_christmas-–-english-简体中文" class="fs14 tcu">BEGINNER</a></span>
+        </span>
+        <span class="hdb hdn-xs lpr-10 lpl-10 wl-mobile"><a href="https://dictionary.cambridge.org/plus/wordlist/38278419_christmas-–-english-简体中文" class="fs14 tculmr-5 lpt-1">BEGINNER</a></span>
+    </li>
+    <li class="pr wordlist-row bg hao hbr-20 lmb-10 sort-cup" data-wordlist-id="38278979">
+        <span class="hdf hflx-c wl-parent">
+            <span class="bh iwc-f19 iwc iwc-40 hao hlh40 hfl lb0 wl-type"><i class="i i-shield iw lpl-1 fs14" aria-hidden="true"></i></span>
+            <span class="hdib tb lml-15 hoh dipa to-e wl-name">
+                <a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/38278979_christmas-–-english-繁體中文">Christmas – English-繁體中文&nbsp;<span class="hdi hdn-xs break">(20)</span></a>
+            </span>
+            <span class="hdn hdi-xs tb"><a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/38278979_christmas-–-english-繁體中文">(20)</a></span><span class="wl-filler"></span>
+            <span class="lpr-10 lpl-10 tw-nw hdn hdi-xs"><a href="https://dictionary.cambridge.org/plus/wordlist/38278979_christmas-–-english-繁體中文" class="fs14 tcu">BEGINNER</a></span>
+        </span>
+        <span class="hdb hdn-xs lpr-10 lpl-10 wl-mobile"><a href="https://dictionary.cambridge.org/plus/wordlist/38278979_christmas-–-english-繁體中文" class="fs14 tculmr-5 lpt-1">BEGINNER</a></span>
+    </li>
+    <li class="pr wordlist-row bg hao hbr-20 lmb-10 sort-cup" data-wordlist-id="42320002">
+        <span class="hdf hflx-c wl-parent">
+            <span class="bh iwc-f19 iwc iwc-40 hao hlh40 hfl lb0 wl-type"><i class="i i-shield iw lpl-1 fs14" aria-hidden="true"></i></span>
+            <span class="hdib tb lml-15 hoh dipa to-e wl-name">
+                <a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/42320002_days,-months-and-seasons">Days, months and seasons&nbsp;<span class="hdi hdn-xs break">(27)</span></a>
+            </span>
+            <span class="hdn hdi-xs tb"><a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/42320002_days,-months-and-seasons">(27)</a></span><span class="wl-filler"></span>
+            <span class="lpr-10 lpl-10 tw-nw hdn hdi-xs"><a href="https://dictionary.cambridge.org/plus/wordlist/42320002_days,-months-and-seasons" class="fs14 tcu">BEGINNER</a></span>
+        </span>
+        <span class="hdb hdn-xs lpr-10 lpl-10 wl-mobile"><a href="https://dictionary.cambridge.org/plus/wordlist/42320002_days,-months-and-seasons" class="fs14 tculmr-5 lpt-1">BEGINNER</a></span>
+    </li>
+    <li class="pr wordlist-row bg hao hbr-20 lmb-10 sort-cup" data-wordlist-id="61943458">
+        <span class="hdf hflx-c wl-parent">
+            <span class="bh iwc-f19 iwc iwc-40 hao hlh40 hfl lb0 wl-type"><i class="i i-shield iw lpl-1 fs14" aria-hidden="true"></i></span>
+            <span class="hdib tb lml-15 hoh dipa to-e wl-name">
+                <a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/61943458_furniture-and-home-accessories">Furniture and home accessories&nbsp;<span class="hdi hdn-xs break">(22)</span></a>
+            </span>
+            <span class="hdn hdi-xs tb"><a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/61943458_furniture-and-home-accessories">(22)</a></span><span class="wl-filler"></span>
+            <span class="lpr-10 lpl-10 tw-nw hdn hdi-xs"><a href="https://dictionary.cambridge.org/plus/wordlist/61943458_furniture-and-home-accessories" class="fs14 tcu">BEGINNER</a></span>
+        </span>
+        <span class="hdb hdn-xs lpr-10 lpl-10 wl-mobile"><a href="https://dictionary.cambridge.org/plus/wordlist/61943458_furniture-and-home-accessories" class="fs14 tculmr-5 lpt-1">BEGINNER</a></span>
+    </li>
+    <li class="pr wordlist-row bg hao hbr-20 lmb-10 sort-cup" data-wordlist-id="68026737">
+        <span class="hdf hflx-c wl-parent">
+            <span class="bh iwc-f19 iwc iwc-40 hao hlh40 hfl lb0 wl-type"><i class="i i-shield iw lpl-1 fs14" aria-hidden="true"></i></span>
+            <span class="hdib tb lml-15 hoh dipa to-e wl-name">
+                <a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/68026737_musical-instruments">Musical instruments&nbsp;<span class="hdi hdn-xs break">(21)</span></a>
+            </span>
+            <span class="hdn hdi-xs tb"><a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/68026737_musical-instruments">(21)</a></span><span class="wl-filler"></span>
+            <span class="lpr-10 lpl-10 tw-nw hdn hdi-xs"><a href="https://dictionary.cambridge.org/plus/wordlist/68026737_musical-instruments" class="fs14 tcu">BEGINNER</a></span>
+        </span>
+        <span class="hdb hdn-xs lpr-10 lpl-10 wl-mobile"><a href="https://dictionary.cambridge.org/plus/wordlist/68026737_musical-instruments" class="fs14 tculmr-5 lpt-1">BEGINNER</a></span>
+    </li>
+    <li class="pr wordlist-row bg hao hbr-20 lmb-10 sort-cup" data-wordlist-id="54449008">
+        <span class="hdf hflx-c wl-parent">
+            <span class="bh iwc-f19 iwc iwc-40 hao hlh40 hfl lb0 wl-type"><i class="i i-shield iw lpl-1 fs14" aria-hidden="true"></i></span>
+            <span class="hdib tb lml-15 hoh dipa to-e wl-name">
+                <a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/54449008_nouns-that-can-be-count-and-non-count">Nouns that can be count and non-count&nbsp;<span class="hdi hdn-xs break">(14)</span></a>
+            </span>
+            <span class="hdn hdi-xs tb"><a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/54449008_nouns-that-can-be-count-and-non-count">(14)</a></span><span class="wl-filler"></span>
+            <span class="lpr-10 lpl-10 tw-nw hdn hdi-xs"><a href="https://dictionary.cambridge.org/plus/wordlist/54449008_nouns-that-can-be-count-and-non-count" class="fs14 tcu">BEGINNER</a></span>
+        </span>
+        <span class="hdb hdn-xs lpr-10 lpl-10 wl-mobile"><a href="https://dictionary.cambridge.org/plus/wordlist/54449008_nouns-that-can-be-count-and-non-count" class="fs14 tculmr-5 lpt-1">BEGINNER</a></span>
+    </li>
+    <li class="pr wordlist-row bg hao hbr-20 lmb-10 sort-cup" data-wordlist-id="55382657">
+        <span class="hdf hflx-c wl-parent">
+            <span class="bh iwc-f19 iwc iwc-40 hao hlh40 hfl lb0 wl-type"><i class="i i-shield iw lpl-1 fs14" aria-hidden="true"></i></span>
+            <span class="hdib tb lml-15 hoh dipa to-e wl-name">
+                <a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/55382657_positive-feelings-and-reactions">Positive feelings and reactions&nbsp;<span class="hdi hdn-xs break">(16)</span></a>
+            </span>
+            <span class="hdn hdi-xs tb"><a target="_top" href="https://dictionary.cambridge.org/plus/wordlist/55382657_positive-feelings-and-reactions">(16)</a></span><span class="wl-filler"></span>
+            <span class="lpr-10 lpl-10 tw-nw hdn hdi-xs"><a href="https://dictionary.cambridge.org/plus/wordlist/55382657_positive-feelings-and-reactions" class="fs14 tcu">BEGINNER</a></span>
+        </span>
+        <span class="hdb hdn-xs lpr-10 lpl-10 wl-mobile"><a href="https://dictionary.cambridge.org/plus/wordlist/55382657_positive-feelings-and-reactions" class="fs14 tculmr-5 lpt-1">BEGINNER</a></span>
+    </li>
+</ul>

@@ -15,10 +15,10 @@ public class ReadCambridgeTopics {
     public static void main(String[] args) {
 //        HashSet<String> list = new HashSet<>();
         HashMap<String, HashSet<String>> plist = new HashMap<>();
-        for (int number = 1; number <= 4; number++) {
+        for (int number = 1; number <= 1; number++) {
 
             // Đường dẫn tới thư mục chứa các tệp PDF
-            String directoryPath = "Cambridge Vocabularies/" + number;
+            String directoryPath = "Cambridge lists/" + number;
 
             // Tạo đối tượng Path cho thư mục
             Path path = Paths.get(directoryPath);
@@ -110,14 +110,14 @@ public class ReadCambridgeTopics {
                 count+=plist.get(i).size();
         }
         System.out.println(plist.size());
-//            System.out.println(count);
-        count = 0;
+        System.out.println(count);
         System.out.println(eData.size());
         HashSet<String> parts=new HashSet<>();
         var database=Test.databaseEnglish();
         for (int i=0;i< eData.size();i++ ) {
             var en=eData.get(i)[0];
-            var part=eData.get(i)[2];
+            var part=eData.get(i)[2].trim();
+            if(part!=null &&!part.equals(""))
             if (plist.containsKey(en)){
                 var ad=true;
                 for (var j:plist.get(en)){
@@ -144,34 +144,42 @@ public class ReadCambridgeTopics {
             }
         }
         System.out.println(count);
-        String excelFilePath = "Vocabularies in use.xlsx";
-
-        try (Workbook workbook = new XSSFWorkbook();
-             FileOutputStream fileOut = new FileOutputStream(excelFilePath)) {
-
-            // Tạo sheet mới
-            Sheet sheet = workbook.createSheet("eDataSheet");
-
-            // Ghi dữ liệu vào tệp Excel, bắt đầu từ cột 3 (chỉ số cột là 2)
-            for (int i = 0; i < eData.size(); i++) {
-                Row row = sheet.createRow(i);
-                String[] data = eData.get(i);
-
-                // Bắt đầu từ cột 3 (chỉ số 2)
-                for (int j = 0; j < data.length; j++) {
-                    Cell cell = row.createCell(j + 2);
-                    cell.setCellValue(data[j]);
-                }
+        count=0;
+        for(var i:plist.keySet()){
+            if(!database.contains(i)){
+                count++;
+                System.out.println(i);
             }
-
-            // Ghi workbook vào file
-            workbook.write(fileOut);
-
-            System.out.println("Excel file has been generated successfully.");
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        System.out.println(count);
+//        String excelFilePath = "Vocabularies in use.xlsx";
+//
+//        try (Workbook workbook = new XSSFWorkbook();
+//             FileOutputStream fileOut = new FileOutputStream(excelFilePath)) {
+//
+//            // Tạo sheet mới
+//            Sheet sheet = workbook.createSheet("eDataSheet");
+//
+//            // Ghi dữ liệu vào tệp Excel, bắt đầu từ cột 3 (chỉ số cột là 2)
+//            for (int i = 0; i < eData.size(); i++) {
+//                Row row = sheet.createRow(i);
+//                String[] data = eData.get(i);
+//
+//                // Bắt đầu từ cột 3 (chỉ số 2)
+//                for (int j = 0; j < data.length; j++) {
+//                    Cell cell = row.createCell(j + 2);
+//                    cell.setCellValue(data[j]);
+//                }
+//            }
+//
+//            // Ghi workbook vào file
+//            workbook.write(fileOut);
+//
+//            System.out.println("Excel file has been generated successfully.");
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
 private static String getCellValueAsString(Cell cell) {
