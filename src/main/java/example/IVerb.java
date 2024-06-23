@@ -5,6 +5,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.DirectoryIteratorException;
 import java.nio.file.DirectoryStream;
@@ -12,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 
 public class IVerb {
@@ -54,13 +56,12 @@ public class IVerb {
             }
         var database=Test.databaseEnglish();
             int count=0;
-        for(var i:eData){
-            if(!database.contains(i[0])){
-                System.out.println(i[0]);
-                count++;
+            ArrayList<String[]> rs=new ArrayList<>();
+            for (var i:eData){
+                if(!i[0].contains("*"))
+                rs.add(new String[]{i[0],i[1]+" | "+i[2].trim(),"irregular verb"});
             }
-        }
-        System.out.println(count);
+        writeExcel(rs,"eData.xlsx");
     }
 
     public static String getCellValueAsString(Cell cell) {
@@ -79,6 +80,38 @@ public class IVerb {
                 return cell.getCellFormula();
             default:
                 return "";
+        }
+    }
+    public static void writeExcel(List<String[]> eData, String excelFilePath) {
+        Workbook workbook = new XSSFWorkbook();
+        try (FileOutputStream fileOut = new FileOutputStream(new File(excelFilePath))) {
+            // Tạo sheet mới
+            Sheet sheet = workbook.createSheet("eDataSheet");
+
+            // Ghi dữ liệu vào tệp Excel, bắt đầu từ cột 3 (chỉ số cột là 2)
+            for (int i = 0; i < eData.size(); i++) {
+                Row row = sheet.createRow(i);
+                String[] data = eData.get(i);
+
+                // Bắt đầu từ cột 3 (chỉ số 2)
+                for (int j = 0; j < data.length; j++) {
+                    Cell cell = row.createCell(j + 2);
+                    cell.setCellValue(data[j]);
+                }
+            }
+
+            // Ghi workbook vào file
+            workbook.write(fileOut);
+            System.out.println("Excel file has been generated successfully.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                workbook.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
