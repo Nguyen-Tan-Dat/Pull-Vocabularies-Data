@@ -1,12 +1,11 @@
 package example;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.*;
 import java.sql.*;
@@ -15,27 +14,103 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Test {
-    public static void printVocabularies(String en,int number) {
-        var html = DownloadTopic.getHTML("https://dictionary.cambridge.org/dictionary/english-vietnamese/" + en);
-        Document doc = Jsoup.parse(html);
-        var el = doc.getElementsByClass("d pr di english-vietnamese kdic");
-        String phonetic="";
-        for (var e : el) {
-            var ps = e.getElementsByClass("di-info");
-            if (ps.size() > 0){
-                var pns=ps.first().getElementsByClass("pos dpos");
-                if(pns.size()>0) {
-                    String part = pns.first().text();
-                    var p=ps.first().getElementsByClass("ipa dipa");
-                    if(p.size()>0) {
-                        phonetic = p.first().text();
+    public static void writeDataVocabularies(ArrayList<String[]> list,String filePath) {
+        try (Workbook workbook = new XSSFWorkbook();
+             FileOutputStream fileOut = new FileOutputStream(filePath)) {
+            Sheet sheet = workbook.createSheet("data");
+            for (int i = 0; i < list.size(); i++) {
+                Row row = sheet.createRow(i);
+                String[] data = list.get(i);
+                for (int j = 0; j < data.length; j++) {
+                    Cell cell = row.createCell(j + 2);
+                    cell.setCellValue(data[j]);
+                }
+            }
+            workbook.write(fileOut);
+            System.out.println("Excel file has been generated successfully.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<String[]> readDataVocabularies(String excelFilePath) {
+        ArrayList<String[]> eData = new ArrayList<>();
+        try (FileInputStream fis = new FileInputStream(new File(excelFilePath));
+             Workbook workbook = new XSSFWorkbook(fis)) {
+            Sheet sheet = workbook.getSheetAt(0);
+            for (int i = 0; i <= sheet.getLastRowNum(); i++) {
+                Row row = sheet.getRow(i);
+                if (row != null) {
+                    Cell cell = row.getCell(2);
+                    Cell cell1 = row.getCell(3);
+                    Cell cell2 = row.getCell(4);
+                    Cell cell3 = row.getCell(5);
+                    if (cell != null) {
+                        String en = getCellValueAsString(cell);
+                        String vi = getCellValueAsString(cell1);
+                        String part = getCellValueAsString(cell2);
+                        String phonetic = getCellValueAsString(cell3);
+                        var add = true;
+//                        for (int i1 = 0; i1 < eData.size(); i1++) {
+//                            if (en == eData.get(i1)[0] && vi == eData.get(i1)[1] && part == eData.get(i1)[2]) {
+//                                add = false;
+//                            }
+//                        }
+                        if (add)
+                            eData.add(new String[]{en, vi, part, phonetic});
+
+                    } else {
+                        System.out.println(i);
                     }
+                } else {
+                    System.out.println(i);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return eData;
+    }
 
-                    var vis = e.getElementsByClass("trans dtrans");
-                    for (var vi : vis) {
-                        System.out.println(en + "\t" + vi.text() + "\t" + part+"\t"+phonetic);
-                        String filePath = "cambridge-vocabularies-"+number+".xlsx";
+    public static String getCellValueAsString(Cell cell) {
+        switch (cell.getCellType()) {
+            case STRING:
+                return cell.getStringCellValue();
+            case NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    return cell.getDateCellValue().toString();
+                } else {
+                    return String.valueOf(cell.getNumericCellValue());
+                }
+            case BOOLEAN:
+                return String.valueOf(cell.getBooleanCellValue());
+            case FORMULA:
+                return cell.getCellFormula();
+            default:
+                return "";
+        }
+    }
 
+    public static void printVocabulariesLaban(String english, String filePath) {
+        String url = "https://dict.laban.vn/find?type=1&query=" + english;
+
+        try {
+            Document document = Jsoup.connect(url).get();
+            Element ulElement = document.getElementById("content_selectable");
+            String phonetic = "";
+            try {
+                phonetic = document.getElementsByClass("color-black").get(0).text();
+
+            } catch (Exception e) {
+            }
+            if (ulElement != null) {
+                String part_of_speech = "unknown";
+                for (var i : ulElement.getElementsByTag("div")) {
+                    if (i.attr("class").equals("bg-grey bold font-large m-top20"))
+                        part_of_speech = i.text();
+                    if (i.attr("class").equals("green bold margin25 m-top15")) {
+                        System.out.println(english + "\t" + part_of_speech + "\t" + i.text() + "\t" + phonetic);
                         // Kiểm tra xem tệp đã tồn tại hay chưa
                         File file = new File(filePath);
                         Workbook workbook;
@@ -62,25 +137,21 @@ public class Test {
 
                         // Tạo các ô và đặt giá trị vào các ô
                         Cell cell1 = row.createCell(2);
-                        cell1.setCellValue(en);
+                        cell1.setCellValue(english);
 
                         Cell cell2 = row.createCell(3);
-                        cell2.setCellValue(vi.text());
+                        cell2.setCellValue(i.text());
 
                         Cell cell3 = row.createCell(4);
-                        cell3.setCellValue(part);
+                        cell3.setCellValue(part_of_speech);
 
                         Cell cell4 = row.createCell(5);
                         cell4.setCellValue(phonetic);
-
-                        // Ghi workbook vào file
                         try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
                             workbook.write(fileOut);
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }
-
-                        // Đóng workbook để giải phóng tài nguyên
                         try {
                             workbook.close();
                         } catch (IOException ioException) {
@@ -88,7 +159,91 @@ public class Test {
                         }
                     }
                 }
+            } else {
+                System.out.println("Không tìm thấy phần tử <ul> với class 'slide_img'");
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void printVocabularies(String en, String path) {
+        var html = DownloadTopic.getHTML("https://dictionary.cambridge.org/dictionary/english-vietnamese/" + en);
+        Document doc = Jsoup.parse(html);
+        var el = doc.getElementsByClass("d pr di english-vietnamese kdic");
+        String phonetic = "";
+        for (var e : el) {
+            var ps = e.getElementsByClass("di-info");
+            String part = "unknown";
+            if (ps.size() > 0) {
+                var pns = ps.first().getElementsByClass("pos dpos");
+
+                if (pns.size() > 0) {
+                    part = pns.first().text();
+                }
+                var p = ps.first().getElementsByClass("ipa dipa");
+                if (p.size() > 0) {
+                    phonetic = p.first().text();
+                }
+            }
+            var vis = e.getElementsByClass("trans dtrans");
+
+            for (var vi : vis) {
+                System.out.println(en + "\t" + vi.text() + "\t" + part + "\t" + phonetic);
+                String filePath = path;
+
+                // Kiểm tra xem tệp đã tồn tại hay chưa
+                File file = new File(filePath);
+                Workbook workbook;
+                Sheet sheet;
+
+                if (file.exists()) {
+                    try (FileInputStream fis = new FileInputStream(file)) {
+                        // Mở workbook và sheet nếu tệp đã tồn tại
+                        workbook = new XSSFWorkbook(fis);
+                        sheet = workbook.getSheetAt(0);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        return;
+                    }
+                } else {
+                    // Tạo workbook và sheet mới nếu tệp chưa tồn tại
+                    workbook = new XSSFWorkbook();
+                    sheet = workbook.createSheet("Data");
+                }
+
+                // Tạo hàng mới ở cuối sheet
+                int lastRowNum = sheet.getLastRowNum();
+                Row row = sheet.createRow(lastRowNum + 1);
+
+                // Tạo các ô và đặt giá trị vào các ô
+                Cell cell1 = row.createCell(2);
+                cell1.setCellValue(en);
+
+                Cell cell2 = row.createCell(3);
+                cell2.setCellValue(vi.text());
+
+                Cell cell3 = row.createCell(4);
+                cell3.setCellValue(part);
+
+                Cell cell4 = row.createCell(5);
+                cell4.setCellValue(phonetic);
+
+                // Ghi workbook vào file
+                try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+                    workbook.write(fileOut);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+
+                // Đóng workbook để giải phóng tài nguyên
+                try {
+                    workbook.close();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+
         }
     }
 
@@ -97,32 +252,9 @@ public class Test {
         var list = dataBook();
         System.out.println("Database : " + data.size());
         System.out.println("Read total: " + list.size());
-        HashSet<String> toLo = new HashSet<>();
+        int count = 0;
         for (var i : list) {
-            i = i.replaceAll("…", "...");
-            i = i.replaceAll("’", "'");
-            i = i.replaceAll("–", "-");
-            i = i.replaceAll(" - ", "-");
-            if (!containsNumber(i)
-                    && isEnglish(i)
-//            &&!i.contains("…")
-//            &&!i.contains("’")
-                    && !i.isEmpty()
-            ) {
-                toLo.add(i);
-                if (i.contains("[")
-//                        && !i.contains("]")
-                ) toLo.remove(i);
-                if (i.contains("(")
-//                        && !i.contains(")")
-                ) toLo.remove(i);
-            }
-        }
-        list = toLo;
-        System.out.println("Get total: " + toLo.size());
-        int count=0;
-        for (var i : list) {
-            if(!data.contains(i)) {
+            if (!data.contains(i)) {
                 System.out.println(i);
 //                printVocabularies(i,0);
                 count++;
@@ -292,7 +424,28 @@ public class Test {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return list;
+        HashSet<String> toLo = new HashSet<>();
+        for (var i : list) {
+            i = i.replaceAll("…", "...");
+            i = i.replaceAll("’", "'");
+            i = i.replaceAll("–", "-");
+            i = i.replaceAll(" - ", "-");
+            if (!containsNumber(i)
+                    && isEnglish(i)
+//            &&!i.contains("…")
+//            &&!i.contains("’")
+                    && !i.isEmpty()
+            ) {
+                toLo.add(i);
+                if (i.contains("[")
+//                        && !i.contains("]")
+                ) toLo.remove(i);
+                if (i.contains("(")
+//                        && !i.contains(")")
+                ) toLo.remove(i);
+            }
+        }
+        return toLo;
     }
 
 
@@ -405,7 +558,8 @@ public class Test {
         }
     }
 
-    public static void main(String[] args) {
+
+    public static void main11(String[] args) {
         int id = 0;
         String topic = "No name";
         HashMap<String, Integer> topics = new HashMap<>();
@@ -433,7 +587,7 @@ public class Test {
 //                        System.out.println(line);
                         topic = line;
                         System.out.println("]],");
-                        System.out.print("['name'=>'"+topic+"','vs'=>[");
+                        System.out.print("['name'=>'" + topic + "','vs'=>[");
                         id++;
                         topics.put(line, id);
                         countTopic++;
@@ -519,7 +673,7 @@ public class Test {
                                 vList.add(new Vocab(enID, viID, id));
                                 vocab.add(enID + "," + viID);
                             }
-                            System.out.print("\""+en+"\",");
+                            System.out.print("\"" + en + "\",");
                         }
                     }
 
@@ -574,7 +728,7 @@ public class Test {
         for (int i = 0; i < text.length(); i++) {
             char ch = text.charAt(i);
             // Kiểm tra nếu ký tự không nằm trong phạm vi chữ cái tiếng Anh (a-z, A-Z)
-            if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')  || ch == '\'' || ch == ' ' || ch == ',' || ch == '-' ||  ch == '&' || ch == '.')) {
+            if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '\'' || ch == ' ' || ch == ',' || ch == '-' || ch == '&' || ch == '.')) {
                 return false;
             }
         }
@@ -594,6 +748,13 @@ public class Test {
             }
         } else {
             return -1;
+        }
+    }
+    public static void writeFile(String filePath, String content) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write(content);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
