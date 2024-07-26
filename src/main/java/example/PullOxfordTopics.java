@@ -21,6 +21,9 @@ import java.util.List;
 
 public class PullOxfordTopics {
     public static void main(String[] args) {
+        writeTopics();
+    }
+    public static void writeTopics() {
         String directoryPath = "Oxford topics";
         File directory = new File(directoryPath);
         if (!directory.exists() || !directory.isDirectory()) {
@@ -33,6 +36,7 @@ public class PullOxfordTopics {
             return ;
         }
         ArrayList<Object> data=new ArrayList<>();
+        HashSet<String> ps=new HashSet<>();
         for (File subdirectory : subdirectories) {
             List<Workbook> workbooks = readExcelFiles(subdirectory.getAbsolutePath());
             var name=subdirectory.getName();
@@ -44,9 +48,30 @@ public class PullOxfordTopics {
                         String english = row.getCell(0).getStringCellValue();
                         String parts_of_speech = row.getCell(1).getStringCellValue().toLowerCase();
                         String lv = row.getCell(2).getStringCellValue().toLowerCase();
-                        if(lv.equals("a1")||lv.equals("a2")||lv.equals("b1")||lv.equals("b2")){
-                            list.add(new String[]{english,parts_of_speech});
+                        if(lv.equals("a1")||lv.equals("a2")||lv.equals("b1")||lv.equals("b2")||lv.equals("c1")||lv.equals("c2"))
+                        {
+                            var add=true;
+                            for (var j:list){
+                                if(j[0].equals(english)){
+                                    add=false;
+                                    break;
+                                }
+                            }
+                            if(add)list.add(new String[]{english,"unknown"});
+                            add=true;
+                            for (var j:list){
+                                if(j[0].equals(english)&&j[1].equals(parts_of_speech)){
+                                    add=false;
+                                    break;
+                                }
+                            }
+                            if(add)list.add(new String[]{english,parts_of_speech});
+
+
+
                         }
+
+                        ps.add(parts_of_speech);
                     }
                 }
             }
@@ -65,8 +90,11 @@ public class PullOxfordTopics {
             HashMapToJson.writeTopics(data,"Oxford topics json/All topics");
 
         }
+        System.out.println("List");
+        for(var i: ps) System.out.println(i);
+        System.out.println("end.");
     }
-    public static void cleanPartsOfSpeech(String[] args) {
+    public static void cleanPartsOfSpeech() {
         var oxfordVs = PullOxfordTopics.readOnlineWords();
         System.out.println("Oxford words: " + oxfordVs.size());
         var cambridgeVs = Test.dataBook();
@@ -84,8 +112,8 @@ public class PullOxfordTopics {
 
         ArrayList<String[]> most = new ArrayList<>();
         for (var i : vsData) {
-            if (cambridgeVs.contains(i[0]) && oxfordVs.containsKey(i[0])) {
-                if (i[2].equals("unknown")||oxfordVs.get(i[0]).contains(i[2])) {
+            if (cambridgeVs.contains(i[0]) || oxfordVs.containsKey(i[0])) {
+                if(oxfordVs.get(i[0])==null||i[2].equals("unknown")||oxfordVs.get(i[0]).contains(i[2])) {
                     most.add(i);
                     cmost.add(i[0]);
                 }
@@ -93,7 +121,7 @@ public class PullOxfordTopics {
             }
         }
         for (var i : vsData) {
-            if (cambridgeVs.contains(i[0]) && oxfordVs.containsKey(i[0])) {
+            if (cambridgeVs.contains(i[0]) || oxfordVs.containsKey(i[0])) {
                 if (!cmost.contains(i)) {
                     System.out.println(i[0]);
 //                    most.add(i);
@@ -247,14 +275,19 @@ public class PullOxfordTopics {
                     if (row != null) {
                         Cell cell = row.getCell(0);
                         Cell cell1 = row.getCell(1);
+                        Cell cell2 = row.getCell(2);
                         String cellValue = Test.getCellValueAsString(cell);
                         String cellValue1 = Test.getCellValueAsString(cell1);
+                        String lv = Test.getCellValueAsString(cell2);
                         cellValue = cellValue.trim();
                         cellValue1 = cellValue1.trim();
-                        if (!plist.containsKey(cellValue)) {
-                            plist.put(cellValue, new HashSet<>());
+                        lv = lv.trim();
+                        if(lv.equals("a1")||lv.equals("a2")||lv.equals("b1")||lv.equals("b2")){
+                            if (!plist.containsKey(cellValue)) {
+                                plist.put(cellValue, new HashSet<>());
+                            }
+                            plist.get(cellValue).add(cellValue1.toLowerCase());
                         }
-                        plist.get(cellValue).add(cellValue1.toLowerCase());
                     }
                 }
             }

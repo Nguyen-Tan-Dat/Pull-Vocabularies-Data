@@ -408,22 +408,22 @@ public class Test {
             throw new RuntimeException(e);
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader("new 4.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (line.contains("/")) {
-                    var dataline = line.split("/");
-                    String w = dataline[0].trim();
-                    if (w != null) {
-                        list.add(w);
-                    }
-                }
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try (BufferedReader br = new BufferedReader(new FileReader("new 4.txt"))) {
+//            String line;
+//            while ((line = br.readLine()) != null) {
+//                if (line.contains("/")) {
+//                    var dataline = line.split("/");
+//                    String w = dataline[0].trim();
+//                    if (w != null) {
+//                        list.add(w);
+//                    }
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
         HashSet<String> toLo = new HashSet<>();
         for (var i : list) {
             i = i.replaceAll("…", "...");

@@ -42,7 +42,7 @@ public class ReadCambridgeTopics {
     public static HashMap<String, HashSet<String>> readOnlineWords() {
 
         HashMap<String, HashSet<String>> plist = new HashMap<>();
-        for (int number = 1; number <= 4; number++) {
+        for (int number = 1; number <= 3; number++) {
             String directoryPath = "Cambridge Vocabularies/" + number;
             Path path = Paths.get(directoryPath);
             try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, "*.xlsx")) {
