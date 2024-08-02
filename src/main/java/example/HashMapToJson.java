@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 public class HashMapToJson {
-    public static void writeTopics(String name, HashSet<String> vocabularies,String filename){
+    public static void writeTopic(String name, HashSet<String> vocabularies,String filename){
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("vs",vocabularies);
         hashMap.put("name", name);

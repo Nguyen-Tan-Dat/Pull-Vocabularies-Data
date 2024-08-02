@@ -12,6 +12,7 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -61,9 +62,14 @@ public class IVerb {
                 if(!i[0].contains("*"))
                 rs.add(new String[]{i[0],i[1]+" | "+i[2].trim(),"irregular verb"});
             }
-        writeExcel(rs,"eData.xlsx");
-    }
+//        writeExcel(rs,"Irregular verbs.xlsx");
+        HashSet<String> vs=new HashSet<>();
+        for(var i:eData){
+            vs.add(i[0]);
+        }
+        HashMapToJson.writeTopic("Irregular verbs",vs,"Irregular verb");
 
+    }
     public static String getCellValueAsString(Cell cell) {
         switch (cell.getCellType()) {
             case STRING:
