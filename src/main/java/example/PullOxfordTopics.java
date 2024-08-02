@@ -48,7 +48,7 @@ public class PullOxfordTopics {
                         String english = row.getCell(0).getStringCellValue();
                         String parts_of_speech = row.getCell(1).getStringCellValue().toLowerCase();
                         String lv = row.getCell(2).getStringCellValue().toLowerCase();
-                        if(lv.equals("a1")||lv.equals("a2")||lv.equals("b1")||lv.equals("b2")||lv.equals("c1")||lv.equals("c2"))
+                        if(!lv.equals("c1")&&!lv.equals("c2"))
                         {
                             var add=true;
                             for (var j:list){
