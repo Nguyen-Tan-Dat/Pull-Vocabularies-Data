@@ -46,20 +46,20 @@ public class TopicExams {
         String directoryPath = "academics";
 
         // Tạo đối tượng Path cho thư mục
-        Path path = Paths.get(directoryPath);
+//        Path path = Paths.get(directoryPath);
 
         // Sử dụng DirectoryStream để duyệt qua các tệp trong thư mục
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, "*.pdf")) {
-            int count=0;
-            System.out.println("[");
-            for (Path filePath : stream) {
-                readPDFContent(filePath.toFile());
-                System.out.println(",");
-                count++;
-            }
-        } catch (IOException | DirectoryIteratorException e) {
-            System.err.println("Lỗi khi đọc thư mục: " + e.getMessage());
-        }
+//        try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, "*.pdf")) {
+//            int count=0;
+//            System.out.println("[");
+//            for (Path filePath : stream) {
+//                readPDFContent(filePath.toFile());
+//                System.out.println(",");
+//                count++;
+//            }
+//        } catch (IOException | DirectoryIteratorException e) {
+//            System.err.println("Lỗi khi đọc thư mục: " + e.getMessage());
+//        }
         String pdfPath = "Cambridge IELTS 17 - Academic (clean).pdf";  // Thay thế bằng đường dẫn thực tế đến tệp PDF của bạn
         try {
             // Mở tệp PDF
@@ -67,7 +67,7 @@ public class TopicExams {
 
             // Kiểm tra tổng số trang
             int numberOfPages = pdfDoc.getNumberOfPages();
-            int[] list = new int[]{10, 31, 53, 75,96};
+            int[] list = new int[]{16, 20, 24, 28};
             for (int id=0;id<list.length-1;id++) {
                 int s=list[id];
                 int e=list[id+1];
@@ -77,18 +77,19 @@ public class TopicExams {
                     test += pageContent;
                 }
                 var database = Test.databaseEnglish();
-                System.out.print("['name'=>'"+"Cambridge IELTS 17 Test "+(id+1)+"','vs'=>[");
+                String name="Cambridge IELTS 17 Test 1R"+(id+1);
+                HashSet<String> vs=new HashSet<>();
                 for (var i : database) {
                     test=test.toLowerCase();
                     if (test.contains(i.toLowerCase())) {
-                        System.out.print("\""+i+"\",");
+                       vs.add(i);
                     }
                 }
-                System.out.println("]],");
+                HashMapToJson.writeTopic(name,vs,name);
+
 
             }
-            System.out.println("]");
-            // Đóng tài liệu PDF
+
             pdfDoc.close();
         } catch (IOException e) {
             e.printStackTrace();
