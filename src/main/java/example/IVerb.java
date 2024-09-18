@@ -67,7 +67,12 @@ public class IVerb {
         for(var i:eData){
             vs.add(i[0]);
         }
-        HashMapToJson.writeTopic("Irregular verbs",vs,"Irregular verb");
+        ArrayList<Object> data=new ArrayList<>();
+        HashMap<String,Object> row=new HashMap<>();
+        row.put("vs",rs);
+        row.put("name","Irregular verbs");
+        data.add(row);
+        HashMapToJson.writeTopics(data,"Oxford topics json/Irregular verbs");
 
     }
     public static String getCellValueAsString(Cell cell) {

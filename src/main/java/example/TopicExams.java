@@ -42,7 +42,7 @@ public class TopicExams {
             System.err.println("Lỗi khi đọc tệp PDF: " + e.getMessage());
         }
     }
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         String directoryPath = "academics";
 
         // Tạo đối tượng Path cho thư mục
@@ -95,7 +95,7 @@ public class TopicExams {
             e.printStackTrace();
         }
     }
-    public static void main1(String[] args) {
+    public static void main(String[] args) {
         String pdfPath = "Cambridge IELTS 17 - Academic (clean).pdf";  // Thay thế bằng đường dẫn thực tế đến tệp PDF của bạn
         try {
             // Mở tệp PDF
