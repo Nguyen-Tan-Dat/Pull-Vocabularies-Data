@@ -23,77 +23,80 @@ public class PullOxfordTopics {
     public static void main(String[] args) {
         writeTopics();
     }
+
     public static void writeTopics() {
         String directoryPath = "Oxford topics";
         File directory = new File(directoryPath);
         if (!directory.exists() || !directory.isDirectory()) {
             System.out.println("Thư mục không tồn tại hoặc không phải là thư mục: " + directoryPath);
-            return ;
+            return;
         }
         File[] subdirectories = directory.listFiles(File::isDirectory);
         if (subdirectories == null || subdirectories.length == 0) {
             System.out.println("Không có thư mục con nào trong thư mục: " + directoryPath);
-            return ;
+            return;
         }
-        ArrayList<Object> data=new ArrayList<>();
-        HashSet<String> ps=new HashSet<>();
-        for (File subdirectory : subdirectories) {
-            List<Workbook> workbooks = readExcelFiles(subdirectory.getAbsolutePath());
-            var name=subdirectory.getName();
-            HashSet<String[]> list = new HashSet<>();
-            for (Workbook workbook : workbooks) {
-                for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-                    Sheet sheet = workbook.getSheetAt(i);
-                    for (Row row : sheet) {
-                        String english = row.getCell(0).getStringCellValue();
-                        String parts_of_speech = row.getCell(1).getStringCellValue().toLowerCase();
-                        String lv = row.getCell(2).getStringCellValue().toLowerCase();
-                        if(!lv.equals("c1")&&!lv.equals("c2"))
-                        {
-                            var add=true;
-                            for (var j:list){
-                                if(j[0].equals(english)){
-                                    add=false;
-                                    break;
+        String[] levels = new String[]{"a1", "a2", "b1", "b2", "c1", "c2"};
+        for (var level : levels) {
+            ArrayList<Object> data = new ArrayList<>();
+            HashSet<String> ps = new HashSet<>();
+            for (File subdirectory : subdirectories) {
+                List<Workbook> workbooks = readExcelFiles(subdirectory.getAbsolutePath());
+                var name = subdirectory.getName();
+                HashSet<String[]> list = new HashSet<>();
+                for (Workbook workbook : workbooks) {
+                    for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+                        Sheet sheet = workbook.getSheetAt(i);
+                        for (Row row : sheet) {
+                            String english = row.getCell(0).getStringCellValue();
+                            String parts_of_speech = row.getCell(1).getStringCellValue().toLowerCase();
+                            String lv = row.getCell(2).getStringCellValue().toLowerCase();
+                            if (lv.equals(level)) {
+                                var add = true;
+                                for (var j : list) {
+                                    if (j[0].equals(english)) {
+                                        add = false;
+                                        break;
+                                    }
                                 }
-                            }
-                            if(add)list.add(new String[]{english,"unknown"});
-                            add=true;
-                            for (var j:list){
-                                if(j[0].equals(english)&&j[1].equals(parts_of_speech)){
-                                    add=false;
-                                    break;
+                                if (add) list.add(new String[]{english, "unknown"});
+                                add = true;
+                                for (var j : list) {
+                                    if (j[0].equals(english) && j[1].equals(parts_of_speech)) {
+                                        add = false;
+                                        break;
+                                    }
                                 }
+                                if (add) list.add(new String[]{english, parts_of_speech});
+
+
                             }
-                            if(add)list.add(new String[]{english,parts_of_speech});
 
-
-
+                            ps.add(parts_of_speech);
                         }
-
-                        ps.add(parts_of_speech);
                     }
                 }
-            }
-            for (Workbook workbook : workbooks) {
-                try {
-                    workbook.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                for (Workbook workbook : workbooks) {
+                    try {
+                        workbook.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 //            HashMapToJson.writeTopics(name,list,"Oxford topics json/"+name);
-            HashMap<String,Object> row=new HashMap<>();
-            row.put("name",name );
-            row.put("vs",list);
-            data.add(row);
-            HashMapToJson.writeTopics(data,"Oxford topics json/All topics");
+                HashMap<String, Object> row = new HashMap<>();
+                row.put("name", level.toUpperCase()+" " + name);
+                row.put("vs", list);
+                data.add(row);
+                HashMapToJson.writeTopics(data, "Oxford topics json/"+level.toUpperCase()+" topics");
 
+            }
+            System.out.println("List");
+            for (var i : ps) System.out.println(i);
+            System.out.println("end.");
         }
-        System.out.println("List");
-        for(var i: ps) System.out.println(i);
-        System.out.println("end.");
     }
+
     public static void cleanPartsOfSpeech() {
         var oxfordVs = PullOxfordTopics.readOnlineWords();
         System.out.println("Oxford words: " + oxfordVs.size());
@@ -113,7 +116,7 @@ public class PullOxfordTopics {
         ArrayList<String[]> most = new ArrayList<>();
         for (var i : vsData) {
             if (cambridgeVs.contains(i[0]) || oxfordVs.containsKey(i[0])) {
-                if(oxfordVs.get(i[0])==null||i[2].equals("unknown")||oxfordVs.get(i[0]).contains(i[2])) {
+                if (oxfordVs.get(i[0]) == null || i[2].equals("unknown") || oxfordVs.get(i[0]).contains(i[2])) {
                     most.add(i);
                     cmost.add(i[0]);
                 }
@@ -282,7 +285,7 @@ public class PullOxfordTopics {
                         cellValue = cellValue.trim();
                         cellValue1 = cellValue1.trim();
                         lv = lv.trim();
-                        if(lv.equals("a1")||lv.equals("a2")||lv.equals("b1")||lv.equals("b2")){
+                        if (lv.equals("a1") || lv.equals("a2") || lv.equals("b1") || lv.equals("b2")) {
                             if (!plist.containsKey(cellValue)) {
                                 plist.put(cellValue, new HashSet<>());
                             }
