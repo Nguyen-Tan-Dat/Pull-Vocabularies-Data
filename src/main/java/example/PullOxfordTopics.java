@@ -37,7 +37,9 @@ public class PullOxfordTopics {
             return;
         }
         String[] levels = new String[]{"a1", "a2", "b1", "b2", "c1", "c2"};
+        List<Integer>  counts=new ArrayList<>();
         for (var level : levels) {
+            int count=0;
             ArrayList<Object> data = new ArrayList<>();
             HashSet<String> ps = new HashSet<>();
             for (File subdirectory : subdirectories) {
@@ -68,7 +70,7 @@ public class PullOxfordTopics {
                                     }
                                 }
                                 if (add) list.add(new String[]{english, parts_of_speech});
-
+                                count++;
 
                             }
 
@@ -94,6 +96,10 @@ public class PullOxfordTopics {
             System.out.println("List");
             for (var i : ps) System.out.println(i);
             System.out.println("end.");
+            counts.add(count);
+        }
+        for(var i: counts){
+            System.out.println(i);
         }
     }
 
