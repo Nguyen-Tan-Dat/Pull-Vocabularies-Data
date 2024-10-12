@@ -6,21 +6,11 @@ import org.jsoup.nodes.Document;
 import java.io.IOException;
 
 public class LuyenTapThem {
-    public static String readTextFromUrl(String url) {
-        try {
-            // Kết nối đến URL và lấy nội dung HTML
-            Document document = Jsoup.connect(url).get();
-            String text = document.text();
 
-            return text;
-        } catch (IOException e) {
-            return "An error occurred: " + e.getMessage();
-        }
-    }
 
     public static void main(String[] args) {
         String url = "https://test-english.com/grammar-points/a1/imperative-sit-dont-talk/2/";
-        String text = readTextFromUrl(url);
+        String text = Test.readTextFromUrl(url);
         text=text.toLowerCase();
         System.out.println(text);
         var es=Test.databaseEnglish();
@@ -30,6 +20,6 @@ public class LuyenTapThem {
                 list.add(i);
             }
         }
-        HashMapToJson.writeTopic("Today vocabularies",list,"Today vocabularies");
+        Test.writeTopic("Today vocabularies",list,"Today vocabularies");
     }
 }

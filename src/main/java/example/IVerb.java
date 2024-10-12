@@ -19,62 +19,63 @@ import java.util.List;
 
 public class IVerb {
     public static void main(String[] args) {
-
+        var ens= Test.databaseEnglish();
         ArrayList<String[]> eData = new ArrayList<>();
-            String excelFilePath = "IVerb.xlsx";
-            try (FileInputStream fis = new FileInputStream(new File(excelFilePath));
-                 Workbook workbook = new XSSFWorkbook(fis)) {
-
-                // Giả sử dữ liệu nằm trên sheet đầu tiên
-                Sheet sheet = workbook.getSheetAt(0);
-
-                // Bắt đầu đọc từ dòng thứ 3 (chỉ số 2, vì chỉ số dòng bắt đầu từ 0)
-                for (int i = 3; i <= sheet.getLastRowNum(); i++) {
-                    Row row = sheet.getRow(i);
-                    if (row != null) {
-                        // Đọc cột 1 (chỉ số 0, vì chỉ số cột bắt đầu từ 0)
-                        Cell cell = row.getCell(0);
-                        Cell cell1 = row.getCell(1);
-                        Cell cell2 = row.getCell(2);
-                        if (cell != null&&cell1 != null&&cell2 != null) {
-                            String en =cell.getStringCellValue().trim();
-                            String vi = cell1.getStringCellValue().trim();
-                            String part = cell2.getStringCellValue();
-                            var add=true;
-                            for(int i1=0;i1< eData.size();i1++){
-                                if(en==eData.get(i1)[0]&&vi==eData.get(i1)[1]&&part==eData.get(i1)[2]){
-                                    add=false;
-                                }
+        String excelFilePath = "IVerb.xlsx";
+        try (FileInputStream fis = new FileInputStream(new File(excelFilePath));
+             Workbook workbook = new XSSFWorkbook(fis)) {
+            Sheet sheet = workbook.getSheetAt(0);
+            for (int i = 0; i <= sheet.getLastRowNum(); i++) {
+                Row row = sheet.getRow(i);
+                if (row != null) {
+                    Cell cell = row.getCell(0);
+                    Cell cell1 = row.getCell(1);
+                    Cell cell2 = row.getCell(2);
+                    if (cell != null && cell1 != null && cell2 != null) {
+                        String v1 = cell.getStringCellValue().trim();
+                        String v2 = cell1.getStringCellValue().trim();
+                        String v3 = cell2.getStringCellValue();
+                        var add = false;
+                        for (var en:ens) {
+                            if (v1.contains(en)) {
+                                add = true;
+                                break;
                             }
-                            if(add)
-                                eData.add(new String[]{en, vi,part});
-
                         }
+                        if (add)
+                            eData.add(new String[]{v1, v2, v3});
+
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-        var database=Test.databaseEnglish();
-            int count=0;
-            ArrayList<String[]> rs=new ArrayList<>();
-            for (var i:eData){
-                if(!i[0].contains("*"))
-                rs.add(new String[]{i[0],i[1]+" | "+i[2].trim(),"irregular verb"});
-            }
-//        writeExcel(rs,"Irregular verbs.xlsx");
-        HashSet<String> vs=new HashSet<>();
-        for(var i:eData){
-            vs.add(i[0]);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        ArrayList<Object> data=new ArrayList<>();
-        HashMap<String,Object> row=new HashMap<>();
-        row.put("vs",rs);
-        row.put("name","Irregular verbs");
+        var database = Test.databaseEnglish();
+        int count = 0;
+        ArrayList<String[]> rs = new ArrayList<>();
+        for (var i : eData) {
+            if (!i[0].contains("*")) {
+                rs.add(new String[]{i[0], i[1] + " | " + i[2].trim(), "irregular verb"});
+//                    rs.add(new String[]{i[0],i[1]+" | "+i[2].trim(),"verb"});
+            }
+
+        }
+        writeExcel(rs, "Irregular verbs.xlsx");
+        HashSet<String[]> vs = new HashSet<>();
+        for (var i : eData) {
+            vs.add(new String[]{i[0],"irregular verb"});
+            vs.add(new String[]{i[0],"verb"});
+        }
+        ArrayList<Object> data = new ArrayList<>();
+        HashMap<String, Object> row = new HashMap<>();
+        row.put("vs", vs);
+        row.put("name", "Irregular verbs");
         data.add(row);
-        HashMapToJson.writeTopics(data,"Oxford topics json/Irregular verbs");
+        Test.writeTopics(data, "topics/Irregular verbs");
 
     }
+
     public static String getCellValueAsString(Cell cell) {
         switch (cell.getCellType()) {
             case STRING:
@@ -93,6 +94,7 @@ public class IVerb {
                 return "";
         }
     }
+
     public static void writeExcel(List<String[]> eData, String excelFilePath) {
         Workbook workbook = new XSSFWorkbook();
         try (FileOutputStream fileOut = new FileOutputStream(new File(excelFilePath))) {

@@ -1,25 +1,3 @@
-DROP DATABASE IF EXISTS vn_places;
-CREATE DATABASE vn_places;
-USE vn_places;
-CREATE TABLE provinces
-(
-    id   tinyint primary key,
-    name nvarchar(255) not null unique
-);
-CREATE TABLE districts
-(
-    id       smallint primary key,
-    name     nvarchar(255) not null,
-    province tinyint,
-    FOREIGN KEY (province) REFERENCES provinces (id)
-);
-CREATE TABLE wards
-(
-    id     smallint primary key ,
-    name   NVARCHAR(255) not null ,
-    district_id smallint not null ,
-    FOREIGN KEY (district_id) REFERENCES districts (id)
-);
 INSERT INTO provinces (id, name) VALUES
 (87,'Tỉnh Đồng Tháp'),
 (62,'Tỉnh Kon Tum'),

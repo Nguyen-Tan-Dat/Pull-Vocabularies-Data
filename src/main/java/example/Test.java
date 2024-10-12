@@ -1,11 +1,14 @@
 package example;
 
+import com.google.gson.Gson;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfReader;
+import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.*;
 import java.sql.*;
@@ -72,7 +75,36 @@ public class Test {
         }
         return eData;
     }
+    public static void writeTopic(String name, HashSet<String> vocabularies,String filename){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("vs",vocabularies);
+        hashMap.put("name", name);
+        ArrayList<Object> list=new ArrayList<>();
+        list.add(hashMap);
+        String jsonString = convertHashMapToJson(list);
+        Test.writeFile(filename+".json",jsonString);
+    }
+    public static void writeTopics( ArrayList<Object>  list ,String filename){
+        String jsonString = convertHashMapToJson(list);
+        Test.writeFile(filename+".json",jsonString);
+    }
 
+    public static String readTextFromUrl(String url) {
+        try {
+            // Kết nối đến URL và lấy nội dung HTML
+            Document document = Jsoup.connect(url).get();
+            String text = document.text();
+
+            return text;
+        } catch (IOException e) {
+            return "An error occurred: " + e.getMessage();
+        }
+    }
+
+    private static String convertHashMapToJson(ArrayList<Object> hashMap) {
+        Gson gson = new Gson();
+        return gson.toJson(hashMap);
+    }
     public static String getCellValueAsString(Cell cell) {
         switch (cell.getCellType()) {
             case STRING:
@@ -506,12 +538,67 @@ public class Test {
         }
     }
 
-    //    public static void main(String[] args) {
-//        partArrayCode("sft-wfa-boys-z-0-5.xlsx");
-//        partArrayCode("sft-wfa-girls-z-0-5.xlsx");
-//        partArrayCode("sft_lhfa_boys_z_0_5.xlsx");
-//        partArrayCode("sft_lhfa_girls_z_0_5.xlsx");
-//    }
+    public static List<String> readPdfsInFolder(String path) {
+        List<String> pdfContents = new ArrayList<>();
+        File folder = new File(path);
+
+        // Kiểm tra xem đường dẫn có phải là thư mục không
+        if (folder.isDirectory()) {
+            // Lấy danh sách tất cả các file trong thư mục
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    // Kiểm tra xem file có đuôi .pdf không
+                    if (file.isFile() && file.getName().toLowerCase().endsWith(".pdf")) {
+                        // Đọc nội dung file PDF và thêm vào danh sách
+                        String content = readPdf(file.getAbsolutePath());
+                        pdfContents.add(content);
+                    }
+                }
+            }
+        } else {
+            System.out.println("Đường dẫn không phải là thư mục.");
+        }
+
+        return pdfContents;
+    }
+
+    public static String readPdf(String filePath) {
+        StringBuilder content = new StringBuilder();
+        try {
+            PdfReader reader = new PdfReader(filePath);
+            PdfDocument pdfDoc = new PdfDocument(reader);
+            int numberOfPages = pdfDoc.getNumberOfPages();
+            for (int i = 1; i <= numberOfPages; i++) {
+                content.append(PdfTextExtractor.getTextFromPage(pdfDoc.getPage(i))).append("\n");
+            }
+            pdfDoc.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return content.toString().toLowerCase();
+    }
+    public static void main11(String[] args) {
+
+        ArrayList<String[]> vsData = new ArrayList<>();
+        var oxford= Oxford.readOxfordVocabularies();
+        vsData.addAll(Test.readDataVocabularies("All my words.xlsx"));
+        vsData.addAll(Test.readDataVocabularies("All my words part laban clean.xlsx"));
+        var ens=databaseEnglish();
+        var books=dataBook();
+
+        ArrayList<String[]> most = new ArrayList<>();
+        for(var i: vsData){
+            var en=i[0];
+            if(books.contains(en)&&!ens.contains(en)&&oxford.contains(en)){
+                most.add(i);
+            }
+        }
+
+        Test.writeDataVocabularies(most, "All my words more.xlsx");
+    }
+
+
     static class Vocab {
         private int en, vi, to;
 
@@ -559,133 +646,7 @@ public class Test {
     }
 
 
-    public static void main11(String[] args) {
-        int id = 0;
-        String topic = "No name";
-        HashMap<String, Integer> topics = new HashMap<>();
-        HashMap<String, Integer> english = new HashMap<>();
-        int enMax = 1;
-        int viMax = 1;
-        HashMap<String, Integer> vietnamese = new HashMap<>();
-        Set<String> vocab = new HashSet<>();
-        Set<Vocab> vList = new HashSet<>();
-        byte count = 0;
-        byte countTopic = 0;
-        int countVocab = 0;
-        try (BufferedReader br = new BufferedReader(new FileReader("data.txt"))) {
-            String line;
-            int lineNumber = 1;
-            BufferedWriter writer = null;
-            while ((line = br.readLine()) != null) {
 
-                if (!containsNumber(line)) {
-                    count++;
-//                    System.out.println(line);
-//                    writer=new BufferedWriter(new FileWriter("data_group"+count+".txt"));
-                } else {
-                    if (!startsWithDigit(line)) {
-//                        System.out.println(line);
-                        topic = line;
-                        System.out.println("]],");
-                        System.out.print("['name'=>'" + topic + "','vs'=>[");
-                        id++;
-                        topics.put(line, id);
-                        countTopic++;
-                    } else {
-                        String regex = "(\\d+\\.\\s.*?)(?=(\\d+\\.\\s|$))";
-                        Pattern pattern = Pattern.compile(regex);
-                        Matcher matcher = pattern.matcher(line);
-                        ArrayList<String> result = new ArrayList<>();
-                        while (matcher.find()) {
-                            result.add(matcher.group(1));
-                        }
-                        for (String item : result) {
-                            String en = "";
-                            String vi = "";
-//                            System.out.println(item.replaceFirst(". ", ".\t"));
-//                            if(item.trim().contains(". "))
-                            String row = item.toLowerCase().trim().replaceFirst(" ", "\t");
-                            row = removeNumberAndDot(row).replaceFirst("\t", " ");
-                            String[] parts = row.split("\\s*/\\s*");
-                            if (parts.length > 3) {
-                                String e = parts[0].replaceAll(":", "").replace(".", "").trim();
-                                if (isEnglish(e)) {
-                                    countVocab++;
-                                    en = e;
-                                    vi = parts[parts.length - 1].replaceAll(":", "");
-                                }
-//                                else {
-//                                    countVocab++;
-//                                    System.out.println(parts[0]);
-//                                }
-                            } else if (parts.length == 3) {
-                                String e = parts[0].replaceAll(":", "").trim();
-                                if (isEnglish(e)) {
-                                    en = e;
-                                    vi = parts[2].replaceAll(":", "");
-                                    countVocab++;
-                                } else {
-                                    en = parts[2];
-                                    vi = parts[0];
-                                    countVocab++;
-                                }
-
-                            } else {
-                                parts = row.split(":");
-                                if (parts.length > 2) {
-                                    en = parts[0].trim();
-                                    vi = parts[parts.length - 1].trim();
-                                    countVocab++;
-                                } else if (parts.length == 2) {
-                                    en = parts[0].trim();
-                                    vi = parts[1].trim();
-                                    countVocab++;
-                                } else {
-                                    parts = row.split("\\(.*?\\)");
-                                    if (parts.length == 2) {
-                                        en = parts[0].trim();
-                                        vi = parts[1].trim();
-                                        countVocab++;
-                                    }
-                                }
-
-                            }
-                            en = removeParenthesesContent(en).trim();
-                            en = en.split("/")[0];
-                            int enID = 0;
-                            if (english.containsKey(en)) {
-                                enID = english.get(en);
-                            } else {
-                                enID = enMax;
-                                english.put(en, enMax++);
-                            }
-                            vi = removeParenthesesContent(vi).trim();
-                            int viID = 0;
-                            if (vietnamese.containsKey(vi)) {
-                                viID = vietnamese.get(vi);
-                            } else {
-                                viID = viMax;
-                                vietnamese.put(vi, viMax++);
-                            }
-                            if (vocab.contains(enID + "," + viID)) {
-//                                System.out.println(enID);
-                            } else {
-                                vList.add(new Vocab(enID, viID, id));
-                                vocab.add(enID + "," + viID);
-                            }
-                            System.out.print("\"" + en + "\",");
-                        }
-                    }
-
-
-                }
-                lineNumber++;
-            }
-            System.out.println(countVocab);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public static String removeParenthesesContent(String input) {
         // Tạo mẫu regular expression
@@ -700,7 +661,7 @@ public class Test {
         return result;
     }
 
-    private static boolean containsNumber(String line) {
+    public static boolean containsNumber(String line) {
         for (char c : line.toCharArray()) {
             if (Character.isDigit(c)) {
                 return true;
@@ -716,7 +677,7 @@ public class Test {
         return text.replaceAll(regex, "");
     }
 
-    private static boolean startsWithDigit(String line) {
+    public static boolean startsWithDigit(String line) {
         if (line.length() > 0 && Character.isDigit(line.charAt(0))) {
             return true;
         }
@@ -751,8 +712,20 @@ public class Test {
         }
     }
     public static void writeFile(String filePath, String content) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write(content);
+        try {
+            // Tạo đối tượng file từ filePath
+            File file = new File(filePath);
+
+            // Kiểm tra nếu file chưa tồn tại, thì tạo mới
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // Tạo thư mục cha nếu cần
+                file.createNewFile(); // Tạo file nếu chưa tồn tại
+            }
+
+            // Ghi nội dung vào file
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                writer.write(content);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -7,7 +7,6 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -36,7 +35,7 @@ public class ReadCambridgeTopics {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return content.toString();
+        return content.toString().toLowerCase();
     }
 
     public static HashMap<String, HashSet<String>> readOnlineWords() {
@@ -104,7 +103,7 @@ public class ReadCambridgeTopics {
 //            }
         }
         System.out.println("Cambridge vocabularies: " + pdfCamBooks.size());
-        var oxfordVs = PullOxfordTopics.readOxfordVocabularies();
+        var oxfordVs = Oxford.readOxfordVocabularies();
         System.out.println(oxfordVs.size());
         count = 0;
         for (var i : oxfordVs) {
