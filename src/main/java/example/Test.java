@@ -440,22 +440,22 @@ public class Test {
             throw new RuntimeException(e);
         }
 
-//        try (BufferedReader br = new BufferedReader(new FileReader("new 4.txt"))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                if (line.contains("/")) {
-//                    var dataline = line.split("/");
-//                    String w = dataline[0].trim();
-//                    if (w != null) {
-//                        list.add(w);
-//                    }
-//                }
-//            }
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        try (BufferedReader br = new BufferedReader(new FileReader("new 4.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.contains("/")) {
+                    var dataline = line.split("/");
+                    String w = dataline[0].trim();
+                    if (w != null) {
+                        list.add(w);
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         HashSet<String> toLo = new HashSet<>();
         for (var i : list) {
             i = i.replaceAll("…", "...");
@@ -578,6 +578,32 @@ public class Test {
         }
         return content.toString().toLowerCase();
     }
+    public static String readPdf(String filePath, int startPage, int endPage) {
+        StringBuilder content = new StringBuilder();
+
+        try {
+            PdfReader reader = new PdfReader(filePath);
+            PdfDocument pdfDoc = new PdfDocument(reader);
+            int numberOfPages = pdfDoc.getNumberOfPages();
+
+            // Điều chỉnh startPage và endPage nếu vượt quá số trang của tài liệu
+            startPage = Math.max(startPage, 1);  // đảm bảo startPage không nhỏ hơn 1
+            endPage = Math.min(endPage, numberOfPages); // đảm bảo endPage không lớn hơn số trang tổng
+
+            // Đọc từ startPage đến endPage
+            for (int i = startPage; i <= endPage; i++) {
+                content.append(PdfTextExtractor.getTextFromPage(pdfDoc.getPage(i))).append("\n");
+            }
+
+            pdfDoc.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Trả về nội dung đã chuyển sang chữ thường
+        return content.toString().toLowerCase();
+    }
+
     public static void main11(String[] args) {
 
         ArrayList<String[]> vsData = new ArrayList<>();

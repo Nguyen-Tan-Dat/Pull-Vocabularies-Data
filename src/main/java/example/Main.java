@@ -92,14 +92,14 @@ public class Main {
         var db=Test.databaseEnglish();
         var cams = Test.readPdfsInFolder("vocabularies clone/Vocabularies");
 //        var cams = Test.readPdfsInFolder("vocabularies clone/Vocabularies");
-//        var oxf=PullOxfordTopics.readOxfordVocabularies();
+        var oxf=Oxford.readOxfordVocabularies();
 //        var cams=Test.dataBook();
         HashSet<String> myWords = new HashSet<>();
         int count=0;
         for (var i:db) {
             var add=false;
             for (var j = 0; j < cams.size(); j++) {
-                if (cams.get(j).contains(i)) {
+                if (countOccurrences(cams.get(j),i)>=30) {
                     myWords.add(i);
                     add=true;
                     break;
@@ -110,11 +110,28 @@ public class Main {
 //            }
             if(!add){
                 count++;
-                System.out.println(i);
             }
         }
-        System.out.println(db.size());
+        System.out.println("Vocabularies: "+db.size());
+        System.out.println("List: "+myWords.size());
         System.out.println(count);
         System.out.println(db.size()-count);
+        Test.writeTopic("English Grammar in Use",myWords,"Topics json/English Grammar in Use");
+    }
+    public static int countOccurrences(String s1, String s2) {
+        if (s2.isEmpty()) {
+            return 0; // Nếu s2 rỗng, không có gì để đếm.
+        }
+
+        int count = 0;
+        int index = 0;
+
+        // Duyệt qua s1 để tìm các lần xuất hiện của s2
+        while ((index = s1.indexOf(s2, index)) != -1) {
+            count++;
+            index += s2.length(); // Tăng index để tránh đếm trùng lặp
+        }
+
+        return count;
     }
 }

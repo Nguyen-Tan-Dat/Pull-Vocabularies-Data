@@ -76,5 +76,21 @@
             <version>7.2.2</version>
         </dependency>
 
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.seleniumhq.selenium</groupId>-->
+<!--            <artifactId>selenium-java</artifactId>-->
+<!--            <version>4.26.0</version>-->
+<!--        </dependency>-->
+
+
+<!--        &lt;!&ndash; ChromeDriver (cho trình duyệt Chrome) &ndash;&gt;-->
+<!--            <dependency>-->
+<!--                <groupId>org.seleniumhq.selenium</groupId>-->
+<!--                <artifactId>selenium-chrome-driver</artifactId>-->
+<!--                <version>4.26.0</version> &lt;!&ndash; Hoặc phiên bản mới nhất &ndash;&gt;-->
+<!--            </dependency>-->
+
+
     </dependencies>
 </project>

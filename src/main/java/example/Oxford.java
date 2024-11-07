@@ -21,11 +21,13 @@ import java.util.List;
 
 public class Oxford {
     public static void main(String[] args) {
+//        downloadOxfordTopics();
+//        downloadOxfordOxford3000And5000();
         writeTopics3000();
     }
 
     private static void writeTopics3000() {
-        var ens=Test.databaseEnglish();
+        var ens = Test.databaseEnglish();
         ArrayList<Object> data = new ArrayList<>();
         String directoryPath = "Oxford topics";
         File directory = new File(directoryPath);
@@ -39,55 +41,69 @@ public class Oxford {
             return;
         }
 
-            int count=0;
+//        var cams = Test.readPdfsInFolder("vocabularies clone/Vocabularies");
+        var cams = Test.readPdf("vocabularies clone/Vocabularies/Raymond Murphy - English Grammar in Use Book with Answers and Interactive eBook_ A Self-study Reference and Practice Book for Intermediate Learners of English-Cambridge University Press (2019).pdf", 14, 20);
 
-            HashSet<String> ps = new HashSet<>();
-            for (File subdirectory : subdirectories) {
-                List<Workbook> workbooks = readExcelFiles(subdirectory.getAbsolutePath());
-                var name = subdirectory.getName();
-                HashSet<String> list = new HashSet<>();
-                for (Workbook workbook : workbooks) {
-                    for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-                        Sheet sheet = workbook.getSheetAt(i);
-                        for (Row row : sheet) {
-                            String english = row.getCell(0).getStringCellValue();
-                            String lv = row.getCell(2).getStringCellValue().toLowerCase();
-//                            if(!lv.equals("b1")&&!lv.equals("b2")&&!lv.equals("c1")&&!lv.equals("c2"))
-                            for(var en:ens){
-                                if(en.contains(english)||english.contains(en)){
-                                    list.add(english);
+        int count = 0;
+
+        HashSet<String> ps = new HashSet<>();
+        for (File subdirectory : subdirectories) {
+            List<Workbook> workbooks = readExcelFiles(subdirectory.getAbsolutePath());
+            var name = subdirectory.getName();
+            HashSet<String> list = new HashSet<>();
+            for (Workbook workbook : workbooks) {
+                for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+                    Sheet sheet = workbook.getSheetAt(i);
+                    for (Row row : sheet) {
+                        String english = row.getCell(0).getStringCellValue();
+                        String lv = row.getCell(2).getStringCellValue().toLowerCase();
+                        if (!lv.equals("c1") && !lv.equals("c2")) {
+                            for (var en : ens) {
+                                if (en.equals(english)) {
+//                                    for (var j = 0; j < cams.size(); j++) {
+//                                        if (Main.countOccurrences(cams.get(j), english) >= 2) {
+//                                            list.add(english);
+//                                            break;
+//                                        }
+//                                    }
+                                    if (Main.countOccurrences(cams, english) >= 4)
+                                        list.add(english);
                                 }
+                            }
+                            if (!ens.contains(english)) {
+                                System.out.println(english);
                             }
                         }
                     }
                 }
-                for (Workbook workbook : workbooks) {
-                    try {
-                        workbook.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            }
+            for (Workbook workbook : workbooks) {
+                try {
+                    workbook.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+            }
 //            Test.writeTopics(name,list,"Oxford topics json/"+name);
-                HashMap<String, Object> row = new HashMap<>();
-                row.put("name", name);
-                row.put("vs", list);
-                data.add(row);
-            }
-        var cams = Test.dataBook();
-        String name = "Cambridge vocabulary";
-        HashSet<String> list = new HashSet<>();
-        for(var i:ens){
-            for(var j:cams){
-                if(j.contains(i)||i.contains(j)){
-                    ens.add(i);
-                }
-            }
+            HashMap<String, Object> row = new HashMap<>();
+            row.put("name", name);
+            row.put("vs", list);
+            data.add(row);
         }
-        HashMap<String, Object> row = new HashMap<>();
-        row.put("name", name);
-        row.put("vs", list);
-        data.add(row);
+//        var cams = Test.dataBook();
+//        String name = "Cambridge vocabulary";
+//        HashSet<String> list = new HashSet<>();
+//        for (var i : ens) {
+//            for (var j : cams) {
+//                if (j.contains(i) || i.contains(j)) {
+//                    ens.add(i);
+//                }
+//            }
+//        }
+//        HashMap<String, Object> row = new HashMap<>();
+//        row.put("name", name);
+//        row.put("vs", list);
+//        data.add(row);
         Test.writeTopics(data, "Oxford topics json/Topics");
     }
 
@@ -172,9 +188,10 @@ public class Oxford {
 
     public static void cleanPartsOfSpeech() {
         var oxfordVs = Oxford.readOnlineWords();
+        var ens = Test.databaseEnglish();
         System.out.println("Oxford words: " + oxfordVs.size());
         var cambridgeVs = Test.dataBook();
-        var cambridgeOnVs = ReadCambridgeTopics.readOnlineWords();
+        var cambridgeOnVs = Cambridge.readOnlineWords();
         for (var i : cambridgeOnVs.keySet()) {
             cambridgeVs.add(i);
         }
@@ -188,7 +205,7 @@ public class Oxford {
 
         ArrayList<String[]> most = new ArrayList<>();
         for (var i : vsData) {
-            if (cambridgeVs.contains(i[0]) || oxfordVs.containsKey(i[0])) {
+            if ((cambridgeVs.contains(i[0]) || oxfordVs.containsKey(i[0])) && !ens.contains(i[0])) {
                 if (oxfordVs.get(i[0]) == null || i[2].equals("unknown") || oxfordVs.get(i[0]).contains(i[2])) {
                     most.add(i);
                     cmost.add(i[0]);
@@ -197,10 +214,9 @@ public class Oxford {
             }
         }
         for (var i : vsData) {
-            if (cambridgeVs.contains(i[0]) || oxfordVs.containsKey(i[0])) {
+            if ((cambridgeVs.contains(i[0]) || oxfordVs.containsKey(i[0])) && !ens.contains(i[0])) {
                 if (!cmost.contains(i)) {
-                    System.out.println(i[0]);
-//                    most.add(i);
+                    most.add(i);
                 }
             }
         }
@@ -209,7 +225,8 @@ public class Oxford {
 //        }
         System.out.println(vocabs.size());
         System.out.println(cmost.size());
-        Test.writeDataVocabularies(most, "All my words most.xlsx");
+        System.out.println(most.size());
+        Test.writeDataVocabularies(most, "All words more.xlsx");
     }
 
     public static void cleanVocabulariesLaban() {
@@ -266,7 +283,7 @@ public class Oxford {
         System.out.println("Oxford words: " + oxfordVs.size());
 
         var cambridgeVs = Test.dataBook();
-        var cambridgeOnVs = ReadCambridgeTopics.readOnlineWords();
+        var cambridgeOnVs = Cambridge.readOnlineWords();
         for (var i : cambridgeOnVs.keySet()) {
             cambridgeVs.add(i);
         }
@@ -358,12 +375,12 @@ public class Oxford {
                         cellValue = cellValue.trim();
                         cellValue1 = cellValue1.trim();
                         lv = lv.trim();
-                        if (lv.equals("a1") || lv.equals("a2") || lv.equals("b1") || lv.equals("b2")) {
-                            if (!plist.containsKey(cellValue)) {
-                                plist.put(cellValue, new HashSet<>());
-                            }
-                            plist.get(cellValue).add(cellValue1.toLowerCase());
+//                        if (lv.equals("a1") || lv.equals("a2") || lv.equals("b1") || lv.equals("b2")) {
+                        if (!plist.containsKey(cellValue)) {
+                            plist.put(cellValue, new HashSet<>());
                         }
+                        plist.get(cellValue).add(cellValue1.toLowerCase());
+//                        }
                     }
                 }
             }
@@ -415,6 +432,37 @@ public class Oxford {
         }
     }
 
+    public static void downloadOxford3000And5000(String html, String path) {
+        Document document1 = Jsoup.parse(html);
+        Element ulElement = document1.selectFirst("ul.top-g");
+        if (ulElement != null) {
+            Elements lis = ulElement.getElementsByTag("li");
+            for (Element li : lis) {
+
+                var a = li.getElementsByTag("a").get(0);
+                var english = a.text();
+                var noun = li.getElementsByClass("pos").get(0).text();
+                try {
+
+                    var lv = li.getElementsByClass("belong-to").get(0).text();
+                    System.out.println(english + "\t" + noun + "\t" + lv);
+                    addLineToExcell(path + "/list.xlsx", english, noun, lv);
+                } catch (Exception e) {
+                    System.out.println(english + "\t" + noun + "\t");
+                }
+            }
+        } else {
+            System.out.println("Không tìm thấy phần tử ul với class 'top-g'.");
+        }
+
+    }
+
+
+    public static void downloadOxfordOxford3000And5000() {
+        String directoryPath = "Oxford topics";
+        downloadOxford3000And5000(Test.readFile("3000And5000.txt"), directoryPath + "/" + "3000 and 5000");
+    }
+
     public static void downloadOxfordTopics() {
 
         String directoryPath = "Oxford topics";
@@ -439,21 +487,36 @@ public class Oxford {
         }
     }
 
+
     public static void addLineToExcell(String excelFilePath, String en, String noun, String lv) {
         File excelFile = new File(excelFilePath);
         Workbook workbook = null;
         Sheet sheet = null;
+
+        // Kiểm tra và tạo thư mục nếu chưa tồn tại
+        File parentDir = excelFile.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            if (parentDir.mkdirs()) {
+                System.out.println("Thư mục đã được tạo: " + parentDir.getAbsolutePath());
+            } else {
+                System.out.println("Không thể tạo thư mục!");
+                return;
+            }
+        }
+
         try {
             if (excelFile.exists()) {
+                // Đọc tệp Excel nếu nó tồn tại
                 try (FileInputStream fileInputStream = new FileInputStream(excelFile)) {
                     workbook = new XSSFWorkbook(fileInputStream);
                     sheet = workbook.getSheetAt(0);
                 }
             } else {
-                // Tạo tệp Excel mới
+                // Tạo tệp Excel mới nếu nó không tồn tại
                 workbook = new XSSFWorkbook();
                 sheet = workbook.createSheet("Topics");
             }
+
             // Kiểm tra xem dòng đã tồn tại chưa
             boolean exists = false;
             for (Row row : sheet) {
@@ -464,6 +527,7 @@ public class Oxford {
                     break;
                 }
             }
+
             // Nếu dòng không tồn tại, thêm dòng mới
             if (!exists) {
                 int lastRowNum = sheet.getLastRowNum();
@@ -471,14 +535,17 @@ public class Oxford {
                 newRow.createCell(0).setCellValue(en);
                 newRow.createCell(1).setCellValue(noun);
                 newRow.createCell(2).setCellValue(lv);
-//                newRow.createCell(1).setCellValue(topicDescription);
             }
+
+            // Ghi lại nội dung vào file
             try (FileOutputStream fileOutputStream = new FileOutputStream(excelFilePath)) {
                 workbook.write(fileOutputStream);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
+            // Đảm bảo đóng workbook để giải phóng tài nguyên
             if (workbook != null) {
                 try {
                     workbook.close();
