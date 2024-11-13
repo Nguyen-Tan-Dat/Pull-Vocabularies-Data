@@ -578,6 +578,7 @@ public class Test {
         }
         return content.toString().toLowerCase();
     }
+
     public static String readPdf(String filePath, int startPage, int endPage) {
         StringBuilder content = new StringBuilder();
 

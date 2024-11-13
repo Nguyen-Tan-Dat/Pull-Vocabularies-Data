@@ -17,28 +17,7 @@ import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor;
 
 public class Cambridge {
-    public static String readPdf(String filePath) {
-        StringBuilder content = new StringBuilder();
-        try {
-            // Create a PdfReader instance
-            PdfReader reader = new PdfReader(filePath);
 
-            // Create a PdfDocument instance
-            PdfDocument pdfDoc = new PdfDocument(reader);
-
-            // Loop through all the pages and extract text
-            int numberOfPages = pdfDoc.getNumberOfPages();
-            for (int i = 1; i <= numberOfPages; i++) {
-                content.append(PdfTextExtractor.getTextFromPage(pdfDoc.getPage(i))).append("\n");
-            }
-
-            // Close the PdfDocument
-            pdfDoc.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return content.toString().toLowerCase();
-    }
 
     public static HashMap<String, HashSet<String>> readOnlineWords() {
         HashMap<String, HashSet<String>> plist = new HashMap<>();
@@ -47,8 +26,7 @@ public class Cambridge {
             Path path = Paths.get(directoryPath);
             try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, "*.xlsx")) {
                 for (Path filePath : stream) {
-                    try (FileInputStream fis = new FileInputStream(filePath.toString());
-                         Workbook workbook = new XSSFWorkbook(fis)) {
+                    try (FileInputStream fis = new FileInputStream(filePath.toString()); Workbook workbook = new XSSFWorkbook(fis)) {
                         Sheet sheet = workbook.getSheetAt(0);
                         for (int i = 2; i <= sheet.getLastRowNum(); i++) {
                             Row row = sheet.getRow(i);
@@ -84,56 +62,50 @@ public class Cambridge {
     }
 
     public static void main2(String[] args) {
-        var cams=readOnlineWords();
+        var cams = readOnlineWords();
         System.out.println(cams.size());
     }
 
     public static void main(String[] args) {
+//        writeGrammarTopic();
+        writeListeningTopic();
+    }
+
+    private static void writeListeningTopic() {
+
+    }
+
+    private static void writeGrammarTopic() {
         var ens = Test.databaseEnglish();
         ArrayList<Object> data = new ArrayList<>();
-        String directoryPath = "Cambridge word lists";
-        File directory = new File(directoryPath);
-        if (!directory.exists() || !directory.isDirectory()) {
-            System.out.println("Thư mục không tồn tại hoặc không phải là thư mục: " + directoryPath);
-            return;
-        }
-        File[] subdirectories = directory.listFiles(File::isDirectory);
-        if (subdirectories == null || subdirectories.length == 0) {
-            System.out.println("Không có thư mục con nào trong thư mục: " + directoryPath);
-            return;
-        }
+        File[] oxfSubdirectories = Oxford.getDirectories("Oxford topics");
+        File[] camSubdirectories = Oxford.getDirectories("Cambridge word lists");
+        File[] subdirectories = new File[oxfSubdirectories.length + camSubdirectories.length];
+        System.arraycopy(oxfSubdirectories, 0, subdirectories, 0, oxfSubdirectories.length);
+        System.arraycopy(camSubdirectories, 0, subdirectories, oxfSubdirectories.length, camSubdirectories.length);
 
-//        var cams = Test.readPdfsInFolder("vocabularies clone/Vocabularies");
-        var cams = Test.readPdf("vocabularies clone/Vocabularies/Raymond Murphy - English Grammar in Use Book with Answers and Interactive eBook_ A Self-study Reference and Practice Book for Intermediate Learners of English-Cambridge University Press (2019).pdf", 14, 20);
-
-        int count = 0;
-
-        HashSet<String> ps = new HashSet<>();
+        var cams = Test.readPdf(
+                "vocabularies clone/Vocabularies/English Grammar in Use.pdf",
+                14,
+                14
+        );
+        HashSet<String> list = new HashSet<>();
         for (File subdirectory : subdirectories) {
             List<Workbook> workbooks = Oxford.readExcelFiles(subdirectory.getAbsolutePath());
-            var name = subdirectory.getName();
-            HashSet<String> list = new HashSet<>();
             for (Workbook workbook : workbooks) {
                 for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
                     Sheet sheet = workbook.getSheetAt(i);
                     for (Row row : sheet) {
                         String english = row.getCell(0).getStringCellValue();
                         String lv = row.getCell(2).getStringCellValue().toLowerCase();
-                        if (!lv.equals("c1") && !lv.equals("c2")) {
+                        if (lv.equals("a1") || lv.equals("a2") || lv.equals("b1") || lv.equals("b2")
+//                                || lv.equals("c1")
+//                                || lv.equals("c2")
+                        ) {
                             for (var en : ens) {
                                 if (en.equals(english)) {
-//                                    for (var j = 0; j < cams.size(); j++) {
-//                                        if (Main.countOccurrences(cams.get(j), english) >= 2) {
-//                                            list.add(english);
-//                                            break;
-//                                        }
-//                                    }
-                                    if (Main.countOccurrences(cams, english) >= 4)
-                                        list.add(english);
+                                    if (Main.countOccurrences(cams, english) >= 1) list.add(english);
                                 }
-                            }
-                            if (!ens.contains(english)) {
-                                System.out.println(english);
                             }
                         }
                     }
@@ -146,28 +118,21 @@ public class Cambridge {
                     e.printStackTrace();
                 }
             }
-//            Test.writeTopics(name,list,"Oxford topics json/"+name);
-            HashMap<String, Object> row = new HashMap<>();
-            row.put("name", name);
-            row.put("vs", list);
-            data.add(row);
-            Test.writeTopics(data, "Oxford topics json/Topics");
         }
+        String name = "English Grammar in Use";
+        HashMap<String, Object> row = new HashMap<>();
+        row.put("name", name);
+        row.put("vs", list);
+        data.add(row);
+        Test.writeTopics(data, "Oxford topics json/English Grammar in Use");
     }
+
     public static void main1(String[] args) {
-//        HashSet<String> list = new HashSet<>();
-        String ofdVs = readPdf("The_Oxford_3000.pdf");
-        String ofdVs5000 = readPdf("The_Oxford_5000.pdf");
         var pdfCamBooks = Test.dataBook();
         var onlineCambridgeWords = readOnlineWords();
-//
-        int count = 0;
-//        for (var i : plist.keySet()) {
-//                count+=plist.get(i).size();
-//        }
         System.out.println("Book online: " + onlineCambridgeWords.size());
         System.out.println("PDF books: " + pdfCamBooks.size());
-        count = 0;
+
         for (var i : onlineCambridgeWords.keySet()) {
 //            if(!pdfCamBooks.contains(i)){
             pdfCamBooks.add(i);
@@ -176,7 +141,7 @@ public class Cambridge {
         System.out.println("Cambridge vocabularies: " + pdfCamBooks.size());
         var oxfordVs = Oxford.readOxfordVocabularies();
         System.out.println(oxfordVs.size());
-        count = 0;
+        int count = 0;
         for (var i : oxfordVs) {
             if (pdfCamBooks.contains(i)) {
                 count++;
@@ -235,6 +200,5 @@ public class Cambridge {
 //        System.out.println(count);
 
     }
-
 
 }

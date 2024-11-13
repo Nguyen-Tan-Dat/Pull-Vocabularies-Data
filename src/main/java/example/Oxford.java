@@ -29,35 +29,45 @@ public class Oxford {
     private static void writeTopics3000() {
         var ens = Test.databaseEnglish();
         ArrayList<Object> data = new ArrayList<>();
-        String directoryPath = "Oxford topics";
-        File directory = new File(directoryPath);
-        if (!directory.exists() || !directory.isDirectory()) {
-            System.out.println("Thư mục không tồn tại hoặc không phải là thư mục: " + directoryPath);
-            return;
-        }
-        File[] subdirectories = directory.listFiles(File::isDirectory);
-        if (subdirectories == null || subdirectories.length == 0) {
-            System.out.println("Không có thư mục con nào trong thư mục: " + directoryPath);
-            return;
-        }
+        File[] oxfSubdirectories = getDirectories("Oxford topics");
+        File[] camSubdirectories = getDirectories("Cambridge word lists");
 
-//        var cams = Test.readPdfsInFolder("vocabularies clone/Vocabularies");
-        var cams = Test.readPdf("vocabularies clone/Vocabularies/Raymond Murphy - English Grammar in Use Book with Answers and Interactive eBook_ A Self-study Reference and Practice Book for Intermediate Learners of English-Cambridge University Press (2019).pdf", 14, 20);
+// Gộp 2 mảng lại thành 1
+        File[] subdirectories = new File[oxfSubdirectories.length + camSubdirectories.length];
+
+        System.arraycopy(oxfSubdirectories, 0, subdirectories, 0, oxfSubdirectories.length);
+        System.arraycopy(camSubdirectories, 0, subdirectories, oxfSubdirectories.length, camSubdirectories.length);
+
+//        var cams = Test.readPdfsInFolder("vocabularies clone/Cambridge Vocabularies");
+        var cams = Test.readPdf(
+                "vocabularies clone/Vocabularies/English Grammar in Use.pdf"
+                ,
+                14,
+                14
+        );
 
         int count = 0;
 
+        HashSet<String> list = new HashSet<>();
+
         HashSet<String> ps = new HashSet<>();
         for (File subdirectory : subdirectories) {
+//            HashSet<String> list = new HashSet<>();
             List<Workbook> workbooks = readExcelFiles(subdirectory.getAbsolutePath());
             var name = subdirectory.getName();
-            HashSet<String> list = new HashSet<>();
             for (Workbook workbook : workbooks) {
                 for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
                     Sheet sheet = workbook.getSheetAt(i);
                     for (Row row : sheet) {
                         String english = row.getCell(0).getStringCellValue();
                         String lv = row.getCell(2).getStringCellValue().toLowerCase();
-                        if (!lv.equals("c1") && !lv.equals("c2")) {
+                        if (lv.equals("a1")
+                                || lv.equals("a2")
+                                || lv.equals("b1")
+                                || lv.equals("b2")
+//                                || lv.equals("c1")
+//                                || lv.equals("c2")
+                        ) {
                             for (var en : ens) {
                                 if (en.equals(english)) {
 //                                    for (var j = 0; j < cams.size(); j++) {
@@ -66,13 +76,13 @@ public class Oxford {
 //                                            break;
 //                                        }
 //                                    }
-                                    if (Main.countOccurrences(cams, english) >= 4)
+                                    if (Main.countOccurrences(cams, english) >= 1)
                                         list.add(english);
                                 }
                             }
-                            if (!ens.contains(english)) {
-                                System.out.println(english);
-                            }
+//                            if (!ens.contains(english)) {
+//                                System.out.println(english);
+//                            }
                         }
                     }
                 }
@@ -84,14 +94,13 @@ public class Oxford {
                     e.printStackTrace();
                 }
             }
-//            Test.writeTopics(name,list,"Oxford topics json/"+name);
-            HashMap<String, Object> row = new HashMap<>();
-            row.put("name", name);
-            row.put("vs", list);
-            data.add(row);
+//                HashMap<String, Object> row = new HashMap<>();
+//                row.put("name", name);
+//                row.put("vs", list);
+//                data.add(row);
         }
 //        var cams = Test.dataBook();
-//        String name = "Cambridge vocabulary";
+
 //        HashSet<String> list = new HashSet<>();
 //        for (var i : ens) {
 //            for (var j : cams) {
@@ -100,27 +109,33 @@ public class Oxford {
 //                }
 //            }
 //        }
-//        HashMap<String, Object> row = new HashMap<>();
-//        row.put("name", name);
-//        row.put("vs", list);
-//        data.add(row);
+        String name = "Learning vocabularies";
+        HashMap<String, Object> row = new HashMap<>();
+        row.put("name", name);
+        row.put("vs", list);
+        data.add(row);
         Test.writeTopics(data, "Oxford topics json/Topics");
     }
 
-    public static void writeTopics() {
-        String directoryPath = "Oxford topics";
+    public static File[] getDirectories(String directoryPath) {
         File directory = new File(directoryPath);
         if (!directory.exists() || !directory.isDirectory()) {
             System.out.println("Thư mục không tồn tại hoặc không phải là thư mục: " + directoryPath);
-            return;
+            return null;
         }
         File[] subdirectories = directory.listFiles(File::isDirectory);
         if (subdirectories == null || subdirectories.length == 0) {
             System.out.println("Không có thư mục con nào trong thư mục: " + directoryPath);
-            return;
+            return null;
         }
+        return subdirectories;
+    }
+
+    public static void writeTopics() {
+
         String[] levels = new String[]{"a1", "a2", "b1", "b2", "c1", "c2"};
         List<Integer> counts = new ArrayList<>();
+        var subdirectories = getDirectories("Oxford topics");
         for (var level : levels) {
             int count = 0;
             ArrayList<Object> data = new ArrayList<>();
