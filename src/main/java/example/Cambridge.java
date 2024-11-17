@@ -67,12 +67,7 @@ public class Cambridge {
     }
 
     public static void main(String[] args) {
-//        writeGrammarTopic();
-        writeListeningTopic();
-    }
-
-    private static void writeListeningTopic() {
-
+        writeGrammarTopic();
     }
 
     private static void writeGrammarTopic() {
@@ -83,12 +78,12 @@ public class Cambridge {
         File[] subdirectories = new File[oxfSubdirectories.length + camSubdirectories.length];
         System.arraycopy(oxfSubdirectories, 0, subdirectories, 0, oxfSubdirectories.length);
         System.arraycopy(camSubdirectories, 0, subdirectories, oxfSubdirectories.length, camSubdirectories.length);
-
-        var cams = Test.readPdf(
-                "vocabularies clone/Vocabularies/English Grammar in Use.pdf",
-                14,
-                14
-        );
+        int start=14,end=14;
+        var cams = Elllo.extractWords(Test.readPdf(
+                "vocabularies clone/Vocabularies/English Grammar in Use.pdf"
+//                ,start,
+//                end
+        ).toLowerCase());
         HashSet<String> list = new HashSet<>();
         for (File subdirectory : subdirectories) {
             List<Workbook> workbooks = Oxford.readExcelFiles(subdirectory.getAbsolutePath());
@@ -104,7 +99,7 @@ public class Cambridge {
                         ) {
                             for (var en : ens) {
                                 if (en.equals(english)) {
-                                    if (Main.countOccurrences(cams, english) >= 1) list.add(english);
+                                    if (cams.contains(en.toLowerCase())) list.add(english);
                                 }
                             }
                         }
@@ -119,12 +114,13 @@ public class Cambridge {
                 }
             }
         }
+//        String name = "English Grammar in Use "+start+"-"+end;
         String name = "English Grammar in Use";
         HashMap<String, Object> row = new HashMap<>();
         row.put("name", name);
         row.put("vs", list);
         data.add(row);
-        Test.writeTopics(data, "Oxford topics json/English Grammar in Use");
+        Test.writeTopics(data, "Oxford topics json/"+name);
     }
 
     public static void main1(String[] args) {

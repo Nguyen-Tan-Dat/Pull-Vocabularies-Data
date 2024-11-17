@@ -23,7 +23,23 @@ public class Oxford {
     public static void main(String[] args) {
 //        downloadOxfordTopics();
 //        downloadOxfordOxford3000And5000();
-        writeTopics3000();
+//        writeTopics3000();
+        var camStrings = Test.readPdfsInFolder("vocabularies clone/Cambridge Vocabularies");
+
+        HashSet<String> cams=new HashSet<>();
+        for(var i: camStrings){
+            cams.addAll(Elllo.extractWords(i.toLowerCase()));
+        }
+        System.out.println(cams.size());
+        var ens=Test.databaseEnglish();
+        System.out.println(ens.size());
+        int count=0;
+        for(var i: ens){
+            if(cams.contains(i.toLowerCase())){
+                count++;
+            }
+        }
+        System.out.println(count);
     }
 
     private static void writeTopics3000() {
@@ -38,21 +54,18 @@ public class Oxford {
         System.arraycopy(oxfSubdirectories, 0, subdirectories, 0, oxfSubdirectories.length);
         System.arraycopy(camSubdirectories, 0, subdirectories, oxfSubdirectories.length, camSubdirectories.length);
 
-//        var cams = Test.readPdfsInFolder("vocabularies clone/Cambridge Vocabularies");
-        var cams = Test.readPdf(
-                "vocabularies clone/Vocabularies/English Grammar in Use.pdf"
-                ,
-                14,
-                14
-        );
-
+        var camStrings = Test.readPdfsInFolder("vocabularies clone/Cambridge Vocabularies");
+        HashSet<String> cams=new HashSet<>();
+        for(var i: camStrings){
+            cams.addAll(Elllo.extractWords(i.toLowerCase()));
+        }
         int count = 0;
 
-        HashSet<String> list = new HashSet<>();
+//        HashSet<String> list = new HashSet<>();
 
         HashSet<String> ps = new HashSet<>();
         for (File subdirectory : subdirectories) {
-//            HashSet<String> list = new HashSet<>();
+            HashSet<String> list = new HashSet<>();
             List<Workbook> workbooks = readExcelFiles(subdirectory.getAbsolutePath());
             var name = subdirectory.getName();
             for (Workbook workbook : workbooks) {
@@ -69,15 +82,16 @@ public class Oxford {
 //                                || lv.equals("c2")
                         ) {
                             for (var en : ens) {
-                                if (en.equals(english)) {
+                                if (en.equalsIgnoreCase(english)) {
 //                                    for (var j = 0; j < cams.size(); j++) {
 //                                        if (Main.countOccurrences(cams.get(j), english) >= 2) {
 //                                            list.add(english);
 //                                            break;
 //                                        }
 //                                    }
-                                    if (Main.countOccurrences(cams, english) >= 1)
+                                    if (cams.contains(english.toLowerCase()))
                                         list.add(english);
+                                    break;
                                 }
                             }
 //                            if (!ens.contains(english)) {
@@ -94,26 +108,18 @@ public class Oxford {
                     e.printStackTrace();
                 }
             }
-//                HashMap<String, Object> row = new HashMap<>();
-//                row.put("name", name);
-//                row.put("vs", list);
-//                data.add(row);
+                HashMap<String, Object> row = new HashMap<>();
+                row.put("name", name);
+                row.put("vs", list);
+                data.add(row);
         }
-//        var cams = Test.dataBook();
 
-//        HashSet<String> list = new HashSet<>();
-//        for (var i : ens) {
-//            for (var j : cams) {
-//                if (j.contains(i) || i.contains(j)) {
-//                    ens.add(i);
-//                }
-//            }
-//        }
-        String name = "Learning vocabularies";
-        HashMap<String, Object> row = new HashMap<>();
-        row.put("name", name);
-        row.put("vs", list);
-        data.add(row);
+
+//        String name = "Learning vocabularies";
+//        HashMap<String, Object> row = new HashMap<>();
+//        row.put("name", name);
+//        row.put("vs", list);
+//        data.add(row);
         Test.writeTopics(data, "Oxford topics json/Topics");
     }
 
