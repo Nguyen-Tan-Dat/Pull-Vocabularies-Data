@@ -33,7 +33,7 @@ public class TopicExams {
             pdfDoc.close();
         } catch (IOException e) {
             System.err.println("Lỗi khi đọc tệp PDF: " + e.getMessage());
-        }Test.writeTopic(file.getName(),list,"topics/"+file.getName());
+        }Test.writeTopic(file.getName(),list);
     }
     public static void main1(String[] args) {
         String directoryPath = "academics";

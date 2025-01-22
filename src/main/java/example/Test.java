@@ -75,18 +75,27 @@ public class Test {
         }
         return eData;
     }
-    public static void writeTopic(String name, HashSet<String> vocabularies,String filename){
+    public static void writeTopic(String name, HashSet<String> vocabularies){
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("vs",vocabularies);
         hashMap.put("name", name);
         ArrayList<Object> list=new ArrayList<>();
         list.add(hashMap);
         String jsonString = convertHashMapToJson(list);
-        Test.writeFile(filename+".json",jsonString);
+        Test.writeFile("output json/"+name+".json",jsonString);
+    }
+    public static void writeTopicHaveTypes(String name, HashSet<String[]> vocabularies){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("vs",vocabularies);
+        hashMap.put("name", name);
+        ArrayList<Object> list=new ArrayList<>();
+        list.add(hashMap);
+        String jsonString = convertHashMapToJson(list);
+        Test.writeFile("output json/"+name+".json",jsonString);
     }
     public static void writeTopics( ArrayList<Object>  list ,String filename){
         String jsonString = convertHashMapToJson(list);
-        Test.writeFile(filename+".json",jsonString);
+        Test.writeFile("output json/"+filename+".json",jsonString);
     }
 
     public static String readTextFromUrl(String url) {
@@ -352,9 +361,9 @@ public class Test {
 
     }
 
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/cic";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "CpqaFVYJ9Mkz6pOj";
+    public static final String DATABASE_URL = "jdbc:mysql://localhost:3306/cic";
+    public static final String USERNAME = "root";
+    public static final String PASSWORD = "CpqaFVYJ9Mkz6pOj";
 
     public static HashSet<String> databaseEnglish() {
         HashSet<String> data = new HashSet<>();
@@ -405,57 +414,57 @@ public class Test {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        try (BufferedReader br = new BufferedReader(new FileReader("new 2.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (containsNumber(line)) {
-                    String w = br.readLine();
-                    if (w != null) {
-                        w = w.trim();
-                        list.add(w);
-                    }
-                }
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        try (BufferedReader br = new BufferedReader(new FileReader("new 3.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (line.contains("/")) {
-                    var dataline = line.split("/");
-                    String w = dataline[0].trim();
-                    if (w != null) {
-                        list.add(w);
-                    }
-                }
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        try (BufferedReader br = new BufferedReader(new FileReader("new 4.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (line.contains("/")) {
-                    var dataline = line.split("/");
-                    String w = dataline[0].trim();
-                    if (w != null) {
-                        list.add(w);
-                    }
-                }
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//
+//        try (BufferedReader br = new BufferedReader(new FileReader("new 2.txt"))) {
+//            String line;
+//            while ((line = br.readLine()) != null) {
+//                if (containsNumber(line)) {
+//                    String w = br.readLine();
+//                    if (w != null) {
+//                        w = w.trim();
+//                        list.add(w);
+//                    }
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        try (BufferedReader br = new BufferedReader(new FileReader("new 3.txt"))) {
+//            String line;
+//            while ((line = br.readLine()) != null) {
+//                if (line.contains("/")) {
+//                    var dataline = line.split("/");
+//                    String w = dataline[0].trim();
+//                    if (w != null) {
+//                        list.add(w);
+//                    }
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        try (BufferedReader br = new BufferedReader(new FileReader("new 4.txt"))) {
+//            String line;
+//            while ((line = br.readLine()) != null) {
+//                if (line.contains("/")) {
+//                    var dataline = line.split("/");
+//                    String w = dataline[0].trim();
+//                    if (w != null) {
+//                        list.add(w);
+//                    }
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
         HashSet<String> toLo = new HashSet<>();
         for (var i : list) {
             i = i.replaceAll("…", "...");
@@ -740,16 +749,11 @@ public class Test {
     }
     public static void writeFile(String filePath, String content) {
         try {
-            // Tạo đối tượng file từ filePath
             File file = new File(filePath);
-
-            // Kiểm tra nếu file chưa tồn tại, thì tạo mới
             if (!file.exists()) {
-                file.getParentFile().mkdirs(); // Tạo thư mục cha nếu cần
-                file.createNewFile(); // Tạo file nếu chưa tồn tại
+                file.getParentFile().mkdirs();
+                file.createNewFile();
             }
-
-            // Ghi nội dung vào file
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
                 writer.write(content);
             }

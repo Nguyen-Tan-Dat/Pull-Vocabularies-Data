@@ -116,7 +116,7 @@ public class Main {
         System.out.println("List: "+myWords.size());
         System.out.println(count);
         System.out.println(db.size()-count);
-        Test.writeTopic("English Grammar in Use",myWords,"Topics json/English Grammar in Use");
+        Test.writeTopic("English Grammar in Use",myWords);
     }
     public static int countOccurrences(String s1, String s2) {
         if (s2.isEmpty()) {

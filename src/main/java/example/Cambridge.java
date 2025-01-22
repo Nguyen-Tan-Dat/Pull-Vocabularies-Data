@@ -18,7 +18,6 @@ import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor;
 
 public class Cambridge {
 
-
     public static HashMap<String, HashSet<String>> readOnlineWords() {
         HashMap<String, HashSet<String>> plist = new HashMap<>();
         for (int number = 1; number <= 4; number++) {
@@ -67,7 +66,49 @@ public class Cambridge {
     }
 
     public static void main(String[] args) {
-        writeGrammarTopic();
+//        writeGrammarTopic();
+//        vocabulariesElementary();
+//        for(var i=1;i<22;i++)
+        writeEnglishVocabulariesForIELTS(1,21);
+    }
+
+    private static void writeEnglishVocabulariesForIELTS(int start, int end) {
+        var text=Test.readPdf("vocabularies clone/Cambridge Vocabularies/Word List.pdf"
+        );
+        var list=Elllo.extractWords(text);
+        var ens=Test.databaseEnglish();
+        HashSet<String> set=new HashSet<>();
+        for(var i:ens){
+            if(list.contains(i)){
+                set.add(i);
+            }
+        }
+        for(var i:list){
+            if(!set.contains(i)){
+                System.out.println(i);
+//                Test.printVocabulariesLaban(i,"Vocabularies IELTS more.xlsx");
+            }
+        }
+        System.out.println(set.size());
+        Test.writeTopic("CAMBRIDGE VOCABULARY FOR IELTS"+end,list);
+    }
+
+    public static void vocabulariesElementary(){
+        var text=Test.readPdf("vocabularies clone/Cambridge Vocabularies/English Vocabulary in Use Elementary  (2017).pdf",160,170);
+        var words=Elllo.extractWords(text);
+        words.size();
+        System.out.println(text);
+        System.out.println(words.size());
+        var txt=Test.dataBook();
+        System.out.println(txt.size());
+        var count=0;
+        for(var i:txt){
+            if(!words.contains(i.toLowerCase())){
+                System.out.println(i);
+                count++;
+            }
+        }
+        System.out.println(count);
     }
 
     private static void writeGrammarTopic() {
@@ -78,12 +119,13 @@ public class Cambridge {
         File[] subdirectories = new File[oxfSubdirectories.length + camSubdirectories.length];
         System.arraycopy(oxfSubdirectories, 0, subdirectories, 0, oxfSubdirectories.length);
         System.arraycopy(camSubdirectories, 0, subdirectories, oxfSubdirectories.length, camSubdirectories.length);
-        int start=14,end=14;
-        var cams = Elllo.extractWords(Test.readPdf(
-                "vocabularies clone/Vocabularies/English Grammar in Use.pdf"
+        int start=305,end=305;
+        var cams = Elllo.extractWords(Test.readPdf("vocabularies clone/Cambridge Vocabularies/English Vocabulary in Use Elementary  (2017).pdf",160,170).toLowerCase());
+//        var cams = Elllo.extractWords(Test.readPdf(
+//                "vocabularies clone/Vocabularies/English Grammar in Use.pdf"
 //                ,start,
 //                end
-        ).toLowerCase());
+//        ).toLowerCase());
         HashSet<String> list = new HashSet<>();
         for (File subdirectory : subdirectories) {
             List<Workbook> workbooks = Oxford.readExcelFiles(subdirectory.getAbsolutePath());
@@ -114,8 +156,8 @@ public class Cambridge {
                 }
             }
         }
-//        String name = "English Grammar in Use "+start+"-"+end;
-        String name = "English Grammar in Use";
+        String name = "English Vocabularies in Use "+start+"-"+end;
+//        String name = "English Grammar in Use";
         HashMap<String, Object> row = new HashMap<>();
         row.put("name", name);
         row.put("vs", list);

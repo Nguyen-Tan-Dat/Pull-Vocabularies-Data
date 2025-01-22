@@ -20,6 +20,6 @@ public class LuyenTapThem {
                 list.add(i);
             }
         }
-        Test.writeTopic("Today vocabularies",list,"Today vocabularies");
+        Test.writeTopic("Today vocabularies",list  );
     }
 }

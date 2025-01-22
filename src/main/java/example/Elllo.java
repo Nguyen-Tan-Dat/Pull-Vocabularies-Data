@@ -10,21 +10,49 @@ import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Elllo {
     public static void main(String[] args) {
-        pullTopics();
+//        pullTopics();
+        var ens=Test.databaseEnglish();
+
+//        var list=extractWords(Test.readFile("vocabularies clone/test1.txt"));
+        var list=reafile("vocabularies clone/test1.txt");
+        System.out.println(list.size());
+        for (var i:list){
+            if(!ens.contains(i))
+            System.out.println(i);
+        }
+
+        Test.writeTopic("Review words list",list);
+//        HashSet<String[]> data=new HashSet<>();
+//        for(var i: list){
+//            data.add(new String[]{i});
+//        }
+//        Test.writeTopicHaveTypes("Untitle",data);
+    }
+    public static HashSet<String> reafile(String path) {
+        HashSet<String> linesSet = new HashSet<>();
+        try {
+            // Đọc các dòng từ file và lưu vào Set
+            Files.lines(Paths.get(path)).forEach(linesSet::add);
+        } catch (IOException e) {
+            e.printStackTrace(); // In lỗi nếu có vấn đề khi đọc file
+        }
+        return linesSet;
     }
 
-    public static Set<String> extractWords(String input) {
+    public static HashSet<String> extractWords(String input) {
         // Tạo một HashSet để lưu các từ duy nhất
-        Set<String> wordSet = new HashSet<>();
+        HashSet<String> wordSet = new HashSet<>();
 
-        // Biểu thức chính quy để tìm các từ trong chuỗi (chỉ bao gồm ký tự chữ cái và số)
-        Pattern pattern = Pattern.compile("\\b[A-Za-z]+\\b");
+        // Biểu thức chính quy để tìm các từ, bao gồm cả từ có dấu nháy và dấu gạch nối
+        Pattern pattern = Pattern.compile("\\b[A-Za-z]+(?:[-'][A-Za-z]+)*\\b");
         Matcher matcher = pattern.matcher(input);
 
         // Tìm và thêm các từ vào HashSet
@@ -34,6 +62,7 @@ public class Elllo {
 
         return wordSet;
     }
+
     private static void pullTopics(){
         String[] lvs={
 //                "A1"
