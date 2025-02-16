@@ -361,8 +361,8 @@ public class Test {
 
     }
 
-    public static final String DATABASE_URL = "jdbc:mysql://localhost:3306/cic";
-    public static final String USERNAME = "root";
+    public static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/cic";
+    public static final String USERNAME = "postgres";
     public static final String PASSWORD = "CpqaFVYJ9Mkz6pOj";
 
     public static HashSet<String> databaseEnglish() {

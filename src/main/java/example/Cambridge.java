@@ -7,20 +7,98 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor;
 
 public class Cambridge {
+    public static HashMap<String, Set<String>> readVocabularies(String filePath) {
+        HashMap<String, Set<String>> unitMap = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String word, pronunciation, unit;
+            while ((word = br.readLine()) != null &&
+                    (pronunciation = br.readLine()) != null &&
+                    (unit = br.readLine()) != null) {
+                try {
+                    String unitName = parseTopic(Integer.parseInt(unit));
+                    if (!unitMap.containsKey(unitName)) {
+                        unitMap.put(unitName, new HashSet<>());
+                    }
+                    unitMap.get(unitName).add(word);
+                }catch (Exception e){
+                    var n=unit.split(",");
+                    for(var i:n){
+                        try {
+                            String unitName = parseTopic(Integer.parseInt(i.trim()));
+                            if (!unitMap.containsKey(unitName)) {
+                                unitMap.put(unitName, new HashSet<>());
+                            }
+                            unitMap.get(unitName).add(word);
+                        }catch (Exception e1){
+                            System.out.println(unit);
+                            return null;
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return unitMap;
+    }
+
+    public static String parseTopic(int unitNumber) {
+        return String.format("Elementary > Unit %02d", unitNumber);
+    }
+    private static void writeTopics() {
+        ArrayList<Object> data = new ArrayList<>();
+        File[] subdirectories = Oxford.getDirectories("Cambridge word lists");
+
+        for (File subdirectory : subdirectories) {
+            var files = Oxford.getExcelFiles(subdirectory.getAbsolutePath());
+            for (File file : files) {
+                HashSet<String[]> list = new HashSet<>();
+                var topic = Oxford.pathToTopicName(file.getAbsolutePath());
+                if (topic.contains("Advanced")||topic.contains("Intermediate")) {
+                    continue;
+                }
+                try (FileInputStream fileInputStream = new FileInputStream(file)) {
+                    Workbook workbook = new XSSFWorkbook(fileInputStream);
+                    for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+                        Sheet sheet = workbook.getSheetAt(i);
+                        for (Row row : sheet) {
+                            String english = row.getCell(0).getStringCellValue();
+                            String parts_of_speech = row.getCell(1).getStringCellValue().toLowerCase();
+                            if(parts_of_speech.equals("")){
+                                parts_of_speech="phrase";
+//                                continue;
+                            }
+                            list.add(new String[]{english, parts_of_speech});
+                        }
+                    }
+                    workbook.close();
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                HashMap<String, Object> row = new HashMap<>();
+                row.put("name", topic);
+                row.put("vs", list);
+                data.add(row);
+                System.out.println(topic);
+            }
+        }
+
+        Test.writeTopics(data, "Topics of Cambridge");
+    }
 
     public static HashMap<String, HashSet<String>> readOnlineWords() {
         HashMap<String, HashSet<String>> plist = new HashMap<>();
-        for (int number = 1; number <= 4; number++) {
+        for (int number = 1; number <= 1; number++) {
             String directoryPath = "Cambridge Vocabularies/" + number;
             Path path = Paths.get(directoryPath);
             try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, "*.xlsx")) {
@@ -60,56 +138,63 @@ public class Cambridge {
         return plist;
     }
 
-    public static void main2(String[] args) {
+    public static void main(String[] args) {
         var cams = readOnlineWords();
         System.out.println(cams.size());
+//        writeTopics();
+//        vocabulariesElementary();
+//        writeEnglishVocabulariesForIELTS(1,21);
+        writeElementaryTopics();
     }
 
-    public static void main(String[] args) {
-//        writeGrammarTopic();
-//        vocabulariesElementary();
-//        for(var i=1;i<22;i++)
-        writeEnglishVocabulariesForIELTS(1,21);
+    private static void writeElementaryTopics() {
+        var ens=Test.databaseEnglish();
+        String filePath = "Cambridge vocabularies in use/Elementary.txt";
+        HashMap<String, Set<String>> vocabMap = readVocabularies(filePath);
+        HashSet<String> set = new HashSet<>();
+        ArrayList<Object> data = new ArrayList<>();
+        int count = 0;
+        for (var i : vocabMap.keySet()) {
+            for (var j : vocabMap.get(i)) {
+                if (!ens.contains(j)) {
+                    set.add(j);
+                }
+            }
+            HashMap<String, Object> row = new HashMap<>();
+            row.put("name", i);
+            row.put("vs", vocabMap.get(i));
+            data.add(row);
+            count += vocabMap.get(i).size();
+        }
+        System.out.println(count);
+        System.out.println("Có " + set.size()+" từ không có trong database");
+        for(var i:set){
+            System.out.println(i);
+        }
+        Test.writeTopics(data, "Vocabulary in use Elementary");
     }
 
     private static void writeEnglishVocabulariesForIELTS(int start, int end) {
-        var text=Test.readPdf("vocabularies clone/Cambridge Vocabularies/Word List.pdf"
+        var text = Test.readPdf("vocabularies clone/Cambridge Vocabularies/Word List.pdf"
         );
-        var list=Elllo.extractWords(text);
-        var ens=Test.databaseEnglish();
-        HashSet<String> set=new HashSet<>();
-        for(var i:ens){
-            if(list.contains(i)){
+        var list = Elllo.extractWords(text);
+        var ens = Test.databaseEnglish();
+        HashSet<String> set = new HashSet<>();
+        for (var i : ens) {
+            if (list.contains(i)) {
                 set.add(i);
             }
         }
-        for(var i:list){
-            if(!set.contains(i)){
+        for (var i : list) {
+            if (!set.contains(i)) {
                 System.out.println(i);
 //                Test.printVocabulariesLaban(i,"Vocabularies IELTS more.xlsx");
             }
         }
         System.out.println(set.size());
-        Test.writeTopic("CAMBRIDGE VOCABULARY FOR IELTS"+end,list);
+        Test.writeTopic("CAMBRIDGE VOCABULARY FOR IELTS" + end, list);
     }
 
-    public static void vocabulariesElementary(){
-        var text=Test.readPdf("vocabularies clone/Cambridge Vocabularies/English Vocabulary in Use Elementary  (2017).pdf",160,170);
-        var words=Elllo.extractWords(text);
-        words.size();
-        System.out.println(text);
-        System.out.println(words.size());
-        var txt=Test.dataBook();
-        System.out.println(txt.size());
-        var count=0;
-        for(var i:txt){
-            if(!words.contains(i.toLowerCase())){
-                System.out.println(i);
-                count++;
-            }
-        }
-        System.out.println(count);
-    }
 
     private static void writeGrammarTopic() {
         var ens = Test.databaseEnglish();
@@ -119,8 +204,8 @@ public class Cambridge {
         File[] subdirectories = new File[oxfSubdirectories.length + camSubdirectories.length];
         System.arraycopy(oxfSubdirectories, 0, subdirectories, 0, oxfSubdirectories.length);
         System.arraycopy(camSubdirectories, 0, subdirectories, oxfSubdirectories.length, camSubdirectories.length);
-        int start=305,end=305;
-        var cams = Elllo.extractWords(Test.readPdf("vocabularies clone/Cambridge Vocabularies/English Vocabulary in Use Elementary  (2017).pdf",160,170).toLowerCase());
+        int start = 305, end = 305;
+        var cams = Elllo.extractWords(Test.readPdf("vocabularies clone/Cambridge Vocabularies/English Vocabulary in Use Elementary  (2017).pdf", 160, 170).toLowerCase());
 //        var cams = Elllo.extractWords(Test.readPdf(
 //                "vocabularies clone/Vocabularies/English Grammar in Use.pdf"
 //                ,start,
@@ -156,13 +241,13 @@ public class Cambridge {
                 }
             }
         }
-        String name = "English Vocabularies in Use "+start+"-"+end;
+        String name = "English Vocabularies in Use " + start + "-" + end;
 //        String name = "English Grammar in Use";
         HashMap<String, Object> row = new HashMap<>();
         row.put("name", name);
         row.put("vs", list);
         data.add(row);
-        Test.writeTopics(data, "Oxford topics json/"+name);
+        Test.writeTopics(data, "Oxford topics json/" + name);
     }
 
     public static void main1(String[] args) {
