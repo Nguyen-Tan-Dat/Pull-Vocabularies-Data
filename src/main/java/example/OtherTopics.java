@@ -13,10 +13,8 @@ import java.util.regex.Pattern;
 
 import static example.Test.*;
 
-public class Topics {
+public class OtherTopics {
     public static void main(String[] args) {
-        var db = Test.databaseEnglish();
-
         ArrayList<Object> data = new ArrayList<>();
         HashSet<String> list = new HashSet<>();
         int id = 0;

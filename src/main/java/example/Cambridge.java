@@ -9,12 +9,54 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.IOException;
 import java.util.*;
 
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfReader;
-import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor;
-
 public class Cambridge {
-    public static HashMap<String, Set<String>> readVocabularies(String filePath) {
+    public static void main(String[] args) {
+//        var cams = readOnlineWords();
+//        System.out.println(cams.size());
+//        writeTopics();
+//        vocabulariesElementary();
+//        writeEnglishVocabulariesForIELTS(1,21);
+        writeElementaryTopics();
+        writePreIntermediateTopics();
+//        writeIELTSTopics();
+    }
+
+    private static void writePreIntermediateTopics() {
+        var ens = Test.databaseEnglish();
+        String filePath = "Cambridge vocabularies in use data/Pre-Intermediate.txt";
+        HashMap<String, Set<String>> vocabMap = readIntermediateVocabularies(filePath);
+
+        HashSet<String> exist = new HashSet<>();
+        HashSet<String> unexist = new HashSet<>();
+        ArrayList<Object> data = new ArrayList<>();
+        int count = 0;
+        for (var i : vocabMap.keySet()) {
+            for (var j : vocabMap.get(i)) {
+                if (!ens.contains(j)) {
+                    unexist.add(j);
+                } else {
+                    exist.add(j);
+                }
+            }
+            HashMap<String, Object> row = new HashMap<>();
+            row.put("name", i);
+            row.put("vs", vocabMap.get(i));
+            data.add(row);
+            count += vocabMap.get(i).size();
+        }
+        System.out.println(count);
+        System.out.println("Có " + unexist.size() + " từ không có trong database");
+        for (var i : unexist) {
+            System.out.println(i);
+        }
+        HashMap<String, Object> row = new HashMap<>();
+        row.put("name", "Intermediate");
+        row.put("vs", exist);
+        data.add(row);
+//        Test.writeTopics(data, "Vocabulary in use Intermediate");
+    }
+
+    public static HashMap<String, Set<String>> readElementaryVocabularies(String filePath) {
         HashMap<String, Set<String>> unitMap = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String word, pronunciation, unit;
@@ -22,21 +64,21 @@ public class Cambridge {
                     (pronunciation = br.readLine()) != null &&
                     (unit = br.readLine()) != null) {
                 try {
-                    String unitName = parseTopic(Integer.parseInt(unit));
+                    String unitName = parseTopic("Elementary", Integer.parseInt(unit));
                     if (!unitMap.containsKey(unitName)) {
                         unitMap.put(unitName, new HashSet<>());
                     }
                     unitMap.get(unitName).add(word);
-                }catch (Exception e){
-                    var n=unit.split(",");
-                    for(var i:n){
+                } catch (Exception e) {
+                    var n = unit.split(",");
+                    for (var i : n) {
                         try {
-                            String unitName = parseTopic(Integer.parseInt(i.trim()));
+                            String unitName = parseTopic("Elementary", Integer.parseInt(i.trim()));
                             if (!unitMap.containsKey(unitName)) {
                                 unitMap.put(unitName, new HashSet<>());
                             }
                             unitMap.get(unitName).add(word);
-                        }catch (Exception e1){
+                        } catch (Exception e1) {
                             System.out.println(unit);
                             return null;
                         }
@@ -50,9 +92,47 @@ public class Cambridge {
         return unitMap;
     }
 
-    public static String parseTopic(int unitNumber) {
-        return String.format("Elementary > Unit %02d", unitNumber);
+
+    public static HashMap<String, Set<String>> readIntermediateVocabularies(String filePath) {
+        HashMap<String, Set<String>> unitMap = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String word, pronunciation, unit;
+            while ((word = br.readLine()) != null &&
+                    (pronunciation = br.readLine()) != null &&
+                    (unit = br.readLine()) != null) {
+                try {
+                    String unitName = parseTopic("Intermediate", Integer.parseInt(unit));
+                    if (!unitMap.containsKey(unitName)) {
+                        unitMap.put(unitName, new HashSet<>());
+                    }
+                    unitMap.get(unitName).add(word);
+                } catch (Exception e) {
+                    var n = unit.split(",");
+                    for (var i : n) {
+                        try {
+                            String unitName = parseTopic("Intermediate", Integer.parseInt(i.trim()));
+                            if (!unitMap.containsKey(unitName)) {
+                                unitMap.put(unitName, new HashSet<>());
+                            }
+                            unitMap.get(unitName).add(word);
+                        } catch (Exception e1) {
+                            System.out.println(unit);
+                            return null;
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return unitMap;
     }
+
+    public static String parseTopic(String root, int unitNumber) {
+        return String.format(root + " > Unit %03d", unitNumber);
+    }
+
     private static void writeTopics() {
         ArrayList<Object> data = new ArrayList<>();
         File[] subdirectories = Oxford.getDirectories("Cambridge word lists");
@@ -62,7 +142,7 @@ public class Cambridge {
             for (File file : files) {
                 HashSet<String[]> list = new HashSet<>();
                 var topic = Oxford.pathToTopicName(file.getAbsolutePath());
-                if (topic.contains("Advanced")||topic.contains("Intermediate")) {
+                if (topic.contains("Advanced") || topic.contains("Intermediate")) {
                     continue;
                 }
                 try (FileInputStream fileInputStream = new FileInputStream(file)) {
@@ -72,8 +152,8 @@ public class Cambridge {
                         for (Row row : sheet) {
                             String english = row.getCell(0).getStringCellValue();
                             String parts_of_speech = row.getCell(1).getStringCellValue().toLowerCase();
-                            if(parts_of_speech.equals("")){
-                                parts_of_speech="phrase";
+                            if (parts_of_speech.equals("")) {
+                                parts_of_speech = "phrase";
 //                                continue;
                             }
                             list.add(new String[]{english, parts_of_speech});
@@ -138,19 +218,53 @@ public class Cambridge {
         return plist;
     }
 
-    public static void main(String[] args) {
-        var cams = readOnlineWords();
-        System.out.println(cams.size());
-//        writeTopics();
-//        vocabulariesElementary();
-//        writeEnglishVocabulariesForIELTS(1,21);
-        writeElementaryTopics();
+
+    public static void writeIELTSTopics() {
+        // Đường dẫn đến file từ vựng
+        String filePath = "Cambridge vocabularies in use/Vocabularies For IELTS.txt";
+        HashSet<String> list = new HashSet<>();
+        try {
+            Map<String, HashSet<String>> vocabularyByLesson = extractVocabularyForIELTSByLesson(filePath);
+
+            // In danh sách từ vựng theo từng chủ đề
+            for (Map.Entry<String, HashSet<String>> entry : vocabularyByLesson.entrySet()) {
+                System.out.println(entry.getKey().replaceFirst(":", "").toUpperCase());
+
+                Test.writeTopic(entry.getKey().replaceFirst(":", "").toUpperCase(), entry.getValue());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Map<String, HashSet<String>> extractVocabularyForIELTSByLesson(String filePath) throws IOException {
+        Map<String, HashSet<String>> vocabularyByLesson = new LinkedHashMap<>();
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        String line;
+        String currentLesson = null;
+
+        while ((line = reader.readLine()) != null) {
+            line = line.trim();
+
+            // Nếu dòng bắt đầu bằng "lesson", nó là tên chủ đề
+            if (line.toLowerCase().startsWith("lesson")) {
+                currentLesson = line;
+                vocabularyByLesson.put(currentLesson, new HashSet<>());
+            } else if (currentLesson != null && line.matches("^\\d+\\.\\s+.*$")) {
+                // Nếu dòng có dạng "1. word", thì trích xuất từ
+                String word = line.replaceFirst("^\\d+\\.\\s+", "").trim();
+                vocabularyByLesson.get(currentLesson).add(word);
+            }
+        }
+
+        reader.close();
+        return vocabularyByLesson;
     }
 
     private static void writeElementaryTopics() {
-        var ens=Test.databaseEnglish();
-        String filePath = "Cambridge vocabularies in use/Elementary.txt";
-        HashMap<String, Set<String>> vocabMap = readVocabularies(filePath);
+        var ens = Test.databaseEnglish();
+        String filePath = "Cambridge vocabularies in use data/Elementary.txt";
+        HashMap<String, Set<String>> vocabMap = readElementaryVocabularies(filePath);
         HashSet<String> set = new HashSet<>();
         ArrayList<Object> data = new ArrayList<>();
         int count = 0;
@@ -167,11 +281,11 @@ public class Cambridge {
             count += vocabMap.get(i).size();
         }
         System.out.println(count);
-        System.out.println("Có " + set.size()+" từ không có trong database");
-        for(var i:set){
+        System.out.println("Có " + set.size() + " từ không có trong database");
+        for (var i : set) {
             System.out.println(i);
         }
-        Test.writeTopics(data, "Vocabulary in use Elementary");
+//        Test.writeTopics(data, "Vocabulary in use Elementary");
     }
 
     private static void writeEnglishVocabulariesForIELTS(int start, int end) {

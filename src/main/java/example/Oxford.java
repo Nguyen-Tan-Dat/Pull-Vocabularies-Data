@@ -126,7 +126,7 @@ public class Oxford {
         HashSet<String[]> c2 = new HashSet<>();
         ArrayList<Object> data = new ArrayList<>();
         ArrayList<String[]> listData = new ArrayList<>();
-        var ts = VocabularyCounter.countWordInTopics();
+        var ts = Database.countWordInTopics();
         for (String file : excelFiles) {
             var name = pathToTopic(file);
             HashSet<String[]> list = new HashSet<>();

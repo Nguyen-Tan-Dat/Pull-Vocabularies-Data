@@ -1,15 +1,21 @@
 package example;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.sql.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
-public class VocabulariesImporter {
+public class Database {
     static final String dbUrl = "jdbc:mysql://localhost:3306/cic";
     static final String dbUser = "root"; // Thay bằng tên người dùng của bạn
     static final String dbPassword = Test.PASSWORD; // Thay bằng mật khẩu của bạn
@@ -135,7 +141,7 @@ public class VocabulariesImporter {
                     if (!vts.get(vid).contains(tid)) {
                         psInsertVocabularyTopic.setInt(1, vid);
                         psInsertVocabularyTopic.setInt(2, tid);
-                            psInsertVocabularyTopic.executeUpdate();
+                        psInsertVocabularyTopic.executeUpdate();
                         vts.get(vid).add(tid);
                     }
 
@@ -166,5 +172,39 @@ public class VocabulariesImporter {
             }
         }
     }
-}
 
+    public static HashMap<String, Integer> countWordInTopics() {
+        HashMap<String, Integer> topicCountMap = new HashMap<>();
+
+        // Cấu hình kết nối cơ sở dữ liệu
+
+        String query = "SELECT t.name AS topic_name, COUNT(vt.vocabulary) AS word_count " +
+                "FROM topics t " +
+                "LEFT JOIN vocabularies_topics vt ON t.id = vt.topic " +
+                "GROUP BY t.name";
+
+        try (Connection conn = DriverManager.getConnection(Test.DATABASE_URL, Test.USERNAME, Test.PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            // Duyệt kết quả truy vấn và thêm vào HashMap
+            while (rs.next()) {
+                String topicName = rs.getString("topic_name");
+                int wordCount = rs.getInt("word_count");
+                topicCountMap.put(topicName, wordCount);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return topicCountMap;
+    }
+
+    public static void showTopics(String[] args) {
+        HashMap<String, Integer> result = countWordInTopics();
+        System.out.println(result.size());
+        result.forEach((topic, count) ->
+                System.out.println("Topic: " + topic + ", Word Count: " + count)
+        );
+    }
+}
