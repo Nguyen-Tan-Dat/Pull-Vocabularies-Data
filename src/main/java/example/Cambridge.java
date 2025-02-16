@@ -16,9 +16,78 @@ public class Cambridge {
 //        writeTopics();
 //        vocabulariesElementary();
 //        writeEnglishVocabulariesForIELTS(1,21);
-        writeElementaryTopics();
-        writePreIntermediateTopics();
+//        writeElementaryTopics();
+//        writePreIntermediateTopics();
+//        writeUpperIntermediateTopics();
+//        writeAdvancedTopics();
 //        writeIELTSTopics();
+    }
+    private static void writeAdvancedTopics() {
+        var ens = Test.databaseEnglish();
+        String filePath = "Cambridge vocabularies in use data/Advanced.txt";
+            HashMap<String, Set<String>> vocabMap = readAdvancedVocabularies(filePath);
+        HashSet<String> exist = new HashSet<>();
+        HashSet<String> unexist = new HashSet<>();
+        ArrayList<Object> data = new ArrayList<>();
+        int count = 0;
+        for (var i : vocabMap.keySet()) {
+            for (var j : vocabMap.get(i)) {
+                if (!ens.contains(j)) {
+                    unexist.add(j);
+                } else {
+                    exist.add(j);
+                }
+            }
+            HashMap<String, Object> row = new HashMap<>();
+            row.put("name", i);
+            row.put("vs", vocabMap.get(i));
+            data.add(row);
+            count += vocabMap.get(i).size();
+        }
+        System.out.println(count);
+        System.out.println("Có " + unexist.size() + " từ không có trong database");
+        for (var i : unexist) {
+            System.out.println(i);
+        }
+        HashMap<String, Object> row = new HashMap<>();
+        row.put("name", "Advanced");
+        row.put("vs", exist);
+        data.add(row);
+//        Test.writeTopics(data, "Vocabulary in use Intermediate");
+    }
+    private static void writeUpperIntermediateTopics() {
+        var ens = Test.databaseEnglish();
+        String filePath = "Cambridge vocabularies in use data/Upper-Intermediate.txt";
+        HashMap<String, Set<String>> vocabMap = readUpperIntermediateVocabularies(filePath);
+        HashSet<String> exist = new HashSet<>();
+        HashSet<String> unexist = new HashSet<>();
+        ArrayList<Object> data = new ArrayList<>();
+        int count = 0;
+        for (var i : vocabMap.keySet()) {
+            for (var j : vocabMap.get(i)) {
+                if (!ens.contains(j)) {
+                    unexist.add(j);
+                } else {
+                    exist.add(j);
+                }
+            }
+            HashMap<String, Object> row = new HashMap<>();
+            row.put("name", i);
+            row.put("vs", vocabMap.get(i));
+            data.add(row);
+            count += vocabMap.get(i).size();
+        }
+        System.out.println(count);
+        System.out.println("Có " + unexist.size() + " từ không có trong database");
+        for (var i : unexist) {
+            System.out.println(i);
+        }
+        HashMap<String, Object> row = new HashMap<>();
+        row.put("name", "Upper-intermediate");
+        row.put("vs", exist);
+        data.add(row);
+//        Test.writeTopics(data, "Vocabulary in use Intermediate");
+
     }
 
     private static void writePreIntermediateTopics() {
@@ -92,6 +161,102 @@ public class Cambridge {
         return unitMap;
     }
 
+
+    public static HashMap<String, Set<String>> readUpperIntermediateVocabularies(String filePath) {
+        HashMap<String, Set<String>> unitMap = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                var data = line.split("/");
+                if (data.length == 3) {
+                    String word = data[0].trim();
+                    String pronunciation = data[1];
+                    String unit = data[2];
+                    try {
+                        String unitName = parseTopic("Upper-intermediate", Integer.parseInt(unit));
+                        if (!unitMap.containsKey(unitName)) {
+                            unitMap.put(unitName, new HashSet<>());
+                        }
+                        unitMap.get(unitName).add(word);
+                    } catch (Exception e) {
+                        var n = unit.split(",");
+                        for (var i : n) {
+                            try {
+                                String unitName = parseTopic("Upper-intermediate", Integer.parseInt(i.trim()));
+                                if (!unitMap.containsKey(unitName)) {
+                                    unitMap.put(unitName, new HashSet<>());
+                                }
+                                unitMap.get(unitName).add(word);
+                            } catch (Exception e1) {
+                                System.out.println(unit);
+                                return null;
+                            }
+                        }
+                    }
+                } else {
+                    System.out.println(line);
+                    return unitMap;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return unitMap;
+    }
+    public static HashMap<String, Set<String>> readAdvancedVocabularies(String filePath) {
+        HashMap<String, Set<String>> unitMap = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                line = line.trim();
+                if (line.isEmpty()) continue;
+
+                String word, unit;
+                if (line.contains("/")) {
+                    // Trường hợp thông thường: "word / pronunciation / unit"
+                    var data = line.split("/");
+                    if (data.length == 3) {
+                        word = data[0].trim();
+                        unit = data[2].trim();
+                    } else {
+                        System.out.println("Lỗi định dạng: " + line);
+                        continue;
+                    }
+                } else {
+                    // Trường hợp thiếu phát âm: "word unit"
+                    int lastSpaceIndex = line.lastIndexOf(" ");
+                    if (lastSpaceIndex == -1) {
+                        System.out.println("Lỗi định dạng: " + line);
+                        continue;
+                    }
+                    word = line.substring(0, lastSpaceIndex).trim();
+                    unit = line.substring(lastSpaceIndex + 1).trim();
+                }
+
+                try {
+                    // Xử lý unit (có thể là một hoặc nhiều unit cách nhau bởi dấu ",")
+                    for (String u : unit.split(",")) {
+                        try {
+                            String unitName = parseTopic("Advanced", Integer.parseInt(u.trim()));
+                            unitMap.computeIfAbsent(unitName, k -> new HashSet<>()).add(word);
+                        } catch (NumberFormatException e1) {
+                            System.out.println("Lỗi unit: " + unit);
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println("Lỗi khi xử lý unit: " + unit);
+                    return null;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return unitMap;
+    }
 
     public static HashMap<String, Set<String>> readIntermediateVocabularies(String filePath) {
         HashMap<String, Set<String>> unitMap = new HashMap<>();
@@ -362,80 +527,6 @@ public class Cambridge {
         row.put("vs", list);
         data.add(row);
         Test.writeTopics(data, "Oxford topics json/" + name);
-    }
-
-    public static void main1(String[] args) {
-        var pdfCamBooks = Test.dataBook();
-        var onlineCambridgeWords = readOnlineWords();
-        System.out.println("Book online: " + onlineCambridgeWords.size());
-        System.out.println("PDF books: " + pdfCamBooks.size());
-
-        for (var i : onlineCambridgeWords.keySet()) {
-//            if(!pdfCamBooks.contains(i)){
-            pdfCamBooks.add(i);
-//            }
-        }
-        System.out.println("Cambridge vocabularies: " + pdfCamBooks.size());
-        var oxfordVs = Oxford.readOxfordVocabularies();
-        System.out.println(oxfordVs.size());
-        int count = 0;
-        for (var i : oxfordVs) {
-            if (pdfCamBooks.contains(i)) {
-                count++;
-            }
-        }
-        System.out.println(count);
-//        HashSet<String> child=new HashSet<>();
-//        for(var i:pdfCamBooks){
-//            if(ofdVs.contains(i)
-///*                    ||ofdVs5000.contains(i) */){
-//                System.out.println(i);child.add(i);
-//            }
-//        }
-//        System.out.println(child.size());
-//        System.out.println(count);
-//        System.out.println(eData.size());
-//        HashSet<String> parts=new HashSet<>();
-//        var database=Test.databaseEnglish();
-//        for (int i=0;i< eData.size();i++ ) {
-//            var en=eData.get(i)[0];
-//            var part=eData.get(i)[2].trim();
-//            if(part!=null &&!part.equals(""))
-//            if (plist.containsKey(en)){
-//                var ad=true;
-//                for (var j:plist.get(en)){
-//                    if(j.contains(part)||part.contains(j)){
-//                        ad=false;
-//                        break;
-//                    }
-//                }
-//                if(ad)
-//                eData.remove(i);
-//            }
-////                System.out.println(i[0]+"\t"+i[1]);
-//        }
-//        System.out.println(eData.size());
-//        for(var i:eData){
-//            parts.add(i[0]);
-//        }
-//        System.out.println(parts.size());
-//        count=0;
-//        for(var i:database){
-//            if(!parts.contains(i)){
-//                count++;
-////                System.out.println(i);
-//            }
-//        }
-//        System.out.println(count);
-//        count=0;
-//        for(var i:plist.keySet()){
-//            if(!database.contains(i)){
-//                count++;
-////                System.out.println(i);
-//            }
-//        }
-//        System.out.println(count);
-
     }
 
 }

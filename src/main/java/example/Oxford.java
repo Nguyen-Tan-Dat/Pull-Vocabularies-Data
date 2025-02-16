@@ -871,12 +871,9 @@ public class Oxford {
         var oxfordVs = Oxford.readOnlineWords();
         var ens = Test.databaseEnglish();
         System.out.println("Oxford words: " + oxfordVs.size());
-        var cambridgeVs = Test.dataBook();
+
         var cambridgeOnVs = Cambridge.readOnlineWords();
-        for (var i : cambridgeOnVs.keySet()) {
-            cambridgeVs.add(i);
-        }
-        System.out.println("Cambridge words: " + cambridgeVs.size());
+
         System.out.println(oxfordVs.size());
         ArrayList<String[]> vsData = new ArrayList<>();
         vsData.addAll(Test.readDataVocabularies("All my words.xlsx"));
@@ -885,22 +882,7 @@ public class Oxford {
         HashSet<String> cmost = new HashSet<>();
 
         ArrayList<String[]> most = new ArrayList<>();
-        for (var i : vsData) {
-            if ((cambridgeVs.contains(i[0]) || oxfordVs.containsKey(i[0])) && !ens.contains(i[0])) {
-                if (oxfordVs.get(i[0]) == null || i[2].equals("unknown") || oxfordVs.get(i[0]).contains(i[2])) {
-                    most.add(i);
-                    cmost.add(i[0]);
-                }
-                vocabs.add(i[0]);
-            }
-        }
-        for (var i : vsData) {
-            if ((cambridgeVs.contains(i[0]) || oxfordVs.containsKey(i[0])) && !ens.contains(i[0])) {
-                if (!cmost.contains(i)) {
-                    most.add(i);
-                }
-            }
-        }
+
 //        for(var i: most){
 //            cmost.add(i[0]);
 //        }
@@ -963,15 +945,7 @@ public class Oxford {
         var oxfordVs = Oxford.readOxfordVocabularies();
         System.out.println("Oxford words: " + oxfordVs.size());
 
-        var cambridgeVs = Test.dataBook();
         var cambridgeOnVs = Cambridge.readOnlineWords();
-        for (var i : cambridgeOnVs.keySet()) {
-            cambridgeVs.add(i);
-        }
-        System.out.println("Cambridge words: " + cambridgeVs.size());
-        for (var i : cambridgeVs) {
-            oxfordVs.add(i);
-        }
         System.out.println(oxfordVs.size());
         ArrayList<String[]> vsData = new ArrayList<>();
         vsData.addAll(Test.readDataVocabularies("All my words.xlsx"));

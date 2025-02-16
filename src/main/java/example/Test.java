@@ -288,79 +288,6 @@ public class Test {
         }
     }
 
-    public static void main1(String[] args) {
-        var data = databaseEnglish();
-        var list = dataBook();
-        System.out.println("Database : " + data.size());
-        System.out.println("Read total: " + list.size());
-        int count = 0;
-        for (var i : list) {
-            if (!data.contains(i)) {
-                System.out.println(i);
-//                printVocabularies(i,0);
-                count++;
-            }
-
-        }
-        System.out.println(count);
-
-//        System.out.println("Data: " + data.size());
-//        System.out.println("CI size: " + list.size());
-//        HashSet<String> learnHad = new HashSet<>();
-//        HashSet<String> learnAdd = new HashSet<>();
-//        for (var i : list) {
-//            learnAdd.add(i.toLowerCase());
-//        }
-//        data.remove("");
-//        data.remove(" ");
-//        list.remove("");
-//        list.remove(" ");
-//        for (var i : data) {
-//            for (var j : list) {
-//                if (i.equals(j)) {
-//                    learnHad.add(i);
-//                    learnAdd.remove(i);
-//                    break;
-//                }
-//            }
-//        }
-//        HashSet<String> drop = new HashSet<>();
-//        for (var i : data) {
-//            if (!learnHad.contains(i.toLowerCase())) {
-//                drop.add(i);
-//            }
-//        }
-//        System.out.println("Drop: " + drop.size());
-//        System.out.print("[ ");
-//        for (var array : drop) {
-//            System.out.print("\"" + array + "\", ");
-//        }
-//        System.out.println("]");
-//        System.out.println("Learn " + learnHad.size());
-//        System.out.print("[ ");
-//        for (var array : learnHad) {
-//            System.out.print("\"" + array + "\", ");
-//        }
-//        System.out.println("]");
-//        System.out.println("Learn Add: " + learnAdd.size());
-//        String s = "";
-//        for (var i : learnAdd) {
-//
-////            if (s.length() < 5000) {
-//                s += i + "\n";
-////            } else {
-////                break;
-////            }
-//        }
-//        System.out.println(s);
-////        System.out.print("[ ");
-////        for (var array : learnAdd) {
-////            System.out.print("\"" + array + "\", ");
-////        }
-////        System.out.println("]");
-
-    }
-
     public static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/cic";
     public static final String USERNAME = "postgres";
     public static final String PASSWORD = "CpqaFVYJ9Mkz6pOj";
@@ -394,99 +321,6 @@ public class Test {
             e.printStackTrace();
         }
         return data;
-    }
-
-    public static HashSet<String> dataBook() {
-        HashSet<String> list = new HashSet<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("new 1.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (containsNumber(line)) {
-                    String w = br.readLine();
-                    if (w != null) {
-                        w = w.trim();
-                        list.add(w);
-                    }
-                }
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-//
-//        try (BufferedReader br = new BufferedReader(new FileReader("new 2.txt"))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                if (containsNumber(line)) {
-//                    String w = br.readLine();
-//                    if (w != null) {
-//                        w = w.trim();
-//                        list.add(w);
-//                    }
-//                }
-//            }
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        try (BufferedReader br = new BufferedReader(new FileReader("new 3.txt"))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                if (line.contains("/")) {
-//                    var dataline = line.split("/");
-//                    String w = dataline[0].trim();
-//                    if (w != null) {
-//                        list.add(w);
-//                    }
-//                }
-//            }
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        try (BufferedReader br = new BufferedReader(new FileReader("new 4.txt"))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                if (line.contains("/")) {
-//                    var dataline = line.split("/");
-//                    String w = dataline[0].trim();
-//                    if (w != null) {
-//                        list.add(w);
-//                    }
-//                }
-//            }
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-        HashSet<String> toLo = new HashSet<>();
-        for (var i : list) {
-            i = i.replaceAll("…", "...");
-            i = i.replaceAll("’", "'");
-            i = i.replaceAll("–", "-");
-            i = i.replaceAll(" - ", "-");
-            if (!containsNumber(i)
-                    && isEnglish(i)
-//            &&!i.contains("…")
-//            &&!i.contains("’")
-                    && !i.isEmpty()
-            ) {
-                toLo.add(i);
-                if (i.contains("[")
-//                        && !i.contains("]")
-                ) toLo.remove(i);
-                if (i.contains("(")
-//                        && !i.contains(")")
-                ) toLo.remove(i);
-            }
-        }
-        return toLo;
     }
 
 
@@ -612,26 +446,6 @@ public class Test {
 
         // Trả về nội dung đã chuyển sang chữ thường
         return content.toString().toLowerCase();
-    }
-
-    public static void main11(String[] args) {
-
-        ArrayList<String[]> vsData = new ArrayList<>();
-        var oxford= Oxford.readOxfordVocabularies();
-        vsData.addAll(Test.readDataVocabularies("All my words.xlsx"));
-        vsData.addAll(Test.readDataVocabularies("All my words part laban clean.xlsx"));
-        var ens=databaseEnglish();
-        var books=dataBook();
-
-        ArrayList<String[]> most = new ArrayList<>();
-        for(var i: vsData){
-            var en=i[0];
-            if(books.contains(en)&&!ens.contains(en)&&oxford.contains(en)){
-                most.add(i);
-            }
-        }
-
-        Test.writeDataVocabularies(most, "All my words more.xlsx");
     }
 
 
