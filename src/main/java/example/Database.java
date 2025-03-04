@@ -1,4 +1,5 @@
 package example;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.poi.ss.usermodel.Row;
@@ -16,17 +17,47 @@ import java.util.List;
 import java.util.Map;
 
 public class Database {
-    static final String dbUrl = "jdbc:mysql://localhost:3306/cic";
-    static final String dbUser = "root"; // Thay bằng tên người dùng của bạn
-    static final String dbPassword = Test.PASSWORD; // Thay bằng mật khẩu của bạn
+    static final String DB_URL = "jdbc:postgresql://localhost:5432/cic";
+    static final String DB_USER = "postgres"; // Thay bằng tên người dùng của bạn
+    static final String DB_PASSWORD = Test.PASSWORD; // Thay bằng mật khẩu của bạn
     static final String jsonFilePath = "output json/Topics of Oxford.json"; // Đường dẫn đến file JSON
 
     public static void main(String[] args) {
-        String excelFilePath = "All none.xlsx";  // Đường dẫn đến file Excel
-        importExcelToDatabase(excelFilePath);
+//        importExcelToDatabase();
+        updatePhonetics();
+    }
+    public static void updatePhonetics(){
+        var ens=Test.databaseEnglish();
+        for(var i: ens){
+            updatePhonetic(i);
+        }
+    }
+    public static void updatePhonetic(String word){
+        String phonetic = Oxford.getPhonetic(word);
+
+        if (!phonetic.startsWith("Error")) {
+            boolean success = updatePhonetic(word, phonetic);
+            System.out.println("Update successful: " + success);
+        } else {
+            System.out.println(phonetic);
+        }
+    }
+    public static boolean updatePhonetic(String word, String phonetic) {
+        String query = "UPDATE english SET phonetic = ? WHERE word = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, phonetic);
+            pstmt.setString(2, word);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (Exception e) {
+            System.out.println("Error updating phonetic: " + e.getMessage());
+            return false;
+        }
     }
 
-    public static void importExcelToDatabase(String excelFilePath) {
+    public static void importExcelToDatabase() {
+        String excelFilePath = "All none.xlsx";
         Connection connection = null;
         PreparedStatement psEnglish = null, psVietnamese = null, psVocabularies = null, psInsertTopic = null, psInsertVocabularyTopic = null;
 
@@ -134,7 +165,7 @@ public class Database {
                     String partOfSpeech = wordData.get(1);
                     int vid = vs.get(es.get(word)).get(partOfSpeech);
                     int tid = ts.get(topic).intValue();
-                    System.out.println(topic + "|" + word+ "|" + partOfSpeech);
+                    System.out.println(topic + "|" + word + "|" + partOfSpeech);
                     if (vts.get(vid) == null) {
                         vts.put(vid, new HashSet<>());
                     }

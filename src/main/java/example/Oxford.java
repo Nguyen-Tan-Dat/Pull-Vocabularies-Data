@@ -10,12 +10,40 @@ import org.jsoup.select.Elements;
 import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Oxford {
+    public static void main(String[] args) {
+//        writeAllTopics();
+//        createTopics();
+//        writeTopics();
+//        createSQL();
+//        writeAllNone();
+        pullIPA();
+    }
+    public static void pullIPA(){
+        Scanner scanner=new Scanner(System.in);
+        for(int i=0;i<100;i++) {
+            var input = scanner.nextLine();
+            System.out.println(getPhonetic(input));
+        }
+    }
+    public static String getPhonetic(String word) {
+        try {
+            String url = "https://www.oxfordlearnersdictionaries.com/definition/english/" + word + "?q=" + word;
+            Document doc = Jsoup.connect(url).get();
+            Element phoneticSpan = doc.selectFirst("span.phon");
+
+            if (phoneticSpan != null) {
+                return phoneticSpan.text();
+            } else {
+                return "Phonetic transcription not found.";
+            }
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     public static ArrayList<String> listExcelFiles(String pathRoot) {
         ArrayList<String> excelFiles = new ArrayList<>();
         Path rootPath = Paths.get(pathRoot);
@@ -281,15 +309,6 @@ public class Oxford {
         } catch (IOException e) {
             System.err.println("Lỗi khi ghi chuỗi vào tệp: " + e.getMessage());
         }
-    }
-
-    public static void main(String[] args) {
-//        writeAllTopics();
-        createTopics();
-
-//        writeTopics();
-//        createSQL();
-//        writeAllNone();
     }
 
     public static void listTopics() {
