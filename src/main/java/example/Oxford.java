@@ -14,12 +14,12 @@ import java.util.*;
 
 public class Oxford {
     public static void main(String[] args) {
-//        writeAllTopics();
+        writeAllTopics();
 //        createTopics();
 //        writeTopics();
 //        createSQL();
 //        writeAllNone();
-        pullIPA();
+//        pullIPA();
     }
     public static void pullIPA(){
         Scanner scanner=new Scanner(System.in);
@@ -529,7 +529,6 @@ public class Oxford {
 
         // Kiểm tra xem thư mục đã tồn tại chưa
         if (directory.exists()) {
-            System.out.println("Directory already exists: " + directory.getAbsolutePath());
             return false; // Trả về false vì không tạo mới
         }
 
@@ -554,12 +553,13 @@ public class Oxford {
 //            createDirectory(root, name);
             var secondTopics = getSecondTopics(topics.get(name));
             for (var sn : secondTopics.keySet()) {
-//                createDirectory(root + "/" + name, sn);
+                createDirectory(root + "/" + name, sn);
                 for (var tn : secondTopics.get(sn).keySet()) {
-//                    System.out.println(name+" > "+sn+" > "+tn);
-                    var path = root + "/" + name + "/" + sn + "/" + tn.replaceAll("/", " or ") + ".xlsx";
-                    var vocabularies = getVocabularies(secondTopics.get(sn).get(tn));
-                    writeVocabulariesToExcel(path, vocabularies);
+                    if(!tn.equals("All"))
+                    System.out.println(name+" > "+sn+" > "+tn);
+//                    var path = root + "/" + name + "/" + sn + "/" + tn.replaceAll("/", " or ") + ".xlsx";
+//                    var vocabularies = getVocabularies(secondTopics.get(sn).get(tn));
+//                    writeVocabulariesToExcel(path, vocabularies);
                 }
             }
         }
