@@ -3403,8 +3403,8 @@ helpful
 hen
 hen
 24
-herbal tea ˈhɜːbl tiː
-
+herbal tea
+ˈhɜːbl tiː
 49
 hi
 haɪ
@@ -7540,10 +7540,10 @@ urgently
 USA
 juː-esˈeɪ
 5
-use n
+use
 juːs
 31
-use v
+use
 juːz
 31
 used to

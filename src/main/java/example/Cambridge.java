@@ -16,16 +16,17 @@ public class Cambridge {
 //        writeTopics();
 //        vocabulariesElementary();
 //        writeEnglishVocabulariesForIELTS(1,21);
-//        writeElementaryTopics();
-//        writePreIntermediateTopics();
-//        writeUpperIntermediateTopics();
-//        writeAdvancedTopics();
+        writeElementaryTopics();
+        writePreIntermediateTopics();
+        writeUpperIntermediateTopics();
+        writeAdvancedTopics();
 //        writeIELTSTopics();
     }
+
     private static void writeAdvancedTopics() {
         var ens = Test.databaseEnglish();
         String filePath = "Cambridge vocabularies in use data/Advanced.txt";
-            HashMap<String, Set<String>> vocabMap = readAdvancedVocabularies(filePath);
+        HashMap<String, Set<String>> vocabMap = readAdvancedVocabularies(filePath);
         HashSet<String> exist = new HashSet<>();
         HashSet<String> unexist = new HashSet<>();
         ArrayList<Object> data = new ArrayList<>();
@@ -44,17 +45,18 @@ public class Cambridge {
             data.add(row);
             count += vocabMap.get(i).size();
         }
-        System.out.println(count);
-        System.out.println("Có " + unexist.size() + " từ không có trong database");
+//        System.out.println(count);
+//        System.out.println("Có " + unexist.size() + " từ không có trong database");
         for (var i : unexist) {
             System.out.println(i);
         }
-        HashMap<String, Object> row = new HashMap<>();
-        row.put("name", "Advanced");
-        row.put("vs", exist);
-        data.add(row);
-//        Test.writeTopics(data, "Vocabulary in use Intermediate");
+//        HashMap<String, Object> row = new HashMap<>();
+//        row.put("name", "Advanced");
+//        row.put("vs", exist);
+//        data.add(row);
+//        Test.writeTopics(data, "Vocabulary in use Advanced");
     }
+
     private static void writeUpperIntermediateTopics() {
         var ens = Test.databaseEnglish();
         String filePath = "Cambridge vocabularies in use data/Upper-Intermediate.txt";
@@ -77,35 +79,36 @@ public class Cambridge {
             data.add(row);
             count += vocabMap.get(i).size();
         }
-        System.out.println(count);
-        System.out.println("Có " + unexist.size() + " từ không có trong database");
+//        System.out.println(count);
+//        System.out.println("Có " + unexist.size() + " từ không có trong database");
         for (var i : unexist) {
             System.out.println(i);
         }
-        HashMap<String, Object> row = new HashMap<>();
-        row.put("name", "Upper-intermediate");
-        row.put("vs", exist);
-        data.add(row);
-//        Test.writeTopics(data, "Vocabulary in use Intermediate");
-
+//        HashMap<String, Object> row = new HashMap<>();
+//        row.put("name", "Upper-intermediate");
+//        row.put("vs", exist);
+//        data.add(row);
+//        Test.writeTopics(data, "Vocabulary in use Upper-intermediate");
     }
 
     private static void writePreIntermediateTopics() {
         var ens = Test.databaseEnglish();
         String filePath = "Cambridge vocabularies in use data/Pre-Intermediate.txt";
-        HashMap<String, Set<String>> vocabMap = readIntermediateVocabularies(filePath);
+        HashMap<String, Set<String>> vocabMap = readPreIntermediateVocabularies(filePath);
 
         HashSet<String> exist = new HashSet<>();
         HashSet<String> unexist = new HashSet<>();
         ArrayList<Object> data = new ArrayList<>();
         int count = 0;
         for (var i : vocabMap.keySet()) {
+//            if(!i.contains("Pre-Intermediate > Unit 046"))continue;
             for (var j : vocabMap.get(i)) {
                 if (!ens.contains(j)) {
                     unexist.add(j);
                 } else {
                     exist.add(j);
                 }
+
             }
             HashMap<String, Object> row = new HashMap<>();
             row.put("name", i);
@@ -113,16 +116,16 @@ public class Cambridge {
             data.add(row);
             count += vocabMap.get(i).size();
         }
-        System.out.println(count);
-        System.out.println("Có " + unexist.size() + " từ không có trong database");
+//        System.out.println(exist.size());
+//        System.out.println("Có " + unexist.size() + " từ không có trong database");
         for (var i : unexist) {
             System.out.println(i);
         }
-        HashMap<String, Object> row = new HashMap<>();
-        row.put("name", "Intermediate");
-        row.put("vs", exist);
-        data.add(row);
-//        Test.writeTopics(data, "Vocabulary in use Intermediate");
+//        HashMap<String, Object> row = new HashMap<>();
+//        row.put("name", "Pre-Intermediate");
+//        row.put("vs", exist);
+//        data.add(row);
+//        Test.writeTopics(data, "Vocabulary in use Pre-Intermediate 46");
     }
 
     public static HashMap<String, Set<String>> readElementaryVocabularies(String filePath) {
@@ -137,6 +140,7 @@ public class Cambridge {
                     if (!unitMap.containsKey(unitName)) {
                         unitMap.put(unitName, new HashSet<>());
                     }
+                    word = word.replaceAll("'", "'");
                     unitMap.get(unitName).add(word);
                 } catch (Exception e) {
                     var n = unit.split(",");
@@ -146,6 +150,8 @@ public class Cambridge {
                             if (!unitMap.containsKey(unitName)) {
                                 unitMap.put(unitName, new HashSet<>());
                             }
+                            word = word.replaceAll("'", "'");
+                            word = word.replaceAll("…", "...");
                             unitMap.get(unitName).add(word);
                         } catch (Exception e1) {
                             System.out.println(unit);
@@ -205,6 +211,7 @@ public class Cambridge {
         }
         return unitMap;
     }
+
     public static HashMap<String, Set<String>> readAdvancedVocabularies(String filePath) {
         HashMap<String, Set<String>> unitMap = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -276,6 +283,42 @@ public class Cambridge {
                     for (var i : n) {
                         try {
                             String unitName = parseTopic("Intermediate", Integer.parseInt(i.trim()));
+                            if (!unitMap.containsKey(unitName)) {
+                                unitMap.put(unitName, new HashSet<>());
+                            }
+                            unitMap.get(unitName).add(word);
+                        } catch (Exception e1) {
+                            System.out.println(unit);
+                            return null;
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return unitMap;
+    }
+
+    public static HashMap<String, Set<String>> readPreIntermediateVocabularies(String filePath) {
+        HashMap<String, Set<String>> unitMap = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String word, pronunciation, unit;
+            while ((word = br.readLine()) != null &&
+                    (pronunciation = br.readLine()) != null &&
+                    (unit = br.readLine()) != null) {
+                try {
+                    String unitName = parseTopic("Pre-Intermediate", Integer.parseInt(unit));
+                    if (!unitMap.containsKey(unitName)) {
+                        unitMap.put(unitName, new HashSet<>());
+                    }
+                    unitMap.get(unitName).add(word);
+                } catch (Exception e) {
+                    var n = unit.split(",");
+                    for (var i : n) {
+                        try {
+                            String unitName = parseTopic("Pre-Intermediate", Integer.parseInt(i.trim()));
                             if (!unitMap.containsKey(unitName)) {
                                 unitMap.put(unitName, new HashSet<>());
                             }
@@ -426,17 +469,64 @@ public class Cambridge {
         return vocabularyByLesson;
     }
 
+    public static Set<String> all() {
+        HashSet<String> list = new HashSet<>();
+        var ens = Test.databaseEnglish();
+        String filePath = "Cambridge vocabularies in use data/Elementary.txt";
+        HashMap<String, Set<String>> vocabMap = readElementaryVocabularies(filePath);
+        for (var i : vocabMap.keySet()) {
+            for (var j : vocabMap.get(i)) {
+                if (!ens.contains(j)) {
+                    list.add(j);
+                }
+            }
+        }
+        filePath = "Cambridge vocabularies in use data/Pre-Intermediate.txt";
+        vocabMap = readPreIntermediateVocabularies(filePath);
+        for (var i : vocabMap.keySet()) {
+            for (var j : vocabMap.get(i)) {
+                if (!ens.contains(j)) {
+                    list.add(j);
+                }
+            }
+        }
+//
+//        filePath = "Cambridge vocabularies in use data/Upper-Intermediate.txt";
+//        vocabMap = readUpperIntermediateVocabularies(filePath);
+//        for (var i : vocabMap.keySet()) {
+//            for (var j : vocabMap.get(i)) {
+//                if (!ens.contains(j)) {
+//                    list.add(j);
+//                }
+//            }
+//        }
+//
+//        filePath = "Cambridge vocabularies in use data/Advanced.txt";
+//        vocabMap = readAdvancedVocabularies(filePath);
+//        for (var i : vocabMap.keySet()) {
+//            for (var j : vocabMap.get(i)) {
+//                if (!ens.contains(j)) {
+//                    list.add(j);
+//                }
+//            }
+//        }
+        return list;
+    }
+
     private static void writeElementaryTopics() {
         var ens = Test.databaseEnglish();
         String filePath = "Cambridge vocabularies in use data/Elementary.txt";
         HashMap<String, Set<String>> vocabMap = readElementaryVocabularies(filePath);
         HashSet<String> set = new HashSet<>();
+        HashSet<String> exist = new HashSet<>();
         ArrayList<Object> data = new ArrayList<>();
         int count = 0;
         for (var i : vocabMap.keySet()) {
             for (var j : vocabMap.get(i)) {
                 if (!ens.contains(j)) {
                     set.add(j);
+                } else {
+                    exist.add(j);
                 }
             }
             HashMap<String, Object> row = new HashMap<>();
@@ -445,11 +535,14 @@ public class Cambridge {
             data.add(row);
             count += vocabMap.get(i).size();
         }
-        System.out.println(count);
-        System.out.println("Có " + set.size() + " từ không có trong database");
+//        System.out.println(exist.size());
+//        System.out.println("Có " + set.size() + " từ không có trong database");
         for (var i : set) {
             System.out.println(i);
         }
+//        HashMap<String, Object> row = new HashMap<>();
+//        row.put("vs", exist);
+//        data.add(row);
 //        Test.writeTopics(data, "Vocabulary in use Elementary");
     }
 

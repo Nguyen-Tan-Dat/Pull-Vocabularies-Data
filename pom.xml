@@ -167,6 +167,11 @@
             <artifactId>postgresql</artifactId>
             <version>42.7.4</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/com.github.heqiao2010/lunar -->
+        <dependency>
+            <groupId>com.github.heqiao2010</groupId>
+            <artifactId>lunar</artifactId>
+            <version>1.5</version>
+        </dependency>
     </dependencies>
 </project>

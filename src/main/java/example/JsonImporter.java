@@ -42,6 +42,26 @@ public class JsonImporter {
 
         return englishMap;
     }
+    public static HashMap<String, Integer> getVietnamese(Connection connection) {
+        HashMap<String, Integer> englishMap = new HashMap<>();
+        String query = "SELECT * FROM Vietnamese"; // Giả sử bảng có cột 'word' và 'value'
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String word = resultSet.getString("signify");
+                int value = resultSet.getInt("id");
+                englishMap.put(word, value);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error reading data from 'Vietnamese' table: " + e.getMessage());
+        }
+
+        return englishMap;
+    }
     public static HashMap<String, Integer> getTopic(Connection connection) {
         HashMap<String, Integer> englishMap = new HashMap<>();
         String query = "SELECT name, id FROM topics"; // Giả sử bảng có cột 'word' và 'value'
@@ -92,6 +112,34 @@ public class JsonImporter {
         }
 
         return vocabularies;
+    }
+    public static HashMap<Integer, HashSet<Integer>> getVocabulariesTopics(Connection connection) {
+        // Khởi tạo HashMap để lưu kết quả
+        HashMap<Integer, HashSet<Integer>> vts = new HashMap<>();
+
+        // Câu truy vấn SQL để lấy dữ liệu từ bảng vocabularies
+        String query = "SELECT * FROM vocabularies_topics";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            // Duyệt qua các dòng trong ResultSet
+            while (resultSet.next()) {
+                int vid = resultSet.getInt("vocabulary");
+                int tid = resultSet.getInt("topic");
+                if (vts.get(vid) == null) {
+                    vts.put(vid, new HashSet<>());
+                }
+                if (!vts.get(vid).contains(tid)) {
+                    vts.get(vid).add(tid);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return vts;
     }
 
     public static void maind(String[] args) {

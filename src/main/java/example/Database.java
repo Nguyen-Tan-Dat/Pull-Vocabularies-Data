@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Database {
-    static final String DB_URL = "jdbc:postgresql://localhost:5432/cic";
+    static final String DB_URL = "jdbc:postgresql://localhost:5432/cic2";
     static final String DB_USER = "postgres"; // Thay bằng tên người dùng của bạn
     static final String DB_PASSWORD = Test.PASSWORD; // Thay bằng mật khẩu của bạn
     static final String jsonFilePath = "output json/Topics of Oxford.json"; // Đường dẫn đến file JSON
@@ -67,9 +67,7 @@ public class Database {
             connection.setAutoCommit(false); // Dùng transaction
             HashMap<String, Integer> es = JsonImporter.getEnglish(connection);
             HashMap<Integer, HashMap<String, Integer>> vs = JsonImporter.getVocabularies(connection);
-//            HashMap<String, Integer> es = new HashMap<>();
-//            HashMap<Integer, HashMap<String, Integer>> vs =new HashMap<>();
-            HashMap<Integer, HashSet<Integer>> vts = new HashMap<>();
+            HashMap<Integer, HashSet<Integer>> vts = JsonImporter.getVocabulariesTopics(connection);
             HashMap<String, Integer> ts = JsonImporter.getTopic(connection);
             // SQL để chèn dữ liệu
             String sqlInsertEnglish = "INSERT INTO english (word, phonetic, audio) VALUES (?, ?, ?)";
@@ -90,13 +88,31 @@ public class Database {
             Workbook workbook = new XSSFWorkbook(fis);
             Sheet sheet = workbook.getSheetAt(0);  // Lấy sheet đầu tiên
 
-            // Chèn vào bảng `vietnamese`
-            psVietnamese.setString(1, "chưa cập nhật");
-            psVietnamese.executeUpdate();
-            ResultSet rsVietnamese = psVietnamese.getGeneratedKeys();
             int vietnameseId = 0;
-            if (rsVietnamese.next()) {
-                vietnameseId = rsVietnamese.getInt(1);  // Lấy id vừa tạo
+            String meaning = "chưa cập nhật";
+
+// 1. Kiểm tra xem từ đã tồn tại chưa
+            PreparedStatement checkStmt = connection.prepareStatement("SELECT id FROM vietnamese WHERE signify = ?");
+            checkStmt.setString(1, meaning);
+            ResultSet checkRs = checkStmt.executeQuery();
+
+            if (checkRs.next()) {
+                // Nếu tồn tại, lấy id
+                vietnameseId = checkRs.getInt("id");
+            } else {
+                // Nếu chưa có, thì tạo mới
+                PreparedStatement insertStmt = connection.prepareStatement(
+                        "INSERT INTO vietnamese(signify) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+                insertStmt.setString(1, meaning);
+                insertStmt.executeUpdate();
+
+                ResultSet rsVietnamese = insertStmt.getGeneratedKeys();
+                if (rsVietnamese.next()) {
+                    vietnameseId = rsVietnamese.getInt(1);
+                }
+
+                rsVietnamese.close();
+                insertStmt.close();
             }
 
             // Duyệt qua các dòng trong file Excel
@@ -123,6 +139,7 @@ public class Database {
                 }
 
                 if (!vs.get(es.get(word)).containsKey(partOfSpeech)) {
+                    try{
                     psVocabularies.setInt(1, es.get(word)); // ID từ bảng `english`
                     psVocabularies.setInt(2, vietnameseId); // ID từ bảng `vietnamese`
                     psVocabularies.setString(3, partOfSpeech); // Từ loại
@@ -134,7 +151,7 @@ public class Database {
                     if (rs.next()) {
                         id = rs.getInt(1); // Lấy ID từ bảng `english`
                     }
-                    vs.get(es.get(word)).put(partOfSpeech, id);
+                    vs.get(es.get(word)).put(partOfSpeech, id);}catch (Exception e){}
                 }
             }
 
@@ -163,9 +180,10 @@ public class Database {
                 for (List<String> wordData : words) {
                     String word = wordData.get(0); // Lấy từ
                     String partOfSpeech = wordData.get(1);
+                    try{
                     int vid = vs.get(es.get(word)).get(partOfSpeech);
                     int tid = ts.get(topic).intValue();
-                    System.out.println(topic + "|" + word + "|" + partOfSpeech);
+//                    System.out.println(topic + "|" + word + "|" + partOfSpeech);
                     if (vts.get(vid) == null) {
                         vts.put(vid, new HashSet<>());
                     }
@@ -174,6 +192,8 @@ public class Database {
                         psInsertVocabularyTopic.setInt(2, tid);
                         psInsertVocabularyTopic.executeUpdate();
                         vts.get(vid).add(tid);
+                    }}catch(Exception e){
+                        System.out.println(word+"\t"+partOfSpeech);
                     }
 
                 }
