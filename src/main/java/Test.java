@@ -7,6 +7,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.*;
 import java.sql.*;
@@ -15,7 +16,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Test {
-    public static void writeDataVocabularies(ArrayList<String[]> list,String filePath) {
+    public static void main(String[] args) {
+        List<String[]> allRows = new ArrayList<>();
+        var list= Elllo.extractWords(Test.readFile("list.txt"));
+        var list1=Elllo.reafile("list.txt");
+        for (String word : list1) {
+            if (!word.contains(" ") && !word.contains("[") && !word.contains("(")) {
+//                Cambridge.printPartsOfSpeech(word);
+                System.out.println(word);
+            }
+        }
+//        writeListToExcel("cambridge data.xlsx", allRows);
+
+//        System.out.println(printVocabularies("March"));
+    }
+
+    public static void writeDataVocabularies(ArrayList<String[]> list, String filePath) {
         try (Workbook workbook = new XSSFWorkbook();
              FileOutputStream fileOut = new FileOutputStream(filePath)) {
             Sheet sheet = workbook.createSheet("data");
@@ -73,27 +89,30 @@ public class Test {
         }
         return eData;
     }
-    public static void writeTopic(String name, HashSet<String> vocabularies){
+
+    public static void writeTopic(String name, HashSet<String> vocabularies) {
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("vs",vocabularies);
+        hashMap.put("vs", vocabularies);
         hashMap.put("name", name);
-        ArrayList<Object> list=new ArrayList<>();
+        ArrayList<Object> list = new ArrayList<>();
         list.add(hashMap);
         String jsonString = convertHashMapToJson(list);
-        Test.writeFile("output json/"+name+".json",jsonString);
+        Test.writeFile("output json/" + name + ".json", jsonString);
     }
-    public static void writeTopicHaveTypes(String name, HashSet<String[]> vocabularies){
+
+    public static void writeTopicHaveTypes(String name, HashSet<String[]> vocabularies) {
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("vs",vocabularies);
+        hashMap.put("vs", vocabularies);
         hashMap.put("name", name);
-        ArrayList<Object> list=new ArrayList<>();
+        ArrayList<Object> list = new ArrayList<>();
         list.add(hashMap);
         String jsonString = convertHashMapToJson(list);
-        Test.writeFile("output json/"+name+".json",jsonString);
+        Test.writeFile("output json/" + name + ".json", jsonString);
     }
-    public static void writeTopics( ArrayList<Object>  list ,String filename){
+
+    public static void writeTopics(ArrayList<Object> list, String filename) {
         String jsonString = convertHashMapToJson(list);
-        Test.writeFile("output json/"+filename+".json",jsonString);
+        Test.writeFile("output json/" + filename + ".json", jsonString);
     }
 
     public static String readTextFromUrl(String url) {
@@ -112,6 +131,7 @@ public class Test {
         Gson gson = new Gson();
         return gson.toJson(hashMap);
     }
+
     public static String getCellValueAsString(Cell cell) {
         switch (cell.getCellType()) {
             case STRING:
@@ -206,87 +226,94 @@ public class Test {
         }
     }
 
-    public static void printVocabularies(String en, String path) {
-        var html = DownloadTopic.getHTML("https://dictionary.cambridge.org/dictionary/english-vietnamese/" + en);
+    public static List<String[]> printVocabularies(String en) {
+        List<String[]> result = new ArrayList<>();
+        // Ưu tiên tra EN-VI
+        String html = DownloadTopic.getHTML("https://dictionary.cambridge.org/dictionary/english-vietnamese/" + en);
         Document doc = Jsoup.parse(html);
-        var el = doc.getElementsByClass("d pr di english-vietnamese kdic");
+        Elements entries = doc.select(".pr.di.superentry");
+
+        // Nếu không có thì fallback sang EN
+        if (entries.isEmpty()) {
+            html = DownloadTopic.getHTML("https://dictionary.cambridge.org/dictionary/english/" + en);
+            doc = Jsoup.parse(html);
+            entries = doc.select(".pr.di.superentry");
+        }
+
         String phonetic = "";
-        for (var e : el) {
-            var ps = e.getElementsByClass("di-info");
+
+        for (Element entry : entries) {
             String part = "unknown";
-            if (ps.size() > 0) {
-                var pns = ps.first().getElementsByClass("pos dpos");
 
-                if (pns.size() > 0) {
-                    part = pns.first().text();
-                }
-                var p = ps.first().getElementsByClass("ipa dipa");
-                if (p.size() > 0) {
-                    phonetic = p.first().text();
-                }
-            }
-            var vis = e.getElementsByClass("trans dtrans");
+            Element posEl = entry.selectFirst(".pos.dpos");
+            if (posEl != null) part = posEl.text();
 
-            for (var vi : vis) {
-                System.out.println(en + "\t" + vi.text() + "\t" + part + "\t" + phonetic);
-                String filePath = path;
+            Element ipaEl = entry.selectFirst(".ipa.dipa");
+            if (ipaEl != null) phonetic = ipaEl.text();
 
-                // Kiểm tra xem tệp đã tồn tại hay chưa
-                File file = new File(filePath);
-                Workbook workbook;
-                Sheet sheet;
+            for (Element defBlock : entry.select(".def-block.ddef_block")) {
+                String meaning = "none";
+                Element transEl = defBlock.selectFirst(".trans.dtrans");
+                if (transEl != null) meaning = transEl.text();
 
-                if (file.exists()) {
-                    try (FileInputStream fis = new FileInputStream(file)) {
-                        // Mở workbook và sheet nếu tệp đã tồn tại
-                        workbook = new XSSFWorkbook(fis);
-                        sheet = workbook.getSheetAt(0);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                        return;
-                    }
+                Elements exampleEls = defBlock.select(".examp.dexamp");
+                if (exampleEls.isEmpty()) {
+//                    System.out.println(en + "\t" + meaning + "\t" + part + "\t" + phonetic + "\t");
+                    result.add(new String[]{en, meaning, part, phonetic, ""});
                 } else {
-                    // Tạo workbook và sheet mới nếu tệp chưa tồn tại
-                    workbook = new XSSFWorkbook();
-                    sheet = workbook.createSheet("Data");
-                }
-
-                // Tạo hàng mới ở cuối sheet
-                int lastRowNum = sheet.getLastRowNum();
-                Row row = sheet.createRow(lastRowNum + 1);
-
-                // Tạo các ô và đặt giá trị vào các ô
-                Cell cell1 = row.createCell(2);
-                cell1.setCellValue(en);
-
-                Cell cell2 = row.createCell(3);
-                cell2.setCellValue(vi.text());
-
-                Cell cell3 = row.createCell(4);
-                cell3.setCellValue(part);
-
-                Cell cell4 = row.createCell(5);
-                cell4.setCellValue(phonetic);
-
-                // Ghi workbook vào file
-                try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
-                    workbook.write(fileOut);
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-
-                // Đóng workbook để giải phóng tài nguyên
-                try {
-                    workbook.close();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
+                    for (Element ex : exampleEls) {
+                        String example = ex.text();
+//                        System.out.println(en + "\t" + meaning + "\t" + part + "\t" + phonetic + "\t" + example);
+                        result.add(new String[]{en, meaning, part, phonetic, example});
+                    }
                 }
             }
+        }
+        return result;
+    }
 
+
+    public static void writeListToExcel(String excelFilePath, List<String[]> rows) {
+        Workbook workbook;
+        Sheet sheet;
+
+        File file = new File(excelFilePath);
+        if (file.exists()) {
+            try (FileInputStream fis = new FileInputStream(file)) {
+                workbook = new XSSFWorkbook(fis);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+        } else {
+            workbook = new XSSFWorkbook();
+        }
+
+        sheet = workbook.getNumberOfSheets() > 0 ? workbook.getSheetAt(0) : workbook.createSheet("Data");
+
+        int rowNum = sheet.getLastRowNum() + 1;
+        for (String[] data : rows) {
+            Row row = sheet.createRow(rowNum++);
+            for (int i = 0; i < data.length; i++) {
+                row.createCell(i + 2).setCellValue(data[i]); // Ghi từ cột C
+            }
+        }
+
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            workbook.write(fos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                workbook.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/cic1";
+
+    public static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/cic";
     public static final String USERNAME = "postgres";
     public static final String PASSWORD = "CpqaFVYJ9Mkz6pOj";
 
@@ -296,7 +323,7 @@ public class Test {
             // Kết nối với cơ sở dữ liệu
             Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
             if (connection != null) {
-                String sqlQuery = "SELECT * FROM english";
+                String sqlQuery = "SELECT * FROM english where phonetic=''";
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(sqlQuery);
                 while (resultSet.next()) {
@@ -494,8 +521,6 @@ public class Test {
     }
 
 
-
-
     public static String removeParenthesesContent(String input) {
         // Tạo mẫu regular expression
         Pattern pattern = Pattern.compile("\\([^\\)]+\\)");
@@ -559,6 +584,7 @@ public class Test {
             return -1;
         }
     }
+
     public static void writeFile(String filePath, String content) {
         try {
             File file = new File(filePath);

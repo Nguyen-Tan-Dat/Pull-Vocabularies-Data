@@ -87,7 +87,7 @@ AKA /ˌekee/ 78
 à-la-carte /ˌləkɑt/ 22
 alarm clock /əlɑm klɒk/ 75
 album /lbəm/ 21
-alight adj, v /əlat/ 95, 99
+alight /əlat/ 95, 99
 alive /əlav/ 80
 all or nothing /ˌɔlɔnθŋ/ 77
 allocate /ləket/ 57
@@ -184,7 +184,7 @@ attachment /əttʃmənt/ 35
 attain /əten/ 60
 attainable /ətenəbəl/ 60
 attainment /ətenmənt/ 60
-attempt n, v /ətempt/ 89, 95
+attempt /ətempt/ 89, 95
 attic /tk/ 11
 attitude /ttʃud/ 66
 attract /ətrkt/ 10, 44
@@ -205,7 +205,7 @@ axe /ks/ 100
 B&B /ˌbi ən bi/ 25
 babysitter /bebiˌstə/ 75
 bachelor’s degree / / 15
-back v /bk/ 100
+back /bk/ 100
 back and forth /bk ən fɔθ/ 77
 back to front /bk tə frnt/ 77
 back up /bk p/ 34
@@ -227,8 +227,8 @@ bang /bŋ/ 12, 56
 bank account /bŋk əkaυnt/ 75
 banker /bŋkə/ 16
 banking /bŋkŋ/ 16
-bar n /bɑ/ 86
-bar v /bɑ/ 100
+bar /bɑ/ 86
+bar /bɑ/ 100
 bark /bɑk/ 26
 bark up the wrong tree / / 79
 barrel /brəl/ 88
@@ -312,7 +312,7 @@ board /bɔd/ 95
 boast /bəυst/ 45
 boiling /bɔlŋ/ 6
 bonnet /bɒnt/ 101
-book (a table) v /bυk/ 22
+book (a table) /bυk/ 22
 booking /bυkŋ/ 22
 bookmark /bυkmɑk/ 35
 boost /bust/ 30, 100
@@ -475,7 +475,7 @@ Central America /sentrəl əmerkə/ 5
 centre /sentə/ 101
 CEO /ˌsi i əυ/ 17
 certainty /stənti/ 55
-chalk n /tʃɔk/ 80
+chalk /tʃɔk/ 80
 challenge /tʃlnd/ 50
 chamber /tʃembə/ 38
 chance /tʃɑnts/ 55, 73
@@ -487,7 +487,7 @@ characterise /krəktəraz/ 41
 characteristic /ˌkrəktərstk/ 41
 charge /tʃɑd/ 39
 charge (interest) /tʃɑd/ 40
-check n /tʃek/ 101
+check /tʃek/ 101
 checked /tʃekt/ 27
 check-out /tʃekaυt/ 76
 cheerfully /tʃəfəli/ 45
@@ -592,12 +592,12 @@ concert hall /kɒnst hɔl/ 25
 conclude /kənklud/ 33, 68
 conclusion /kənkluən/ 93
 condition /kəndʃən/ 48, 62
-conduct n /kɒndkt/ 80
-conduct v /kəndkt/ 72, 80
+conduct /kɒndkt/ 80
+conduct /kəndkt/ 72, 80
 confess /kənfes/ 45
 confident /kɒnfdənt/ 8
-conflict n /kɒnflkt/ 80
-conflict v /kənflkt/ 80
+conflict /kɒnflkt/ 80
+conflict /kənflkt/ 80
 confused /kənfjuzd/ 43, 51
 confusion /kənfjuən/ 86
 Congress /kɒŋres/ 38
@@ -614,18 +614,18 @@ consume /kənsjum/ 30
 contact /kɒntkt/ 10, 17, 35
 contact lens /kɒntkt ˌlenz/ 29, 75
 contemporary /kəntempərəri/ 25
-content n /kɒntent/ 30
+content /kɒntent/ 30
 content adj /kəntent/ 43
 contented /kəntentd/ 43
 contents /kɒntents/ 84
-contest n /kɒntest/ 80
-contest v /kəntest/ 80
-contract v /kəntrkt/ 28, 52
+contest /kɒntest/ 80
+contest /kəntest/ 80
+contract /kəntrkt/ 28, 52
 contribute /kəntrbjut/ 57
 conventional /kənventʃənəl/ 41
 conversion /kənvʃən/ 11
-convert v /kənvt/ 72
-convict v /kənvkt/ 39
+convert /kənvt/ 72
+convict /kənvkt/ 39
 conviction /kənvkʃən/ 42
 convince /kənvnts/ 42
 cookie /kυki/ 101
@@ -668,7 +668,7 @@ critic /krtk/ 19
 critical /krtkəl/ 48
 critically /krtkli/ 48
 criticise /krtsaz/ 48
-crop n /krɒp/ 23
+crop /krɒp/ 23
 crowd /kraυd/ 87
 cruel /kruəl/ 8
 cruise /kruz/ 32
@@ -689,7 +689,7 @@ curly /kli/ 7
 curly-haired /kli heəd/ 74
 currency /krəntsi/ 83
 current account /krənt əkaυnt/ 40
-current aairs /krənt əfeəz/ 37
+current affairs /krənt əfeəz/ 37
 cursor /ksə/ 34
 curt /kt/ 8
 curtains /ktənz/ 101
@@ -703,7 +703,7 @@ cut-price /ˌktpras/ 74
 Cypriot /spriət/ 5
 daft /dɑft/ 8
 daft as a brush // 79
-damage n, v /dmd/ 13
+damage /dmd/ 13
 damp /dmp/ 6
 dance /dɑnts/ 20
 Dane /den/ 5
@@ -730,8 +730,8 @@ decent /disənt/ 41
 decision /dsən/ 89, 93
 declare /dkleə/ 99
 decorative /dekərətv/ 39
-decrease n /dikris/ 80
-decrease v /dkris/ 80
+decrease /dikris/ 80
+decrease /dkris/ 80
 dedicated /dedketd/ 42
 deep /dip/ 54
 deepen /dipən/ 54
@@ -768,12 +768,12 @@ depression /dpreʃən/ 30
 deprivation /ˌdeprveʃən/ 50
 deprive s.o. of sth /dprav smjwn ɒv smθŋ/ 50
 depth /depθ/ 54, 73
-desert n /dezt/ 80
-desert v /dzt/ 80
+desert /dezt/ 80
+desert /dzt/ 80
 deserted /dztd/ 25
 design /dzan/ 19
 designer /dzanə/ 16, 27
-desire n, v /dzaə/ 44
+desire /dzaə/ 44
 desktop computer /desktɒp kəmpjutə/ 34
 desperately /despərətli/ 45
 despise /dspaz/ 10, 44
@@ -985,10 +985,10 @@ excitement /ksatmənt/ 70
 exclusive /ksklusv/ 32
 excommunicate/ˌekskəmjunket/ 71
 excursion /kskʃən/ 32
-excuse n /kskjus/ 89
+excuse /kskjus/ 89
 executive /zekjətv/ 16
 exempt /zempt/ 55
-exercise n, v /eksəsaz/ 30, 89
+exercise /eksəsaz/ 30, 89
 exhale /ekshel/ 71
 exhausted /zɔstd/ 28
 exhilarating /zləretŋ/ 32
@@ -1007,12 +1007,12 @@ ex-smoker /eks ˌsməυkə/ 71
 extend /kstend/ 54
 extinct /kstŋkt/ 24
 extract // 19
-extract v /kstrkt/ 33, 71
+extract /kstrkt/ 33, 71
 extravagant /kstrvəənt/ 8
 extreme /kstrim/ 42
 extroverted /ekstrəvtd/ 8
 ex-wife /eks waf/ 71
-face n, v /fes/ 7, 48
+face /fes/ 7, 48
 facility /fəsləti/ 40
 fact /fkt/ 66
 fail /fel/ 14
@@ -1058,7 +1058,7 @@ filthy /flθi/ 26
 finally /fanəli/ 68
 finance /fannts/ 40
 find work // 16
-fine n, adj /fan/ 39, 59, 67
+fine  /fan/ 39, 59, 67
 fine art(s) /fan ɑt/ 19
 fingerprint /fŋəprnt/ 39
 Finn /fn/ 5
@@ -1218,8 +1218,8 @@ get to the bottom of things // 50
 get to the point // 69
 get up to /et p tu/ 91
 get work // 16
-get-together n /et təˌeðə/ 91
-get together v /ˌet təeðə/ 10
+get-together /et təˌeðə/ 91
+get together /ˌet təeðə/ 10
 geyser /izə/ 23
 gift of the gab //48
 gifted /ftd/ 8
@@ -1276,8 +1276,8 @@ govern /vən/ 38
 government /vənmənt/ 38
 GPS /ˌdipies/ 33
 grab /rb/ 46
-graduate n /rdjuət/ 15
-graduate v /rdjuet/ 15
+graduate /rdjuət/ 15
+graduate /rdjuet/ 15
 grammar school /rmə skul/ 14
 grant /rɑnt/ 14
 graphics /rfks/ 34
@@ -1390,7 +1390,7 @@ high-tech /ˌhatek/ 78
 hip-hop /hphɒp/ 21
 hiss /hs/ 56
 historic /hstɒrk/ 25
-hit n, v /ht/ 35, 100
+hit /ht/ 35, 100
 hoarse /hɔs/ 82
 hold /həυld/ 42
 hold a record //18
@@ -1457,7 +1457,7 @@ immoral /mɒrəl/ 71
 immune system /mjun sstəm/ 30
 impatient /mpeʃənt/ 71
 impolite /ˌmpəlat/ 8
-import v /mpɔt/ 71, 72, 80
+import /mpɔt/ 71, 72, 80
 important //48
 impose /mpəυz/ 66, 72
 impossible /mpɒsəbəl/ 71
@@ -1487,8 +1487,8 @@ incident /nsdənt/ 13
 income /ŋkm/ 40, 71
 income tax /ŋkm tks/ 40, 75
 inconvenient /ˌnkənviniənt/ 32
-increase n /nkris/ 80
-increase v /nkris/ 80
+increase /nkris/ 80
+increase /nkris/ 80
 independence /ˌndpendənts/ 38
 in-depth /ˌndepθ/ 37
 indigestion /ˌnddestʃən/ 28
@@ -1514,7 +1514,7 @@ inspection /nspekʃən/ 72
 inspector /nspektə/ 72
 inspired /nspaəd/ 43
 install /nstɔl/ 33
-insult v /nslt/ 80
+insult /nslt/ 80
 intellectual /ˌntəlektʃuəl/ 42
 intelligent /nteldənt/ 8
 intensely (annoying) /ntentsli/ 50
@@ -1910,7 +1910,7 @@ nuts /nts/ 30
 oar /ɔ/ 18
 obese /əυbis/ 7, 30
 obesity /əυbisəti/ 30
-object v /əbdekt/ 45
+object /əbdekt/ 45
 obligation /ˌɒbleʃən/ 55, 60
 obligatory /əblətəri/ 55
 oblige /əblad/ 55
@@ -2070,8 +2070,8 @@ performance /pəfɔməns/ 20
 performing art /pəfɔmŋ ɑt/ 19
 perfumed /pəfjumd/ 46
 permissive /pəmsv/ 8
-permit n /pmt/ 80, 99
-permit v /pəmt/ 80
+permit /pmt/ 80, 99
+permit /pəmt/ 80
 personal /psənəl/ 42, 38
 personal computer /psənəl kəmpjutə/ 34
 personality /ˌpsənləti/ 7
@@ -2216,8 +2216,8 @@ profile /prəυfal/ 36
 profile picture // 36
 profit /prɒft/ 17, 89
 programme /prəυrm/ 15, 37
-progress n /prəυres/ 14, 80
-progress v /prəres/ 80
+progress /prəυres/ 14, 80
+progress /prəres/ 80
 prohibited /prəυhbtd/ 99
 project /prɒdekt/ 14
 projector /prədektə/ 70
@@ -2568,7 +2568,7 @@ shower /ʃaυwə/ 6, 86
 showjumping /ʃəυdmpŋ/ 19
 shrewd /ʃrud/ 8
 shriek /ʃrik/ 45
-shrink n /ʃrŋk/ 96
+shrink /ʃrŋk/ 96
 sick and tired /sk ən taəd/ 43
 sick leave /sk ˌliv/ 16
 sickly /skli/ 22
@@ -2813,8 +2813,8 @@ surf the Internet /sf ði ntənet/ 2, 35
 surface /sfs/ 59
 surrounding /səraυndŋ/ 32
 survivor /səvavə/ 13
-suspect n /sspekt/ 39, 80
-suspect v /səspekt/ 39, 42, 80
+suspect /sspekt/ 39, 80
+suspect /səspekt/ 39, 42, 80
 swallow /swɒləυ/ 47
 swarm /swɔm/ 87
 sway /swe/ 58
@@ -3019,11 +3019,11 @@ traic jam /trfk ˌdm/ 24
 traic lights /trfk ˌlats/ 75, 84
 traic system /trfk sstəm/ 25
 trained /trend/ 21
-transfer n /trnsf/ 80
-transfer v /trnsf/ 40
+transfer /trnsf/ 80
+transfer /trnsf/ 40
 transparent /trntsprənt/ 41
-transport n /trnspɔt/ 83, 80
-transport v /trnspɔt/ 72, 80
+transport /trnspɔt/ 83, 80
+transport /trnspɔt/ 72, 80
 trash /trʃ/ 101
 travel /trvəl/ 31, 58
 treat /trit/ 29
@@ -3110,11 +3110,11 @@ unveil /nvel/ 71
 unwrap /nrp/ 71
 unzip /nzp/ 71
 up and down /ˌpənddaυn/ 77
-update n, v /pdet/ 36
+update /pdet/ 36
 upgrade /pred/ 34
 upload /pləυd/ 2, 36
-upset adj, v /pset/ 8, 43, 80
-upset n /pset/ 80
+upset /pset/ 8, 43, 80
+upset /pset/ 80
 upshot /pʃɒt/ 63
 urban /bən/ 2
 urge /d/ 45

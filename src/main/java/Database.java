@@ -4,6 +4,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Database {
-    static final String DB_URL = "jdbc:postgresql://localhost:5432/cic2";
+    static final String DB_URL = "jdbc:postgresql://localhost:5432/cic";
     static final String DB_USER = "postgres"; // Thay bằng tên người dùng của bạn
     static final String DB_PASSWORD = Test.PASSWORD; // Thay bằng mật khẩu của bạn
     static final String jsonFilePath = "output json/Topics of Oxford.json"; // Đường dẫn đến file JSON
@@ -30,8 +33,23 @@ public class Database {
             updatePhonetic(i);
         }
     }
+    public static String getPhonetic(String word) {
+        try {
+            String url = "https://www.oxfordlearnersdictionaries.com/definition/english/" + word + "?q=" + word;
+            Document doc = Jsoup.connect(url).get();
+            Element phoneticSpan = doc.selectFirst("span.phon");
+
+            if (phoneticSpan != null) {
+                return phoneticSpan.text();
+            } else {
+                return "Phonetic transcription not found.";
+            }
+        } catch (Exception e) {
+            return "";
+        }
+    }
     public static void updatePhonetic(String word){
-        String phonetic = Oxford.getPhonetic(word);
+        String phonetic = getPhonetic(word);
 
         if (!phonetic.startsWith("Error")) {
             boolean success = updatePhonetic(word, phonetic);

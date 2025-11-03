@@ -19,20 +19,21 @@ public class Elllo {
 //        pullTopics();
         var ens = Test.databaseEnglish();
 
-//        var list=extractWords(Test.readFile("vocabularies clone/test1.txt"));
-        var list = reafile("list.txt");
+        var list=extractWords(Test.readFile("list.txt"));
+//        var list = reafile("list.txt");
         HashSet<String> rs = new HashSet<>();
         for (var i : list) {
             if (ens.contains(i)) {
                 rs.add(i);
-            } else if (ens.contains(i.toLowerCase())) {
-                rs.add(i.toLowerCase());
-            } else {
-                System.out.println(i);
             }
+//            else if (ens.contains(i.toLowerCase())) {
+//                rs.add(i.toLowerCase());
+//            } else {
+//                System.out.println(i);
+//            }
         }
 
-        Test.writeTopic("Review words list", list);
+            Test.writeTopic("A1 Vocabulary Lessons", list);
 //        HashSet<String[]> data=new HashSet<>();
 //        for(var i: list){
 //            data.add(new String[]{i});
@@ -61,7 +62,7 @@ public class Elllo {
 
         // Tìm và thêm các từ vào HashSet
         while (matcher.find()) {
-            wordSet.add(matcher.group().toLowerCase());  // Chuyển về chữ thường để tránh trùng lặp
+            wordSet.add(matcher.group());  // Chuyển về chữ thường để tránh trùng lặp
         }
 
         return wordSet;

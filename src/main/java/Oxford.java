@@ -10,41 +10,15 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
+import static org.apache.commons.lang3.StringUtils.capitalize;
+
 public class Oxford {
     public static void main(String[] args) {
 
 //        downloadOxfordWordlist();
 //        writeAllTopics();
         createTopics();
-//        writeTopics();
-//        createSQL();
 //        writeAllNone();
-//        pullIPA();
-//        main1(args);
-    }
-
-    public static void pullIPA() {
-        Scanner scanner = new Scanner(System.in);
-        for (int i = 0; i < 100; i++) {
-            var input = scanner.nextLine();
-            System.out.println(getPhonetic(input));
-        }
-    }
-
-    public static String getPhonetic(String word) {
-        try {
-            String url = "https://www.oxfordlearnersdictionaries.com/definition/english/" + word + "?q=" + word;
-            Document doc = Jsoup.connect(url).get();
-            Element phoneticSpan = doc.selectFirst("span.phon");
-
-            if (phoneticSpan != null) {
-                return phoneticSpan.text();
-            } else {
-                return "Phonetic transcription not found.";
-            }
-        } catch (Exception e) {
-            return "";
-        }
     }
 
     public static ArrayList<String> listExcelFiles(String pathRoot) {
@@ -74,14 +48,14 @@ public class Oxford {
         return excelFiles;
     }
 
-    public static String pathToTopic(String path) {
+    public static String pathToTopic(String root, String path) {
         // Tách chuỗi bằng dấu '\\' để phân cấp thư mục
         String[] parts = path.split("\\\\");
 
         // Xác định vị trí bắt đầu của phần "Topics of Oxford"
         int startIndex = -1;
         for (int i = 0; i < parts.length; i++) {
-            if (parts[i].equalsIgnoreCase("Topics of Oxford") || parts[i].equalsIgnoreCase("Oxford wordlist")) {
+            if (parts[i].equalsIgnoreCase(root)) {
                 startIndex = i + 1;
                 break;
             }
@@ -143,251 +117,125 @@ public class Oxford {
             }
         }
     }
-
     public static void createTopics() {
         String pathRoot = "Topics of Oxford";
         ArrayList<String> excelFiles = listExcelFiles(pathRoot);
         var ens = Test.databaseEnglish();
-//        HashSet<String> lvs = new HashSet<>();
-//        HashSet<String[]> a1 = new HashSet<>();
-//        HashSet<String[]> a2 = new HashSet<>();
-//        HashSet<String[]> b1 = new HashSet<>();
-//        HashSet<String    []> b2 = new HashSet<>();
-//        HashSet<String[]> c1 = new HashSet<>();
-//        HashSet<String[]> c2 = new HashSet<>();
-//        HashSet<String[]> intermediate = new HashSet<>();
-        HashSet<String[]> all = new HashSet<>();
-        ArrayList<Object> data = new ArrayList<>();
-        ArrayList<String[]> listData = new ArrayList<>();
-        var ts = Database.countWordInTopics();
-        var cambridge = Cambridge.all();
-        for (String file : excelFiles) {
-            var name = pathToTopic(file);
-            HashSet<String[]> list = new HashSet<>();
-            int countAdd = 0;
-            try {
-                Workbook workbook = new XSSFWorkbook(file);
-                for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-                    Sheet sheet = workbook.getSheetAt(i);
-                    for (Row row : sheet) {
-                        try {
 
-                            String english = row.getCell(0).getStringCellValue().trim();
-                            String parts_of_speech = row.getCell(1).getStringCellValue().toLowerCase();
-                            String lv = row.getCell(2).getStringCellValue().toLowerCase();
-                            if(!ens.contains(english)) {
-                                System.out.println(english+"\t"+parts_of_speech+"\t"+lv);
-                            }
-                            ;
-//                            if (
-//                                    lv.equals("c1") || lv.equals("c2")
-//                                ||
-//                            lv.equals("b2")
-//                                        ||lv.equals("b1")
-//                                        ||lv.equals("a2   ")||lv.equals("a1")
-//                            ) continue;
-//                            if (!ens.contains(english)) {
-//                                if (cambridge.contains(english))
-//                                    System.out.println(english + "\t" + parts_of_speech + "\t" + lv);
-////                            System.out.println(file + "\t" + english + "\t" + parts_of_speech);
-//                                continue;
-//                            }
-//                            var ltn = name.split(">");
-//                            if (!ltn[2].trim().equals("All"))
-//                                list.add(new String[]{english, parts_of_speech});
-//                        if (lv.equals("a1")
-//                                || lv.equals("a2")
-//                                || lv.equals("b1")
-//                                ||lv.equals("b2")
-//                                ||lv.equals("c1")
-//                                ||lv.equals("c2")
-//                        )
-//                            countAdd++;
-//                            if (lv.equals("a1")) a1.add(new String[]{english, parts_of_speech});
-//                            if (lv.equals("a1")) intermediate.add(new String[]{english, parts_of_speech});
-//                            if (lv.equals("a2")) a2.add(new String[]{english, parts_of_speech});
-//                            if (lv.equals("a2")) intermediate.add(new String[]{english, parts_of_speech});
-//                            if (lv.equals("b1")) b1.add(new String[]{english, parts_of_speech});
-//                            if (lv.equals("b1")) intermediate.add(new String[]{english, parts_of_speech});
-//                            if (lv.equals("b2")) b2.add(new String[]{english, parts_of_speech});
-//                            if (lv.equals("c1")) c1.add(new String[]{english, parts_of_speech});
-//                            if (lv.equals("c2")) c2.add(new String[]{english, parts_of_speech});
-                            all.add(new String[]{english, parts_of_speech});
-//                        var ltn=name.split(">");
-//                        if(ltn[2].trim().equals("All")){
-//                            listData.add(new String[]{ltn[0].trim(),ltn[1].trim(),ltn[2].trim(),english, parts_of_speech});
-//                        }
-                            list.add(new String[]{english, parts_of_speech});
-                        } catch (Exception e) {
-                            System.out.println(file);
-                        }
-                    }
-
-                }
-                workbook.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (list.size() == 0 && !name.contains("> All")) continue;
-            HashMap<String, Object> row = new HashMap<>();
-            row.put("name", name);
-            row.put("vs", list);
-            data.add(row);
+        // Tạo HashSet cho các từ loại chính
+        HashMap<String, HashSet<String[]>> partOfSpeechMap = new HashMap<>();
+        String[] partsOfSpeech = {
+                "indefinite article", "preposition", "adverb", "noun", "verb", "adjective",
+                "pronoun", "determiner", "conjunction", "auxiliary verb", "exclamation",
+                "modal verb", "number", "ordinal number", "definite article",
+                "infinitive marker", "phrase", "linking verb"
+        };
+        for (String pos : partsOfSpeech) {
+            partOfSpeechMap.put(pos, new HashSet<>());
         }
-//        writeExcel("All.xlsx", listData);
-        HashMap<String, Object> row = new HashMap<>();
-//        row.put("name", "A1");
-//        row.put("vs", a1);
-//        data.add(row);
-//        row = new HashMap<>();
-//        row.put("name", "A2");
-//        row.put("vs", a2);
-//        data.add(row);
-//        row = new HashMap<>();
-//        row.put("name", "B1");
-//        row.put("vs", b1);
-//        data.add(row);
-//        row = new HashMap<>();
-//        row.put("name", "B2");
-//        row.put("vs", b2);
-//        data.add(row);
-//        row = new HashMap<>();
-//        row.put("name", "C1");
-//        row.put("vs", c1);
-//        data.add(row);
-//        row = new HashMap<>();
-//        row.put("name", "C2");
-//        row.put("vs", c2);
-//        data.add(row);
-//        row = new HashMap<>();
-//        row.put("name", "My target");
-//        row.put("vs", all);
-//        data.add(row);
-        Test.writeTopics(data, "Topics of Oxford");
-//        System.out.println(a1.size());
-//        System.out.println(a2.size());
-//        System.out.println(b1.size());
-//        System.out.println(b2.size());
-//        System.out.println(c1.size());
-//        System.out.println(c2.size());
-    }
 
-    public static void createSQL() {
-        String pathRoot = "Topics of Oxford";
-        ArrayList<String> excelFiles = listExcelFiles(pathRoot);
+        // Cấp độ
         HashSet<String[]> a1 = new HashSet<>();
         HashSet<String[]> a2 = new HashSet<>();
         HashSet<String[]> b1 = new HashSet<>();
         HashSet<String[]> b2 = new HashSet<>();
         HashSet<String[]> c1 = new HashSet<>();
         HashSet<String[]> c2 = new HashSet<>();
+
+        HashSet<String[]> all = new HashSet<>();
         ArrayList<Object> data = new ArrayList<>();
-        HashMap<String, Integer> es = new HashMap<>();
-        int ei = 1;
-        HashMap<String, HashMap<String, Integer>> vs = new HashMap<>();
-        int vi = 1;
-        int ti = 4;
-        String rs = "INSERT INTO vietnamese (id,signify) VALUES (1,'none');\n";
+
         for (String file : excelFiles) {
-            var name = pathToTopic(file);
-            rs += "INSERT INTO topics (id,name) VALUES (" + ti + ",'" + name + "');\n";
-            try {
-                Workbook workbook = new XSSFWorkbook(file);
+            var name = pathToTopic(pathRoot, file);
+            String rootname = "";
+            HashSet<String[]> list = new HashSet<>();
+            try (Workbook workbook = new XSSFWorkbook(file)) {
                 for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
                     Sheet sheet = workbook.getSheetAt(i);
                     for (Row row : sheet) {
-                        String english = row.getCell(0).getStringCellValue();
-                        String parts_of_speech = row.getCell(1).getStringCellValue().toLowerCase();
-                        String lv = row.getCell(2).getStringCellValue().toLowerCase();
-                        if (!es.containsKey(english)) {
-                            rs += "INSERT INTO english (id,word, phonetic) VALUES (" + ei + ",'" + english + "','');\n";
-                            es.put(english, ei++);
+                        try {
+                            String english = row.getCell(0).getStringCellValue().trim();
+                            String parts_of_speech = row.getCell(1).getStringCellValue().toLowerCase();
+                            String lv = "";
+                            try {
+                                lv = row.getCell(2).getStringCellValue().toLowerCase();
+                            } catch (Exception ignored) {}
+
+                            if (!ens.contains(english)) {
+                                System.out.println(english + "\t" + parts_of_speech + "\t" + lv);
+                            }
+
+                            // Phân cấp độ
+                            switch (lv) {
+                                case "a1" -> a1.add(new String[]{english, parts_of_speech});
+                                case "a2" -> a2.add(new String[]{english, parts_of_speech});
+                                case "b1" -> b1.add(new String[]{english, parts_of_speech});
+                                case "b2" -> b2.add(new String[]{english, parts_of_speech});
+                                case "c1" -> c1.add(new String[]{english, parts_of_speech});
+                                case "c2" -> c2.add(new String[]{english, parts_of_speech});
+                            }
+
+                            // Phân loại từ loại
+                            if (partOfSpeechMap.containsKey(parts_of_speech)) {
+                                partOfSpeechMap.get(parts_of_speech).add(new String[]{english, parts_of_speech});
+                            }
+
+                            all.add(new String[]{english, parts_of_speech});
+                            rootname = name.split(">")[0].trim();
+                            if(lv.contains("a"))
+                            list.add(new String[]{english, parts_of_speech});
+                        } catch (Exception e) {
+                            System.out.println("Lỗi ở file: " + file);
                         }
-                        if (!vs.containsKey(english)) {
-                            vs.put(english, new HashMap<>());
-                        }
-                        if (!vs.get(english).containsKey(parts_of_speech)) {
-                            rs += "INSERT INTO vocabularies (id,en, vi, part_of_speech) VALUES (" + vi + "," + es.get(english) + ", 1, '" + parts_of_speech + "');\n";
-                            vs.get(english).put(parts_of_speech, vi++);
-                        }
-                        rs += "INSERT INTO vocabularies_topics (topic, vocabulary) VALUES (" + ti + "," + vs.get(english).get(parts_of_speech) + ");\n";
                     }
                 }
-                workbook.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            ti++;
-//            break;
-        }
-        System.out.println(rs);
-        writeStringToFile("topic.sql", rs);
-    }
+            if(list.size()>0){
+            HashMap<String, Object> row = new HashMap<>();
+            row.put("name", name+" level A");
+            row.put("vs", list);
+            data.add(row);}
 
-    public static void writeStringToFile(String filePath, String content) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write(content); // Ghi nội dung vào file
-            System.out.println("Ghi chuỗi vào tệp thành công: " + filePath);
-        } catch (IOException e) {
-            System.err.println("Lỗi khi ghi chuỗi vào tệp: " + e.getMessage());
-        }
-    }
+            // Ghi topic gốc
+            HashMap<String, Object> row1 = new HashMap<>();
+            row1.put("name", rootname +" level A");
+            row1.put("vs", list);
+            data.add(row1);
 
-    public static void listTopics() {
-        var list = readOnlineWords();
-        HashSet<String> topics = new HashSet<>();
-        String pathRoot = "Topics of Oxford";
-        ArrayList<String> excelFiles = listExcelFiles(pathRoot);
-        for (String file : excelFiles) {
-            var name = pathToTopic(file);
-            try {
-                Workbook workbook = new XSSFWorkbook(file);
-                for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-                    Sheet sheet = workbook.getSheetAt(i);
-                    for (Row row : sheet) {
-                        String english = row.getCell(0).getStringCellValue();
-                        String parts_of_speech = row.getCell(1).getStringCellValue().toLowerCase();
-                        String lv = row.getCell(2).getStringCellValue().toLowerCase();
-                        if (list.get(english) != null && list.get(english).contains(parts_of_speech)) {
-                            topics.add(name);
-//                            System.out.println(name);
-                        }
-                    }
-
-                }
-                workbook.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            // Ghi theo nhóm đặc biệt
+            if (!rootname.startsWith("Word Lists")) {
+                HashMap<String, Object> row2 = new HashMap<>();
+                row2.put("name", "Oxford all topics");
+                row2.put("vs", list);
+                data.add(row2);
+            } else {
+                HashMap<String, Object> row2 = new HashMap<>();
+                row2.put("name", "Oxford Word Lists");
+                row2.put("vs", list);
+                data.add(row2);
             }
         }
-        for (var i : topics) {
-            System.out.println(i);
-        }
-    }
 
-    public static void writeAllNone() {
-        String pathRoot = "Topics of Oxford";
-        ArrayList<String> excelFiles = listExcelFiles(pathRoot);
-        ArrayList<String[]> list = new ArrayList<>();
-        var ens=Test.databaseEnglish();
-        for (String file : excelFiles) {
-            try {
-                Workbook workbook = new XSSFWorkbook(file);
-                for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-                    Sheet sheet = workbook.getSheetAt(i);
-                    for (Row row : sheet) {
-                        String english = row.getCell(0).getStringCellValue();
-                        String parts_of_speech = row.getCell(1).getStringCellValue().toLowerCase();
-                        if(!ens.contains(english.trim()))
-                        list.add(new String[]{english, "none", parts_of_speech});
-                    }
-                }
-                workbook.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        // Ghi các cấp độ
+        data.add(Map.of("name", "A1", "vs", a1));
+        data.add(Map.of("name", "A2", "vs", a2));
+        data.add(Map.of("name", "B1", "vs", b1));
+        data.add(Map.of("name", "B2", "vs", b2));
+        data.add(Map.of("name", "C1", "vs", c1));
+        data.add(Map.of("name", "C2", "vs", c2));
+
+        // Ghi từ loại
+        for (var entry : partOfSpeechMap.entrySet()) {
+            data.add(Map.of("name", capitalize(entry.getKey()), "vs", entry.getValue()));
         }
-        writeExcel("Word_none_part-of-speech.xlsx", list);
+
+        // Ghi all
+        data.add(Map.of("name", "Oxford all", "vs", all));
+
+        // Ghi ra file
+        Test.writeTopics(data, "Oxford all");
     }
 
     public static void writeVocabulariesToExcel(String path, List<HashMap<String, String>> vocabularies) {
@@ -395,24 +243,10 @@ public class Oxford {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Vocabularies");
 
-        // Tạo dòng tiêu đề
-//        Row headerRow = sheet.createRow(0);
-//        String[] headers = {"Word", "Part of Speech", "Level", "Word Link", "MP3 UK Link", "MP3 US Link"};
-//        for (int i = 0; i < headers.length; i++) {
-//            Cell cell = headerRow.createCell(i);
-//            cell.setCellValue(headers[i]);
-//            CellStyle style = workbook.createCellStyle();
-//            Font font = workbook.createFont();
-//            font.setBold(true);
-//            style.setFont(font);
-//            cell.setCellStyle(style);
-//        }
-
         // Ghi dữ liệu từ vựng
         int rowIndex = 0; // Dòng bắt đầu ghi dữ liệu
         for (HashMap<String, String> vocabulary : vocabularies) {
             Row row = sheet.createRow(rowIndex++);
-
             row.createCell(0).setCellValue(vocabulary.getOrDefault("word", ""));
             row.createCell(1).setCellValue(vocabulary.getOrDefault("partOfSpeech", ""));
             row.createCell(2).setCellValue(vocabulary.getOrDefault("level", ""));
@@ -435,69 +269,48 @@ public class Oxford {
             }
         }
     }
-
     public static List<HashMap<String, String>> getVocabularies(String url) {
         List<HashMap<String, String>> vocabularies = new ArrayList<>();
-
-        // Kết nối tới URL và lấy nội dung HTML
         Document doc = Jsoup.parse(SeleniumHelper.getHTML(url));
-
-        // Lấy tất cả các <li> trong <ul class="top-g">
         Elements vocabElements = doc.select("ul.top-g > li");
 
         for (Element vocabElement : vocabElements) {
-            // Bỏ qua nếu có class "hidden"
-            if (vocabElement.attr("class").contains("hidden")) {
+            // Bỏ qua nếu có class hoặc element 'hidden'
+            if (vocabElement.hasClass("hidden") || !vocabElement.select(".hidden").isEmpty()) {
                 continue;
             }
-            if (vocabElement.select(".hidden").size() > 0) {
-                continue; // Bỏ qua các phần tử có class 'hidden'
-            }
+
+            Element aTag = vocabElement.selectFirst("a");
+            if (aTag == null) continue;
+
+            String word = aTag.text().trim();
+            if (word.isEmpty()) continue;
 
             HashMap<String, String> vocab = new HashMap<>();
+            vocab.put("word", word);
+            vocab.put("partOfSpeech", getTextOrEmpty(vocabElement, "span.pos"));
+            vocab.put("level", getTextOrEmpty(vocabElement, "span.belong-to"));
+            vocab.put("wordLink", "https://www.oxfordlearnersdictionaries.com" + aTag.attr("href"));
+            vocab.put("mp3UK", getAttrOrEmpty(vocabElement, "div.pron-uk", "data-src-mp3"));
+            vocab.put("mp3US", getAttrOrEmpty(vocabElement, "div.pron-us", "data-src-mp3"));
 
-            // Lấy từ vựng (word)
-            String word = vocabElement.getElementsByTag("a").get(0).text();
-
-            // Lấy từ loại (part of speech)
-            String partOfSpeech = vocabElement.selectFirst("span.pos") != null
-                    ? vocabElement.selectFirst("span.pos").text()
-                    : "";
-
-            // Lấy cấp độ từ vựng (level)
-            String level = vocabElement.selectFirst("span.belong-to") != null
-                    ? vocabElement.selectFirst("span.belong-to").text()
-                    : "";
-
-            // Lấy link từ (word link)
-            String wordLink = vocabElement.selectFirst("a") != null
-                    ? "https://www.oxfordlearnersdictionaries.com" + vocabElement.selectFirst("a").attr("href")
-                    : "";
-
-            // Lấy link mp3 UK
-            String mp3UK = vocabElement.selectFirst("div.pron-uk") != null
-                    ? vocabElement.selectFirst("div.pron-uk").attr("data-src-mp3")
-                    : "";
-
-            // Lấy link mp3 US
-            String mp3US = vocabElement.selectFirst("div.pron-us") != null
-                    ? vocabElement.selectFirst("div.pron-us").attr("data-src-mp3")
-                    : "";
-
-            // Chỉ thêm từ vựng nếu có dữ liệu hợp lệ
-            if (!word.isEmpty()) {
-                vocab.put("word", word);
-                vocab.put("partOfSpeech", partOfSpeech);
-                vocab.put("level", level);
-                vocab.put("wordLink", wordLink);
-                vocab.put("mp3UK", mp3UK);
-                vocab.put("mp3US", mp3US);
-                vocabularies.add(vocab);
-            }
+            vocabularies.add(vocab);
         }
 
         return vocabularies;
     }
+
+    // Helper methods
+    private static String getTextOrEmpty(Element element, String cssQuery) {
+        Element found = element.selectFirst(cssQuery);
+        return found != null ? found.text().trim() : "";
+    }
+
+    private static String getAttrOrEmpty(Element element, String cssQuery, String attr) {
+        Element found = element.selectFirst(cssQuery);
+        return found != null ? found.attr(attr).trim() : "";
+    }
+
 
 
     public static HashMap<String, HashMap<String, String>> getSecondTopics(String url) {
@@ -556,74 +369,6 @@ public class Oxford {
         return created; // Trả về true nếu tạo mới thành công
     }
 
-    public static void writeAllTopics() {
-        SeleniumHelper.setup();
-        var root = "Topics of Oxford";
-        createDirectory(System.getProperty("user.dir"), root);
-        root = System.getProperty("user.dir") + "/" + root;
-        var topics = getRootTopics();
-        for (String name : topics.keySet()) {
-//            createDirectory(root, name);
-            var secondTopics = getSecondTopics(topics.get(name));
-            for (var sn : secondTopics.keySet()) {
-                createDirectory(root + "/" + name, sn);
-                for (var tn : secondTopics.get(sn).keySet()) {
-                    if (!tn.equals("All"))
-                        System.out.println(name + " > " + sn + " > " + tn);
-//                    var path = root + "/" + name + "/" + sn + "/" + tn.replaceAll("/", " or ") + ".xlsx";
-//                    var vocabularies = getVocabularies(secondTopics.get(sn).get(tn));
-//                    writeVocabulariesToExcel(path, vocabularies);
-                }
-            }
-        }
-    }
-
-    public static void main1(String[] args) {
-
-        downloadOxfordWordlist();
-        var ens = Test.databaseEnglish();
-        var subdirectories1 = getDirectories("Topics of Oxford");
-        ArrayList<Object> data = new ArrayList<>();
-        for (var subdirectory1 : subdirectories1) {
-            var subdirectories = getDirectories(subdirectory1.getAbsolutePath());
-            if (subdirectories != null)
-                for (File subdirectory : subdirectories) {
-                    List<Workbook> workbooks = readExcelFiles(subdirectory.getAbsolutePath());
-                    var name = subdirectory.getName();
-                    HashSet<String[]> list = new HashSet<>();
-                    for (Workbook workbook : workbooks) {
-                        for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-                            Sheet sheet = workbook.getSheetAt(i);
-                            for (Row row : sheet) {
-                                try {
-
-
-                                    String english = row.getCell(0).getStringCellValue();
-                                    String parts_of_speech = row.getCell(1).getStringCellValue().toLowerCase();
-//                            String lv = row.getCell(2).getStringCellValue().toLowerCase();
-                                    if (!ens.contains(english)) {
-                                        System.out.println(english + "\t" + parts_of_speech);
-                                    }
-                                } catch (Exception iException) {
-                                }
-                            }
-                        }
-                        try {
-                            workbook.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-//            Test.writeTopics(name,list,"Oxford topics json/"+name);
-                    HashMap<String, Object> row = new HashMap<>();
-                    row.put("name", name);
-                    row.put("vs", list);
-                    data.add(row);
-
-                }
-        }
-        Test.writeTopics(data, "Oxford topics json/All level");
-    }
 
     public static HashMap<String, String> getRootTopics() {
         HashMap<String, String> topics = new HashMap<>();
@@ -651,22 +396,6 @@ public class Oxford {
         return topics;
     }
 
-    private static void test() {
-        File file = new File("Data");
-        List<Workbook> workbooks = readExcelFiles(file.getAbsolutePath());
-        var name = file.getName();
-        HashSet<String> words = new HashSet<>();
-        for (Workbook workbook : workbooks) {
-            for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-                Sheet sheet = workbook.getSheetAt(i);
-                for (Row row : sheet) {
-                    String english = row.getCell(2).getStringCellValue();
-                    words.add(english);
-                }
-            }
-        }
-        System.out.println(words.size());
-    }
 
     public static String pathToTopicName(String path) {
         // Tách chuỗi theo ký tự phân cách "\\"
@@ -685,123 +414,7 @@ public class Oxford {
         return mainTopic + " | " + subTopic;
     }
 
-    private static void writeWordlist() {
-        var ens = Test.databaseEnglish();
-        ArrayList<Object> data = new ArrayList<>();
-        File[] oxfSubdirectories = getDirectories("Oxford topics");
-        File[] camSubdirectories = new File[]{};
-//        File[] camSubdirectories = getDirectories("Cambridge word lists");
-        File[] subdirectories = new File[oxfSubdirectories.length + camSubdirectories.length];
 
-        System.arraycopy(oxfSubdirectories, 0, subdirectories, 0, oxfSubdirectories.length);
-        System.arraycopy(camSubdirectories, 0, subdirectories, oxfSubdirectories.length, camSubdirectories.length);
-
-        for (File subdirectory : subdirectories) {
-            var files = getExcelFiles(subdirectory.getAbsolutePath());
-            for (File file : files) {
-                HashSet<String> list = new HashSet<>();
-                var topic = pathToTopicName(file.getAbsolutePath());
-                System.out.println(topic);
-//                try (FileInputStream fileInputStream = new FileInputStream(file)) {
-//                    Workbook workbook = new XSSFWorkbook(fileInputStream);
-//                    for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-//                        Sheet sheet = workbook.getSheetAt(i);
-//                        for (Row row : sheet) {
-//                            String english = row.getCell(0).getStringCellValue();
-//                            String lv = row.getCell(2).getStringCellValue().toLowerCase();
-//                            if (lv.equals("a1")
-//                                    || lv.equals("")
-//                                    || lv.equals("a2")
-//                                    || lv.equals("b1")
-//                                    || lv.equals("b2")
-////                                || lv.equals("c1")
-////                                || lv.equals("c2")
-//                            ) {
-//                                list.add(english);
-//                            }
-//                        }
-//                    }
-//                    workbook.close();
-//                } catch (FileNotFoundException e) {
-//                    throw new RuntimeException(e);
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//                HashMap<String, Object> row = new HashMap<>();
-//                row.put("name", topic);
-//                row.put("vs", list);
-//                data.add(row);
-            }
-
-        }
-
-
-//        String name = "Learning vocabularies";
-//        HashMap<String, Object> row = new HashMap<>();
-//        row.put("name", name);
-//        row.put("vs", list);
-//        data.add(row);
-//        Test.writeTopics(data, "Oxford topics");
-    }
-
-    private static void writeTopics3000() {
-        var ens = Test.databaseEnglish();
-        ArrayList<Object> data = new ArrayList<>();
-        File[] oxfSubdirectories = getDirectories("Oxford topics");
-        File[] camSubdirectories = new File[]{};
-//        File[] camSubdirectories = getDirectories("Cambridge word lists");
-        File[] subdirectories = new File[oxfSubdirectories.length + camSubdirectories.length];
-
-        System.arraycopy(oxfSubdirectories, 0, subdirectories, 0, oxfSubdirectories.length);
-        System.arraycopy(camSubdirectories, 0, subdirectories, oxfSubdirectories.length, camSubdirectories.length);
-
-        for (File subdirectory : subdirectories) {
-            var files = getExcelFiles(subdirectory.getAbsolutePath());
-            for (File file : files) {
-                HashSet<String> list = new HashSet<>();
-                var topic = pathToTopicName(file.getAbsolutePath());
-                System.out.println(topic);
-//                try (FileInputStream fileInputStream = new FileInputStream(file)) {
-//                    Workbook workbook = new XSSFWorkbook(fileInputStream);
-//                    for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-//                        Sheet sheet = workbook.getSheetAt(i);
-//                        for (Row row : sheet) {
-//                            String english = row.getCell(0).getStringCellValue();
-//                            String lv = row.getCell(2).getStringCellValue().toLowerCase();
-//                            if (lv.equals("a1")
-//                                    || lv.equals("")
-//                                    || lv.equals("a2")
-//                                    || lv.equals("b1")
-//                                    || lv.equals("b2")
-////                                || lv.equals("c1")
-////                                || lv.equals("c2")
-//                            ) {
-//                                list.add(english);
-//                            }
-//                        }
-//                    }
-//                    workbook.close();
-//                } catch (FileNotFoundException e) {
-//                    throw new RuntimeException(e);
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//                HashMap<String, Object> row = new HashMap<>();
-//                row.put("name", topic);
-//                row.put("vs", list);
-//                data.add(row);
-            }
-
-        }
-
-
-//        String name = "Learning vocabularies";
-//        HashMap<String, Object> row = new HashMap<>();
-//        row.put("name", name);
-//        row.put("vs", list);
-//        data.add(row);
-//        Test.writeTopics(data, "Oxford topics");
-    }
 
     public static File[] getDirectories(String directoryPath) {
         File directory = new File(directoryPath);
@@ -815,206 +428,6 @@ public class Oxford {
             return null;
         }
         return subdirectories;
-    }
-
-    public static void writeTopics() {
-        String[] levels = new String[]{"a1", "a2", "b1", "b2", "c1", "c2"};
-        List<Integer> counts = new ArrayList<>();
-        var subdirectories = getDirectories("Topics of Oxford");
-        for (var level : levels) {
-            int count = 0;
-            ArrayList<Object> data = new ArrayList<>();
-            HashSet<String> ps = new HashSet<>();
-//            for (File subdirectory1 : subdirectories)
-            for (File subdirectory : subdirectories) {
-//                System.out.println(subdirectory.getAbsolutePath());
-                List<Workbook> workbooks = readExcelFiles(subdirectory.getAbsolutePath());
-                var name = subdirectory.getName();
-                HashSet<String[]> list = new HashSet<>();
-                for (Workbook workbook : workbooks) {
-                    for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-                        Sheet sheet = workbook.getSheetAt(i);
-                        for (Row row : sheet) {
-                            String english = row.getCell(0).getStringCellValue();
-                            String parts_of_speech = row.getCell(1).getStringCellValue().toLowerCase();
-                            String lv = row.getCell(2).getStringCellValue().toLowerCase();
-                            if (lv.equals(level)) {
-                                var add = true;
-                                for (var j : list) {
-                                    if (j[0].equals(english)) {
-                                        add = false;
-                                        break;
-                                    }
-                                }
-                                if (add) list.add(new String[]{english, "unknown"});
-                                add = true;
-                                for (var j : list) {
-                                    if (j[0].equals(english) && j[1].equals(parts_of_speech)) {
-                                        add = false;
-                                        break;
-                                    }
-                                }
-                                if (add) list.add(new String[]{english, parts_of_speech});
-                                count++;
-
-                            }
-                            ps.add(parts_of_speech);
-                        }
-                    }
-                    try {
-                        workbook.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-//            Test.writeTopics(name,list,"Oxford topics json/"+name);
-                HashMap<String, Object> row = new HashMap<>();
-                row.put("name", level.toUpperCase() + " " + name);
-                row.put("vs", list);
-                data.add(row);
-                Test.writeTopics(data, "Oxford topics json/" + level.toUpperCase() + " topics");
-
-            }
-            System.out.println("List");
-            for (var i : ps) System.out.println(i);
-            System.out.println("end.");
-        }
-        for (var i : counts) {
-            System.out.println(i);
-        }
-    }
-
-    public static void cleanPartsOfSpeech() {
-        var oxfordVs = Oxford.readOnlineWords();
-        var ens = Test.databaseEnglish();
-        System.out.println("Oxford words: " + oxfordVs.size());
-
-        var cambridgeOnVs = Cambridge.readOnlineWords();
-
-        System.out.println(oxfordVs.size());
-        ArrayList<String[]> vsData = new ArrayList<>();
-        vsData.addAll(Test.readDataVocabularies("All my words.xlsx"));
-        vsData.addAll(Test.readDataVocabularies("All my words part laban clean.xlsx"));
-        HashSet<String> vocabs = new HashSet<>();
-        HashSet<String> cmost = new HashSet<>();
-
-        ArrayList<String[]> most = new ArrayList<>();
-
-//        for(var i: most){
-//            cmost.add(i[0]);
-//        }
-        System.out.println(vocabs.size());
-        System.out.println(cmost.size());
-        System.out.println(most.size());
-        Test.writeDataVocabularies(most, "All words more.xlsx");
-    }
-
-    public static void cleanVocabulariesLaban() {
-        ArrayList<String[]> vsData = new ArrayList<>();
-        vsData.addAll(Test.readDataVocabularies("All my words part laban.xlsx"));
-        HashSet<String> ps = new HashSet<>();
-        System.out.println(vsData.size());
-        ArrayList<String[]> clean = new ArrayList<>();
-        for (var i : vsData) {
-            var p = i[2].toLowerCase();
-            var row = i;
-            var add = true;
-            if (p.contains("danh từ") || i[2].equals("Danh từ") || i[2].equals("danh từ")) {
-                row[2] = "noun";
-            } else if (p.contains("động từ") || p.contains("đông từ") || i[2].equals("Động từ")) {
-                row[2] = "verb";
-            } else if (p.contains("tính từ") || i[2].equals("Tính từ")) {
-                row[2] = "adjective";
-            } else if (p.contains("phó từ") || i[2].equals("Phó từ")) {
-                row[2] = "adverb";
-            } else if (p.contains("giới từ")) {
-                row[2] = "preposition";
-            } else if (p.contains("liên từ")) {
-                row[2] = "conjunction";
-            } else if (p.contains("đại từ")) {
-                row[2] = "pronoun";
-            } else if (p.contains("thán từ")) {
-                row[2] = "interjection";
-            } else if (p.contains("viết tắt")) {
-                row[2] = "abbreviation";
-            } else if (i[2].equals("Định từ")) {
-                row[2] = "determiner";
-            } else if (i[2].equals("unknown")) {
-                row[2] = "unknown";
-            } else {
-                ps.add(row[2]);
-                add = false;
-            }
-            if (add) clean.add(row);
-        }
-//        for(var i:vsData){
-//            ps.add(i[2]);
-//        }
-        Test.writeDataVocabularies(clean, "All my words part laban clean.xlsx");
-        System.out.println(clean.size());
-        for (var i : ps) {
-            System.out.println(i);
-        }
-        System.out.println(ps.size());
-    }
-
-    public static void downloadVocabularies() {
-        var oxfordVs = Oxford.readOxfordVocabularies();
-        System.out.println("Oxford words: " + oxfordVs.size());
-
-        var cambridgeOnVs = Cambridge.readOnlineWords();
-        System.out.println(oxfordVs.size());
-        ArrayList<String[]> vsData = new ArrayList<>();
-        vsData.addAll(Test.readDataVocabularies("All my words.xlsx"));
-        vsData.addAll(Test.readDataVocabularies("All my words part laban.xlsx"));
-        HashSet<String> vocabs = new HashSet<>();
-        for (var i : vsData) {
-            vocabs.add(i[0]);
-        }
-        System.out.println(vocabs.size());
-        int count = 0;
-        for (var i : oxfordVs) {
-            if (!vocabs.contains(i)) {
-                count++;
-                Test.printVocabulariesLaban(i, "All my words part laban.xlsx");
-            }
-        }
-        System.out.println(count);
-    }
-
-    public static HashSet<String> readOxfordVocabularies() {
-        String directoryPath = "Oxford topics";
-        File directory = new File(directoryPath);
-        if (!directory.exists() || !directory.isDirectory()) {
-            System.out.println("Thư mục không tồn tại hoặc không phải là thư mục: " + directoryPath);
-            return null;
-        }
-        File[] subdirectories = directory.listFiles(File::isDirectory);
-        if (subdirectories == null || subdirectories.length == 0) {
-            System.out.println("Không có thư mục con nào trong thư mục: " + directoryPath);
-            return null;
-        }
-        HashSet<String> list = new HashSet<>();
-        for (File subdirectory : subdirectories) {
-            List<Workbook> workbooks = readExcelFiles(subdirectory.getAbsolutePath());
-            for (Workbook workbook : workbooks) {
-                for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-                    Sheet sheet = workbook.getSheetAt(i);
-                    for (Row row : sheet) {
-                        String english = row.getCell(0).getStringCellValue();
-                        list.add(english);
-                    }
-                }
-            }
-            for (Workbook workbook : workbooks) {
-                try {
-                    workbook.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return list;
     }
 
     public static HashMap<String, HashSet<String>> readOnlineWords() {
@@ -1105,50 +518,77 @@ public class Oxford {
     }
 
     public static void downloadOxford3000And5000(String html, String path) {
-        Document document1 = Jsoup.parse(html);
-        Element ulElement = document1.selectFirst("ul.top-g");
-        if (ulElement != null) {
-            Elements lis = ulElement.getElementsByTag("li");
-            for (Element li : lis) {
-                if (li.hasClass("hidden")) {
-//                    System.out.println(li.text() + "\t" + "phrase" + "\t" + "");
-                    continue; // Nếu có, bỏ qua phần tử này và tiếp tục với phần tử tiếp theo
-                }
-                var a = li.getElementsByTag("a").get(0);
-                var english = a.text();
-                String meaningURL = "https://www.oxfordlearnersdictionaries.com/" + a.attr("href");
-                Elements soundDivs = li.select("div.sound");
-                String ukmp3 = null;
-                String usmp3 = null;
-                for (Element soundDiv : soundDivs) {
-                    String mp3Src = soundDiv.attr("data-src-mp3");
-                    // Kiểm tra thẻ có lớp "pron-uk"
-                    if (soundDiv.hasClass("pron-uk")) {
-                        ukmp3 = "https://www.oxfordlearnersdictionaries.com" + mp3Src;  // Gán đường dẫn MP3 của UK
-                    }
-                    // Kiểm tra thẻ có lớp "pron-us"
-                    else if (soundDiv.hasClass("pron-us")) {
-                        usmp3 = "https://www.oxfordlearnersdictionaries.com" + mp3Src;  // Gán đường dẫn MP3 của US
-                    }
-                }
-//                System.out.println(ukmp3);
-//                System.out.println(usmp3);
-                var noun = "phrase";
-                try {
-                    noun = li.getElementsByClass("pos").get(0).text();
-                    var lv = li.getElementsByClass("belong-to").get(0).text();
-                    System.out.println(english + "\t" + noun + "\t" + lv + "\t" + meaningURL + "\t" + ukmp3 + "\t" + usmp3);
-                    addLineToExcell(path + "/list.xlsx", english, noun, lv);
-                } catch (Exception e) {
-                    System.out.println(english + "\t" + noun + "\t" + "" + "\t" + meaningURL + "\t" + ukmp3 + "\t" + usmp3);
-//
-                }
+        Document document = Jsoup.parse(html);
+        Element ulElement = document.selectFirst("ul.top-g");
 
-            }
-        } else {
+        if (ulElement == null) {
             System.out.println("Không tìm thấy phần tử ul với class 'top-g'.");
+            return;
+        }
+
+        List<String[]> vocabData = new ArrayList<>();
+        Elements lis = ulElement.getElementsByTag("li");
+
+        for (Element li : lis) {
+            if (li.hasClass("hidden")) continue;
+
+            String english = li.selectFirst("a").text();
+            String noun = "phrase";
+            String lv = "";
+            String meaningURL = "https://www.oxfordlearnersdictionaries.com" + li.selectFirst("a").attr("href");
+
+            String ukmp3 = null;
+            String usmp3 = null;
+
+            for (Element soundDiv : li.select("div.sound")) {
+                String mp3Src = soundDiv.attr("data-src-mp3");
+                if (soundDiv.hasClass("pron-uk")) {
+                    ukmp3 = "https://www.oxfordlearnersdictionaries.com" + mp3Src;
+                } else if (soundDiv.hasClass("pron-us")) {
+                    usmp3 = "https://www.oxfordlearnersdictionaries.com" + mp3Src;
+                }
+            }
+
+            try {
+                noun = li.getElementsByClass("pos").get(0).text();
+                lv = li.getElementsByClass("belong-to").get(0).text();
+            } catch (Exception ignored) {}
+
+            // Thêm vào danh sách dữ liệu
+            vocabData.add(new String[]{english, noun, lv});
+
+            // Nếu cần log nhanh:
+            System.out.println(english + "\t" + noun + "\t" + lv + "\t" + meaningURL + "\t" + ukmp3 + "\t" + usmp3);
+        }
+
+        // Ghi toàn bộ dữ liệu vào Excel 1 lần
+        writeListToExcel(path + "/list.xlsx", vocabData);
+    }
+    public static void writeListToExcel(String excelFilePath, List<String[]> rows) {
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Topics");
+
+        int rowNum = 0;
+        for (String[] data : rows) {
+            Row row = sheet.createRow(rowNum++);
+            for (int i = 0; i < data.length; i++) {
+                row.createCell(i).setCellValue(data[i]);
+            }
+        }
+
+        try (FileOutputStream fos = new FileOutputStream(excelFilePath)) {
+            workbook.write(fos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                workbook.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+
 
     public static void downloadOxfordAcademic(String html, String path) {
         Document document1 = Jsoup.parse(html);
@@ -1169,8 +609,9 @@ public class Oxford {
 
                     }
 
-                    var lv = "";
-                     lv = li.getElementsByClass("belong-to").get(0).text();
+                    var lv = "";try {
+                        lv = li.getElementsByClass("belong-to").get(0).text();
+                    }catch (Exception ig){}
                     addLineToExcell(path + "/list.xlsx", english, noun, lv);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1187,46 +628,23 @@ public class Oxford {
 
 
     public static void downloadOxfordWordlist() {
-        String directoryPath = "Topics of Oxford/Oxford wordlist";
+        String directoryPath = "Topics of Oxford/Word Lists";
         String topicName = "Oxford 5000";
 //        downloadOxford3000And5000(Test.readFile(topicName + ".txt"), directoryPath + "/" + topicName);
 //        topicName = "Oxford 3000";
 //        downloadOxford3000And5000(Test.readFile(topicName + ".txt"), directoryPath + "/" + topicName);
 
-        topicName = "Oxford Phrasal Academic Lexicon";
-        downloadOxfordAcademic(Test.readFile(topicName + ".txt"), directoryPath + "/" + topicName);
-
-//        topicName = "Oxford Phrasal Academic Lexicon phrases";
+//        topicName = "Oxford Phrasal Academic Lexicon";
 //        downloadOxfordAcademic(Test.readFile(topicName + ".txt"), directoryPath + "/" + topicName);
+
+        topicName = "Oxford Phrasal Academic Lexicon phrases";
+        downloadOxfordAcademic(Test.readFile(topicName + ".txt"), directoryPath + "/" + topicName);
 
 //        topicName = "Oxford Phrase List";
 //        downloadOxfordAcademic(Test.readFile(topicName + ".txt"), directoryPath + "/" + topicName);
 
     }
 
-    public static void downloadOxfordTopics() {
-
-        String directoryPath = "Oxford topics";
-        try {
-            Document doc = Jsoup.connect("https://www.oxfordlearnersdictionaries.com/topic/").get();
-            Elements topicList = doc.getElementsByClass("topic_list");
-            for (Element topic : topicList) {
-                Elements links = topic.select("a[href]");
-                for (Element link : links) {
-                    String linkHref = link.attr("href");
-                    String linkText = link.text();
-                    String path = directoryPath + "/" + linkText;
-                    File directory = new File(path);
-                    if (!directory.exists()) {
-                        boolean isCreated = directory.mkdir();
-                    }
-                    downloadOxfordTopic(linkHref, path);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
     public static void addLineToExcell(String excelFilePath, String en, String noun, String lv) {
@@ -1334,5 +752,28 @@ public class Oxford {
         // Loại bỏ các khoảng trắng thừa ở đầu và cuối chuỗi
         result = result.trim();
         return result;
+    }
+
+    public static void writeAllTopics() {
+        SeleniumHelper.setup();
+        var root = "Topics of Oxford";
+        createDirectory(System.getProperty("user.dir"), root);
+        root = System.getProperty("user.dir") + "/" + root;
+        var topics = getRootTopics();
+        for (String name : topics.keySet()) {
+//            createDirectory(root, name);
+            var secondTopics = getSecondTopics(topics.get(name));
+            for (var sn : secondTopics.keySet()) {
+                createDirectory(root + "/" + name, sn);
+                for (var tn : secondTopics.get(sn).keySet()) {
+                    if (!tn.equals("All"))
+                        System.out.println(name + " > " + sn + " > " + tn);
+                    var path = root + "/" + name + "/" + sn + "/" + tn.replaceAll("/", " or ") + ".xlsx";
+                    var vocabularies = getVocabularies(secondTopics.get(sn).get(tn));
+                    writeVocabulariesToExcel(path, vocabularies);
+                    return;
+                }
+            }
+        }
     }
 }

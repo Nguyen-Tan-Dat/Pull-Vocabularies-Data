@@ -333,6 +333,7 @@ public class PhongThuyUtils {
         // Kiểm tra nếu Địa Chi ngày trùng với Địa Chi Tư Mệnh của tháng
         return diaChiNgay.equals(tuMenhChi.get(lunarMonth));
     }
+
     public static boolean laNgayKimQuyHoangDao(LocalDate date) {
         // Chuyển đổi ngày dương sang âm lịch
         int[] lunarDate = LunarDateConverter.convertSolarToLunar(
@@ -366,6 +367,7 @@ public class PhongThuyUtils {
         // Kiểm tra nếu Địa Chi ngày trùng với Địa Chi Kim Quỹ của tháng
         return diaChiNgay.equals(kimQuyChi.get(lunarMonth));
     }
+
     public static boolean laNgayThanhLongHoangDao(LocalDate date) {
         // Chuyển đổi ngày dương sang âm lịch
         int[] lunarDate = LunarDateConverter.convertSolarToLunar(
@@ -400,41 +402,40 @@ public class PhongThuyUtils {
         return diaChiNgay.equals(thanhLongChi.get(lunarMonth));
     }
     public static boolean laNgayNgocDuongHoangDao(LocalDate date) {
-        // Chuyển đổi ngày dương sang âm lịch
+        // Bước 1: Chuyển sang ngày âm lịch
         int[] lunarDate = LunarDateConverter.convertSolarToLunar(
                 date.getYear(),
                 date.getMonthValue(),
                 date.getDayOfMonth()
         );
+        int lunarMonth = lunarDate[1];
 
-        int lunarMonth = lunarDate[1]; // Tháng âm lịch
-
-        // Lấy Địa Chi của ngày
+        // Bước 2: Tính Can Chi của ngày, lấy phần Địa Chi
         String canChiNgay = tinhCanChiNgay(date);
-        String diaChiNgay = canChiNgay.split(" ")[1]; // Phần Địa Chi
+        String diaChiNgay = canChiNgay.split(" ")[1].trim(); // VD: "Ất Mùi" => lấy "Mùi"
 
-        // Danh sách các Địa Chi tương ứng với Ngọc Đường theo từng tháng
-        Map<Integer, String> ngocDuongChi = Map.ofEntries(
-                Map.entry(1, "Sửu"),
-                Map.entry(2, "Mão"),
-                Map.entry(3, "Tỵ"),
-                Map.entry(4, "Mùi"),
-                Map.entry(5, "Dậu"),
-                Map.entry(6, "Hợi"),
-                Map.entry(7, "Sửu"),
-                Map.entry(8, "Mão"),
-                Map.entry(9, "Tỵ"),
-                Map.entry(10, "Mùi"),
-                Map.entry(11, "Dậu"),
-                Map.entry(12, "Hợi")
+        // Bước 3: Bảng Ngọc Đường Hoàng Đạo theo tháng âm
+        Map<Integer, String> ngocDuongTheoThang = Map.ofEntries(
+                Map.entry(1, "Mùi"),
+                Map.entry(2, "Dậu"),
+                Map.entry(3, "Hợi"),
+                Map.entry(4, "Sửu"),
+                Map.entry(5, "Mão"),
+                Map.entry(6, "Tỵ"),
+                Map.entry(7, "Mùi"),
+                Map.entry(8, "Dậu"),
+                Map.entry(9, "Hợi"),
+                Map.entry(10, "Sửu"),
+                Map.entry(11, "Mão"),
+                Map.entry(12, "Tỵ")
         );
 
-        // Kiểm tra nếu Địa Chi ngày trùng với Địa Chi Ngọc Đường của tháng
-        return diaChiNgay.equals(ngocDuongChi.get(lunarMonth));
+        // Bước 4: So sánh địa chi ngày với địa chi Ngọc Đường của tháng
+        return diaChiNgay.equals(ngocDuongTheoThang.get(lunarMonth));
     }
 
     public static boolean laNgayMinhDuongHoangDao(LocalDate date) {
-        // Chuyển đổi ngày dương sang âm lịch
+        // Chuyển đổi ngày dương sang âm lịch (năm, tháng, ngày)
         int[] lunarDate = LunarDateConverter.convertSolarToLunar(
                 date.getYear(),
                 date.getMonthValue(),
@@ -445,10 +446,9 @@ public class PhongThuyUtils {
 
         // Lấy Địa Chi của ngày
         String canChiNgay = tinhCanChiNgay(date);
-        String diaChiNgay = canChiNgay.split(" ")[1]; // Phần Địa Chi
+        String diaChiNgay = canChiNgay.split(" ")[1].trim(); // Tách Địa Chi và loại bỏ khoảng trắng
 
-        // Danh sách các Địa Chi tương ứng với Minh Đường theo từng tháng
-        Map<Integer, String> minhDuongChi = Map.ofEntries(
+        Map<Integer, String> minhDuongTheoThang = Map.ofEntries(
                 Map.entry(1, "Sửu"),
                 Map.entry(2, "Mão"),
                 Map.entry(3, "Tỵ"),
@@ -462,10 +462,14 @@ public class PhongThuyUtils {
                 Map.entry(11, "Dậu"),
                 Map.entry(12, "Hợi")
         );
+        // Lấy Địa Chi tốt Minh Đường ứng với tháng âm lịch hiện tại
+        String diaChiTot = minhDuongTheoThang.get(lunarMonth);
 
-        // Kiểm tra nếu Địa Chi ngày trùng với Địa Chi Minh Đường của tháng
-        return diaChiNgay.equals(minhDuongChi.get(lunarMonth));
+        // So sánh địa chi ngày với địa chi Minh Đường của tháng
+        return diaChiNgay.equals(diaChiTot);
     }
+
+
     public static boolean laNgayBachHoHacDao(LocalDate date) {
         // Chuyển đổi ngày dương sang âm lịch
         int[] lunarDate = LunarDateConverter.convertSolarToLunar(
@@ -499,6 +503,7 @@ public class PhongThuyUtils {
         // Kiểm tra nếu Địa Chi ngày trùng với Địa Chi Bạch Hổ của tháng
         return diaChiNgay.equals(bachHoChi.get(lunarMonth));
     }
+
     public static boolean laNgayChuTocHacDao(LocalDate date) {
         // Chuyển đổi ngày dương sang âm lịch
         int[] lunarDate = LunarDateConverter.convertSolarToLunar(
@@ -532,6 +537,7 @@ public class PhongThuyUtils {
         // Kiểm tra nếu Địa Chi ngày trùng với Địa Chi Chu Tước của tháng
         return diaChiNgay.equals(chuTocChi.get(lunarMonth));
     }
+
     public static boolean laNgayCauTranHacDao(LocalDate date) {
         // Chuyển đổi ngày dương sang âm lịch
         int[] lunarDate = LunarDateConverter.convertSolarToLunar(
@@ -565,6 +571,7 @@ public class PhongThuyUtils {
         // Kiểm tra nếu Địa Chi ngày trùng với Địa Chi Câu Trần của tháng
         return diaChiNgay.equals(cauTranChi.get(lunarMonth));
     }
+
     public static boolean laNgayThienLaoHacDao(LocalDate date) {
         // Chuyển đổi ngày dương sang âm lịch
         int[] lunarDate = LunarDateConverter.convertSolarToLunar(
@@ -599,38 +606,37 @@ public class PhongThuyUtils {
         return diaChiNgay.equals(thienLaoChi.get(lunarMonth));
     }
     public static boolean laNgayThienHinhHacDao(LocalDate date) {
-        // Chuyển đổi ngày dương sang âm lịch
+        // Bước 1: Chuyển sang âm lịch
         int[] lunarDate = LunarDateConverter.convertSolarToLunar(
                 date.getYear(),
                 date.getMonthValue(),
                 date.getDayOfMonth()
         );
-
         int lunarMonth = lunarDate[1]; // Tháng âm lịch
 
-        // Lấy Địa Chi của ngày
-        String canChiNgay = tinhCanChiNgay(date);
-        String diaChiNgay = canChiNgay.split(" ")[1]; // Phần Địa Chi
+        // Bước 2: Tính địa chi của ngày
+        String chiNgay = tinhCanChiNgay(date).split(" ")[1].trim();
 
-        // Bản đồ tháng âm lịch -> Địa Chi Thiên Hình hắc đạo
-        Map<Integer, String> thienHinhChi = Map.ofEntries(
-                Map.entry(1, "Tuất"),
+        // Bước 3: Bảng ngày Thiên Hình theo tháng âm
+        Map<Integer, String> thienHinhTheoThang = Map.ofEntries(
+                Map.entry(1, "Dần"),
                 Map.entry(2, "Thìn"),
                 Map.entry(3, "Ngọ"),
                 Map.entry(4, "Thân"),
                 Map.entry(5, "Tuất"),
-                Map.entry(6, "Tỵ"),
+                Map.entry(6, "Tý"),
                 Map.entry(7, "Dần"),
                 Map.entry(8, "Thìn"),
                 Map.entry(9, "Ngọ"),
                 Map.entry(10, "Thân"),
                 Map.entry(11, "Tuất"),
-                Map.entry(12, "Tỵ")
+                Map.entry(12, "Tý")
         );
 
-        // So sánh địa chi ngày với địa chi Thiên Hình hắc đạo theo tháng
-        return diaChiNgay.equals(thienHinhChi.get(lunarMonth));
+        return chiNgay.equals(thienHinhTheoThang.get(lunarMonth));
     }
+
+
     public static boolean laNgayNguyenVuHacDao(LocalDate date) {
         // Chuyển đổi ngày dương sang âm lịch
         int[] lunarDate = LunarDateConverter.convertSolarToLunar(
@@ -664,32 +670,9 @@ public class PhongThuyUtils {
         // Kiểm tra nếu địa chi ngày trùng với quy định của Nguyên Vu hắc đạo
         return diaChiNgay.equals(nguyenVuChi.get(lunarMonth));
     }
-    private static final String[] LUC_DIEU = {
-            "Đại An", "Lưu Niên", "Tốc Hỷ", "Xích Khẩu", "Tiểu Cát", "Không Vong"
-    };
 
-    // Bảng cung khởi đầu của mỗi tháng âm lịch (tháng 1-12)
-    private static final Map<Integer, Integer> THANG_AM_START_CUNG_INDEX = Map.ofEntries(
-            Map.entry(1, 0),   // Đại An
-            Map.entry(2, 1),   // Lưu Niên
-            Map.entry(3, 2),   // Tốc Hỷ
-            Map.entry(4, 3),   // Xích Khẩu
-            Map.entry(5, 4),   // Tiểu Cát
-            Map.entry(6, 5),   // Không Vong
-            Map.entry(7, 0),   // Đại An
-            Map.entry(8, 1),   // Lưu Niên
-            Map.entry(9, 2),   // Tốc Hỷ
-            Map.entry(10, 3),  // Xích Khẩu
-            Map.entry(11, 4),  // Tiểu Cát
-            Map.entry(12, 5)   // Không Vong
-    );
 
-    /**
-     * Trả về tên cung Lục Diệu tương ứng với ngày dương lịch.
-     *
-     * @param date ngày dương lịch (LocalDate)
-     * @return tên cung Lục Diệu
-     */
+
     public static String layLucDieu(LocalDate date) {
         // Chuyển sang ngày âm lịch
         int[] lunarDate = LunarDateConverter.convertSolarToLunar(
@@ -698,20 +681,52 @@ public class PhongThuyUtils {
                 date.getDayOfMonth()
         );
 
-        int lunarDay = lunarDate[2];   // Ngày âm
-        int lunarMonth = lunarDate[1]; // Tháng âm
+        int lunarYear = lunarDate[0];
+        int lunarMonth = lunarDate[1];
+        int lunarDay = lunarDate[2];
 
-        // Lấy chỉ số cung bắt đầu của tháng
-        int startIndex = THANG_AM_START_CUNG_INDEX.getOrDefault(lunarMonth, 0);
+        int index = 0;
 
-        // Tính chỉ số của ngày
-        int lucDieuIndex = (startIndex + (lunarDay - 1)) % 6;
+        // 🔸 Bước 1: Năm 1 là Đại An (index = 0) → mỗi năm tiến 1
+        index = (index + (lunarYear - 2)) % 6;
 
-        return LUC_DIEU[lucDieuIndex];
+        // 🔸 Bước 2: Cộng tiếp theo tháng âm
+        index = (index + (lunarMonth - 1)) % 6;
+
+        // 🔸 Bước 3: Cộng tiếp theo ngày âm
+        index = (index + (lunarDay - 1)) % 6;
+
+        return LUC_DIEU[index];
     }
-//    private static final String[] LUC_DIEU = {
-//            "Đại An", "Lưu Niên", "Tốc Hỷ", "Xích Khẩu", "Tiểu Cát", "Không Vong"
-//    };
+
+
+    private static final String[] LUC_DIEU = {
+            "Đại An", "Lưu Niên", "Tốc Hỷ", "Xích Khẩu", "Tiểu Cát", "Không Vong"
+    };
+    public static String layLucDieuGio(LocalDate date, int gio24h) {
+        int[] lunarDate = LunarDateConverter.convertSolarToLunar(
+                date.getYear(),
+                date.getMonthValue(),
+                date.getDayOfMonth()
+        );
+
+        int lunarYear = lunarDate[0];
+        int lunarMonth = lunarDate[1];
+        int lunarDay = lunarDate[2];
+
+        int index = 0;
+
+        // Bắt đầu từ năm → tháng → ngày → giờ
+        index = (index + (lunarYear - 1)) % 6;
+        index = (index + (lunarMonth - 1)) % 6;
+        index = (index + (lunarDay - 1)) % 6;
+
+        int gioIndex = ((gio24h + 1) / 2) % 12;
+        index = (index + gioIndex) % 6;
+
+        return LUC_DIEU[index];
+    }
+
 //
 //    private static final Map<Integer, Integer> THANG_AM_START_CUNG_INDEX = Map.ofEntries(
 //            Map.entry(1, 0), Map.entry(2, 1), Map.entry(3, 2),
@@ -737,25 +752,6 @@ public class PhongThuyUtils {
 //    }
 
     /**
-     * Lấy Lục Diệu của một giờ cụ thể trong ngày
-     *
-     * @param date Ngày dương lịch
-     * @param hour Giờ trong ngày (0–23)
-     * @return Tên cung Lục Diệu ứng với giờ
-     */
-    public static String layLucDieuGio(LocalDate date, int hour) {
-        String lucDieuNgay = layLucDieu(date); // ví dụ: "Lưu Niên"
-        int startIndex = Arrays.asList(LUC_DIEU).indexOf(lucDieuNgay);
-
-        // Xác định giờ theo chi (0: Tý, 1: Sửu, ..., 11: Hợi)
-        int gioIndex = getChiIndexFromHour(hour);
-
-        int gioLucDieuIndex = (startIndex + gioIndex) % 6;
-
-        return LUC_DIEU[gioLucDieuIndex];
-    }
-
-    /**
      * Chuyển giờ (0–23) sang thứ tự chi giờ (0: Tý, 1: Sửu, ..., 11: Hợi)
      */
     private static int getChiIndexFromHour(int hour) {
@@ -772,6 +768,7 @@ public class PhongThuyUtils {
         else if (hour < 21) return 10;          // Tuất
         else return 11;                         // Hợi
     }
+
     private static final String[] NHI_THAP_BAT_TU = {
             "Giác", "Cang", "Đê", "Phòng", "Tâm", "Vĩ", "Cơ",       // Thanh Long
             "Đẩu", "Ngưu", "Nữ", "Hư", "Nguy", "Thất", "Bích",     // Huyền Vũ
@@ -784,16 +781,73 @@ public class PhongThuyUtils {
 
     public static String getSaoNhiThapBatTu(LocalDate date) {
         long daysBetween = ChronoUnit.DAYS.between(BASE_DATE, date);
-        int index = (int) ((daysBetween+25 )% 28);
+        int index = (int) ((daysBetween + 25) % 28);
         if (index < 0) index += 28; // đảm bảo dương
         return NHI_THAP_BAT_TU[index];
     }
+    public static String tinhNhiBatTu(LocalDate date) {
+        // Chuyển sang âm lịch
+        int[] lunar = LunarDateConverter.convertSolarToLunar(
+                date.getYear(),
+                date.getMonthValue(),
+                date.getDayOfMonth()
+        );
+        int lunarMonth = lunar[1]; // tháng âm
+        int lunarDay = lunar[2];   // ngày âm
 
-    public static void main(String[] args) {
-        LocalDate inputDate = LocalDate.of(2000, 5, 16);
-        String sao = getSaoNhiThapBatTu(inputDate);
+        // Mỗi tháng có sao mùng 1 cố định, tìm index sao đó trong mảng NHII_BAT_TU
+        int saoMungMotIndex = getSaoMungMotIndex(lunarMonth);
+
+        // Tính sao cho ngày hiện tại
+        int index = (saoMungMotIndex + (lunarDay - 1)) % NHI_THAP_BAT_TU.length;
+        return NHI_THAP_BAT_TU[index];
+    }
+    private static int getSaoMungMotIndex(int lunarMonth) {
+        switch (lunarMonth) {
+            case 1:  return 0;   // Giác
+            case 2:  return 14;  // Khuê
+            case 3:  return 2;   // Đê
+            case 4:  return 26;  // Tinh
+            case 5:  return 5;   // Vĩ
+            case 6:  return 6;   // Cơ
+            case 7:  return 7;   // Đẩu
+            case 8:  return 8;   // Ngưu
+            case 9:  return 9;   // Nữ
+            case 10: return 10;  // Hư
+            case 11: return 11;  // Nguy
+            case 12: return 12;  // Thất
+            default: return 0;   // fallback
+        }
+    }
+
+        private static final String[][] BAT_TU_WEEK_TABLE = {
+                {"Phòng", "Hư", "Mão", "Tinh"},     // Chủ nhật
+                {"Tâm", "Nguy", "Tất", "Trương"},   // Thứ 2
+                {"Vĩ", "Thất", "Chủy", "Dực"},      // Thứ 3
+                {"Cơ", "Bích", "Sâm", "Chẩn"},      // Thứ 4
+                {"Giác", "Đẩu", "Khuê", "Tỉnh"},    // Thứ 5
+                {"Cang", "Ngưu", "Lâu", "Quỷ"},     // Thứ 6
+                {"Đê", "Nữ", "Vị", "Liễu"}          // Thứ 7
+        };
+
+        // Tính sao chủ quản ngày theo thứ và ngày trong năm
+        public static String tinhBatTuTheoThu(LocalDate date) {
+            int dayOfYear = date.getDayOfYear();
+            int batTuIndex = (dayOfYear - 1) % 28; // 0–27
+
+            int group = batTuIndex / 7;     // 0–3 → nhóm sao
+            int thu = date.getDayOfWeek().getValue() % 7; // Chủ nhật = 0
+
+            return BAT_TU_WEEK_TABLE[thu][group];
+        }
+
+
+    public static void main1(String[] args) {
+        LocalDate inputDate = LocalDate.of(1972, 5, 16);
+        String sao = tinhBatTuTheoThu(inputDate);
         System.out.println("Ngày " + inputDate + " ứng với sao Nhị Thập Bát Tú: " + sao);
     }
+
     public static void main2(String[] args) {
         LocalDate date = LocalDate.of(2025, 7, 21); // Ngày dương
         int hour = 13; // 10 giờ sáng
@@ -802,7 +856,7 @@ public class PhongThuyUtils {
         System.out.println("Lục Diệu của giờ là: " + lucDieuGio);
     }
 
-    public static void main1(String[] args) {
+    public static void main(String[] args) {
         int nam = 2025;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -811,7 +865,7 @@ public class PhongThuyUtils {
 
         System.out.println("Duyệt các ngày trong năm " + nam + ":");
         System.out.println("--------------------------------------------------------------------------------------------------");
-        System.out.println("|   Ngày Dương  |   Ngày Âm   |      Can Chi      |  Trực  | Hoàng Đạo |  Đánh giá |  Đánh giá | |  Lục Diệu |");
+        System.out.println("|   Ngày Dương  |   Ngày Âm   |      Can Chi      |  Đánh giá |  Đánh giá | |  Lục Diệu |");
         System.out.println("--------------------------------------------------------------------------------------------------");
 
         LocalDate ngayHienTai = ngayBatDau;
@@ -827,25 +881,23 @@ public class PhongThuyUtils {
             boolean hoangDao = laNgayHoangDao(ngayHienTai);
             String danhGia = danhGiaNgay(ngayHienTai);
 
-            System.out.printf("| %13s | %11s | %17s | %6s | %9s | %9s | %17s | %17s \n",
+            System.out.printf("| %13s | %11s | %17s | %9s | %17s | %17s \n",
                     ngayHienTai.format(formatter),
                     amLich,
                     canChiNgay,
                     truc,
-                    hoangDao ? "Có" : "Không",
-                    danhGia,
                     laNgayKimDuong(ngayHienTai) ? "Kim đường hoàn đạo" :
                             laNgayTuMenhHoangDao(ngayHienTai) ? "Tư mệnh hoàng đạo" :
                                     laNgayThanhLongHoangDao(ngayHienTai) ? "Thanh long hoàng đạo" :
-                                            laNgayKimQuyHoangDao(ngayHienTai)?"Kim quỷ hoàng đạo" :
-                                                    laNgayNgocDuongHoangDao(ngayHienTai)?"Ngọc đường hoàng đạo":
-                                                            laNgayMinhDuongHoangDao(ngayHienTai)?"Minh đường hoàng đạo":
-                                                                    laNgayBachHoHacDao(ngayHienTai)?"Bach hổ hắc đạo":
-                                                                            laNgayChuTocHacDao(ngayHienTai)?"Chu tước hắc đạo":
-                                                                                    laNgayCauTranHacDao(ngayHienTai)?"Câu Trần Hắc Đạo":
-                                                                                            laNgayThienLaoHacDao(ngayHienTai)?"Thiên Lao Hắc Đạo":
-                                                                                                    laNgayThienHinhHacDao(ngayHienTai)?"Thiên Hình Hắc Đạo":
-                                                                                                            laNgayNguyenVuHacDao(ngayHienTai)? "Thiên Vu Hắc Đạo":
+                                            laNgayKimQuyHoangDao(ngayHienTai) ? "Kim quỷ hoàng đạo" :
+                                                    laNgayNgocDuongHoangDao(ngayHienTai) ? "Ngọc đường hoàng đạo" :
+                                                            laNgayMinhDuongHoangDao(ngayHienTai) ? "Minh đường hoàng đạo" :
+                                                                    laNgayBachHoHacDao(ngayHienTai) ? "Bạch hổ hắc đạo" :
+                                                                            laNgayChuTocHacDao(ngayHienTai) ? "Chu tước hắc đạo" :
+                                                                                    laNgayCauTranHacDao(ngayHienTai) ? "Câu Trần Hắc Đạo" :
+                                                                                            laNgayThienLaoHacDao(ngayHienTai) ? "Thiên Lao Hắc Đạo" :
+                                                                                                    laNgayThienHinhHacDao(ngayHienTai) ? "Thiên Hình Hắc Đạo" :
+                                                                                                            laNgayNguyenVuHacDao(ngayHienTai) ? "Nguyên Vũ Hắc Đạo" :
                                                                                                                     " "
                     ,
                     layLucDieu(ngayHienTai)
