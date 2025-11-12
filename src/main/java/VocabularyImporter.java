@@ -11,7 +11,7 @@ public class VocabularyImporter {
 
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/cic";
     private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "CpqaFVYJ9Mkz6pOj";
+    private static final String DB_PASSWORD = "160500";
 
     // Cache
     private static final Map<String, Long> englishCache = new HashMap<>();
@@ -20,7 +20,7 @@ public class VocabularyImporter {
 
     public static void main(String[] args) {
 //        String excelPath = "vocabulary_none.xlsx";
-        String excelPath = "input.xlsx";
+        String excelPath = "Oxford_Level_A1.xlsx";
         int userId = 1;
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {

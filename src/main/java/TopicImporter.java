@@ -11,7 +11,7 @@ public class TopicImporter {
 
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/cic";
     private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "CpqaFVYJ9Mkz6pOj";
+    private static final String DB_PASSWORD = "160500";
 
     // Cache dữ liệu để tránh truy vấn lặp lại
     private static final Map<String, Integer> topicCache = new HashMap<>();
@@ -24,11 +24,11 @@ public class TopicImporter {
         HashSet<String> filePaths = new HashSet<>();
 //        filePaths.add("output json/all.json");
         filePaths.add("output json/Oxford all.json");
+//        filePaths.add("output json/Vocabulary in use Elementary.json");
 //        filePaths.add("output json/Vocabulary in use Upper-intermediate.json");
 //        filePaths.add("output json/Vocabulary in use Pre-Intermediate.json");
-//        filePaths.add("output json/Vocabulary in use Elementary.json");
 //        filePaths.add("output json/Vocabulary in use Advanced.json");
-//        filePaths.add("output json/Cambridge Vocabularies for IELTS.json");
+//        filePaths.add("output json/IELTS Vocabulary in Use.json");
 //        filePaths.add("output json/Academic Vocabulary in Use.json");
         int userId = 1;
         for (var filePath : filePaths) {

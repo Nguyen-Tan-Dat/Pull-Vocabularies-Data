@@ -315,7 +315,7 @@ public class Test {
 
     public static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/cic";
     public static final String USERNAME = "postgres";
-    public static final String PASSWORD = "CpqaFVYJ9Mkz6pOj";
+    public static final String PASSWORD = "160500";
 
     public static HashSet<String> databaseEnglish() {
         HashSet<String> data = new HashSet<>();

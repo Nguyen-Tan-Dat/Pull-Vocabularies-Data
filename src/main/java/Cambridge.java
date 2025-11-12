@@ -18,12 +18,13 @@ public class Cambridge {
 //        writeTopics();
 //        vocabulariesElementary();
 //        writeEnglishVocabulariesForIELTS(1,21);
-        writeElementaryTopics();
-        writePreIntermediateTopics();
-        writeUpperIntermediateTopics();
+        Set<String> oxfords=Oxford.allwords().keySet();
+        writeElementaryTopics(oxfords);
+        writePreIntermediateTopics(oxfords);
+        writeUpperIntermediateTopics(oxfords);
         writeAdvancedTopics();
         writeAcademicTopics();
-//        writeIELTSTopics();
+        writeIELTSTopics();
 
 //        printPartsOfSpeech("get dressed");
     }
@@ -297,8 +298,7 @@ public class Cambridge {
         Test.writeTopics(data, "Academic Vocabulary in Use");
     }
 
-    private static void writeUpperIntermediateTopics() {
-        var ens = Test.databaseEnglish();
+    private static void writeUpperIntermediateTopics(Set<String> ens) {
         String filePath = "Cambridge vocabularies in use data/Upper-Intermediate.txt";
         HashMap<Integer, Set<String>> vocabMap = readUpperIntermediateVocabularies(filePath);
         HashSet<String> exist = new HashSet<>();
@@ -342,8 +342,7 @@ public class Cambridge {
         Test.writeTopics(data, "Vocabulary in use Upper-intermediate");
     }
 
-    private static void writePreIntermediateTopics() {
-        var ens = Test.databaseEnglish();
+    private static void writePreIntermediateTopics(Set<String> ens) {
         String filePath = "Cambridge vocabularies in use data/Pre-Intermediate.txt";
         HashMap<Integer, Set<String>> vocabMap = readPreIntermediateVocabularies(filePath);
         var topics = getPreIntermediateTopics();
@@ -742,18 +741,64 @@ public class Cambridge {
 
 
     public static void writeIELTSTopics() {
-        // Đường dẫn đến file từ vựng
-        String filePath = "Vocabularies For IELTS.txt";
-        HashSet<String> list = new HashSet<>();
+        // File chứa dữ liệu thô
+        String filePath = "Cambridge vocabularies in use data/Vocabularies For IELTS.txt";
+
+        // Tập hợp toàn bộ từ trong database để kiểm tra tồn tại
+        var ens = Test.databaseEnglish();
+
         try {
+            // Lấy danh sách từ vựng chia theo từng bài học hoặc topic
             Map<String, HashSet<String>> vocabularyByLesson = extractVocabularyForIELTSByLesson(filePath);
 
-            // In danh sách từ vựng theo từng chủ đề
-            for (Map.Entry<String, HashSet<String>> entry : vocabularyByLesson.entrySet()) {
-                System.out.println(entry.getKey().replaceFirst(":", "").toUpperCase());
+            HashSet<String> exist = new HashSet<>();
+            HashSet<String> unexist = new HashSet<>();
+            ArrayList<Object> data = new ArrayList<>();
 
-                Test.writeTopic(entry.getKey().replaceFirst(":", "").toUpperCase(), entry.getValue());
+            // Lặp qua từng topic
+            for (Map.Entry<String, HashSet<String>> entry : vocabularyByLesson.entrySet()) {
+                String topicName = entry.getKey().replaceFirst(":", "").trim();
+                HashSet<String> vocabularies = entry.getValue();
+
+                // Kiểm tra từng từ có tồn tại trong database hay không
+                for (String word : vocabularies) {
+                    if (ens.contains(word)) {
+                        exist.add(word);
+                    } else {
+                        unexist.add(word);
+                    }
+                }
+
+                // Tạo row cho từng topic
+                HashMap<String, Object> row = new HashMap<>();
+                row.put("name", "IELTS > " + topicName.toUpperCase());
+                row.put("vs", vocabularies);
+                data.add(row);
             }
+
+            // In ra các từ không tồn tại (để kiểm tra thủ công)
+            if (!unexist.isEmpty()) {
+                System.out.println("Unexisting words:");
+                for (String w : unexist) {
+                    System.out.println(w);
+                }
+            }
+
+            // Gộp toàn bộ từ hợp lệ thành một nhóm tổng
+            HashMap<String, Object> totalRow = new HashMap<>();
+            totalRow.put("name", "Cambridge IELTS");
+            totalRow.put("vs", exist);
+            data.add(totalRow);
+
+            HashMap<String, Object> allRow = new HashMap<>();
+            allRow.put("name", "Cambridge all");
+            allRow.put("vs", exist);
+            data.add(allRow);
+
+            // Ghi dữ liệu ra file (theo chuẩn Test.writeTopics)
+            Test.writeTopics(data, "IELTS Vocabulary in Use");
+
+            System.out.println("✅ Completed writing IELTS topics. Total valid words: " + exist.size());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -784,8 +829,50 @@ public class Cambridge {
     }
 
 
+    private static void writeElementaryTopics(Set<String> ens) {
+        String filePath = "Cambridge vocabularies in use data/Elementary.txt";
+        HashMap<Integer, Set<String>> vocabMap = readElementaryVocabularies(filePath);
+        HashSet<String> set = new HashSet<>();
+        HashSet<String> exist = new HashSet<>();
+        ArrayList<Object> data = new ArrayList<>();
+        var topics=getElementaryTopics();
+        int count = 0;
+        for (var i : vocabMap.keySet()) {
+            for (var j : vocabMap.get(i)) {
+                if (!ens.contains(j)) {
+                    set.add(j);
+                } else {
+                    exist.add(j);
+                }
+            }
+            HashMap<String, Object> row = new HashMap<>();
+
+            row.put("name",String.format("Elementary > Unit %02d: ",i)+topics.get(i));
+            row.put("vs", vocabMap.get(i));
+            data.add(row);
+            count += vocabMap.get(i).size();
+        }
+        for (var i : set) {
+            System.out.println(i);
+        }
+        System.out.println(exist.size());
+        HashMap<String, Object> row = new HashMap<>();
+        row.put("name", "Cambridge Elementary");
+        row.put("vs", exist);
+        data.add(row);
+        HashMap<String, Object> row1 = new HashMap<>();
+        row1.put("name", "Cambridge all");
+        row1.put("vs", exist);
+        data.add(row1);
+        HashMap<String, Object> row3 = new HashMap<>();
+        row3.put("name", "Cambridge vocabulary in use");
+        row3.put("vs", exist);
+        data.add(row3);
+        Test.writeTopics(data, "Vocabulary in use Elementary");
+    }
+
     private static void writeElementaryTopics() {
-        var ens = Test.databaseEnglish();
+        var ens= Test.databaseEnglish();
         String filePath = "Cambridge vocabularies in use data/Elementary.txt";
         HashMap<Integer, Set<String>> vocabMap = readElementaryVocabularies(filePath);
         HashSet<String> set = new HashSet<>();

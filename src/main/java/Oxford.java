@@ -14,10 +14,41 @@ import static org.apache.commons.lang3.StringUtils.capitalize;
 
 public class Oxford {
     static void main() {
-
-        createWordListsExcel();
 //        createTopicsOfOxfordExcel();
-//        createTopics();
+//        createWordListsExcel();
+        createTopics();
+//        createEmptyData();
+    }
+
+
+    public static void createEmptyData() {
+        var words = allwords(); // Hàm bạn đã có sẵn
+        String outputFile = "Oxford_Level_A1.xlsx";
+        try (Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("Oxford Levels");
+            int rowIndex = 0;
+            for (var en : words.keySet()) {
+                var posMap = words.get(en);
+                for (var pos : posMap.keySet()) {
+                    var levels = posMap.get(pos);
+                    for (var lv : levels) {
+                        if (lv.equals("a1")||lv.equals("a2")) continue;
+                        Row row = sheet.createRow(rowIndex++);
+                        row.createCell(2).setCellValue(en);
+                        row.createCell(3).setCellValue("none");
+                        row.createCell(4).setCellValue(pos);
+                    }
+                }
+            }
+            for (int i = 0; i < 3; i++) {
+                sheet.autoSizeColumn(i);
+            }
+            try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+                workbook.write(fos);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static HashMap<String, HashMap<String, HashSet<String>>> allwords() {
@@ -95,10 +126,7 @@ public class Oxford {
     }
 
     public static String pathToTopic(String root, String path) {
-        // Tách chuỗi bằng dấu '\\' để phân cấp thư mục
         String[] parts = path.split("\\\\");
-
-        // Xác định vị trí bắt đầu của phần "Topics of Oxford"
         int startIndex = -1;
         for (int i = 0; i < parts.length; i++) {
             if (parts[i].equalsIgnoreCase(root)) {
@@ -106,13 +134,9 @@ public class Oxford {
                 break;
             }
         }
-
-        // Nếu không tìm thấy "Topics of Oxford", trả về chuỗi rỗng
         if (startIndex == -1 || startIndex >= parts.length) {
             return "";
         }
-
-        // Lấy phần sau "Topics of Oxford" và bỏ phần mở rộng của file
         StringBuilder topic = new StringBuilder();
         for (int i = startIndex; i < parts.length; i++) {
             if (i == parts.length - 1) { // Xử lý file cuối cùng
@@ -167,7 +191,7 @@ public class Oxford {
     public static void createTopics() {
         String pathRoot = "Topics of Oxford";
         ArrayList<String> excelFiles = listExcelFiles(pathRoot);
-//        var ens = Test.databaseEnglish();
+        var ens = Test.databaseEnglish();
         HashMap<String, HashSet<String[]>> partOfSpeechMap = new HashMap<>();
         String[] partsOfSpeech = {
                 "indefinite article", "preposition", "adverb", "noun", "verb", "adjective",
@@ -203,25 +227,27 @@ public class Oxford {
                                 lv = row.getCell(2).getStringCellValue().toLowerCase();
                             } catch (Exception _) {
                             }
-//                            if (!ens.contains(english)) {
-//                                System.out.println(english + "\t" + parts_of_speech + "\t" + lv);
-//                            }
+//                            if (!lv.equals("b1")
+//                            ) continue;
+                            if (!ens.contains(english)) {
+                                System.out.println(english + "\t" + parts_of_speech + "\t" + lv);
+                            }
                             if (lv.equals("")) System.out.println(english + "\t" + parts_of_speech + "\t" + lv);
-//                            switch (lv) {
-//                                case "a1" -> a1.add(new String[]{english, parts_of_speech});
-//                                case "a2" -> a2.add(new String[]{english, parts_of_speech});
-//                                case "b1" -> b1.add(new String[]{english, parts_of_speech});
-//                                case "b2" -> b2.add(new String[]{english, parts_of_speech});
-//                                case "c1" -> c1.add(new String[]{english, parts_of_speech});
-//                                case "c2" -> c2.add(new String[]{english, parts_of_speech});
-//                            }
-//                            if (partOfSpeechMap.containsKey(parts_of_speech)) {
-//                                partOfSpeechMap.get(parts_of_speech).add(new String[]{english, parts_of_speech});
-//                            }
-//                            all.add(new String[]{english, parts_of_speech});
-//                            rootname = name.split(">")[0].trim();
-//                            if(lv.contains("a"))
-//                            list.add(new String[]{english, parts_of_speech});
+                            switch (lv) {
+                                case "a1" -> a1.add(new String[]{english, parts_of_speech});
+                                case "a2" -> a2.add(new String[]{english, parts_of_speech});
+                                case "b1" -> b1.add(new String[]{english, parts_of_speech});
+                                case "b2" -> b2.add(new String[]{english, parts_of_speech});
+                                case "c1" -> c1.add(new String[]{english, parts_of_speech});
+                                case "c2" -> c2.add(new String[]{english, parts_of_speech});
+                            }
+                            if (partOfSpeechMap.containsKey(parts_of_speech)) {
+                                partOfSpeechMap.get(parts_of_speech).add(new String[]{english, parts_of_speech});
+                            }
+                            all.add(new String[]{english, parts_of_speech});
+                            rootname = name.split(">")[0].trim();
+//                            if (lv.contains("a"))
+                                list.add(new String[]{english, parts_of_speech});
                         } catch (Exception e) {
                             System.out.println("Lỗi ở file: " + file);
                         }
@@ -232,12 +258,12 @@ public class Oxford {
             }
             if (!list.isEmpty()) {
                 HashMap<String, Object> row = new HashMap<>();
-                row.put("name", name + " level A");
+                row.put("name", name );
                 row.put("vs", list);
                 data.add(row);
             }
             HashMap<String, Object> row1 = new HashMap<>();
-            row1.put("name", rootname + " level A");
+            row1.put("name", rootname );
             row1.put("vs", list);
             data.add(row1);
             if (!rootname.startsWith("Word Lists")) {
@@ -641,7 +667,7 @@ public class Oxford {
         }
     }
 
-    public static void createOxfordPhraseListExcel( HashMap<String, HashMap<String, HashSet<String>>>  words,String html, String path) {
+    public static void createOxfordPhraseListExcel(HashMap<String, HashMap<String, HashSet<String>>> words, String html, String path) {
         Document document = Jsoup.parse(html);
         Element ulElement = document.selectFirst("ul.top-g");
 
@@ -662,10 +688,10 @@ public class Oxford {
                 String level = li.getElementsByClass("belong-to").getFirst().text().trim().toLowerCase();
                 if (words.containsKey(english)) {
                     for (var p : words.get(english).keySet()) {
-                        for(var lv:words.get(english).get(p))
-                        if (level.equals(lv)) {
-                            addLineToExcelByLevel(path, english, p, level);
-                        }
+                        for (var lv : words.get(english).get(p))
+                            if (level.equals(lv)) {
+                                addLineToExcelByLevel(path, english, p, level);
+                            }
                     }
                 } else {
                     addLineToExcelByLevel(path, english, pos, level);
@@ -677,7 +703,7 @@ public class Oxford {
         System.out.println("✅ Hoàn thành tạo danh sách phrase theo cấp độ.");
     }
 
-    public static void createOPALExcel( HashMap<String, HashMap<String, HashSet<String>>>  words,String html, String path) {
+    public static void createOPALExcel(HashMap<String, HashMap<String, HashSet<String>>> words, String html, String path) {
         Document document = Jsoup.parse(html);
         Element ulElement = document.selectFirst("ul.top-g");
 
@@ -691,22 +717,22 @@ public class Oxford {
         for (Element li : lis) {
             try {
                 if (li.hasClass("hidden")) continue;
-
                 var a = li.getElementsByTag("a").getFirst();
                 String english = a.text().trim();
                 var level = "b1";
-                var parts_of_speech ="phrase";
+                var parts_of_speech = "phrase";
                 try {
-                    parts_of_speech=li.getElementsByClass("pos").getFirst().text();
-                }catch (Exception _){}
+                    parts_of_speech = li.getElementsByClass("pos").getFirst().text();
+                } catch (Exception _) {
+                }
                 if (words.containsKey(english)) {
                     if (words.get(english).get(parts_of_speech) != null) {
                         for (var lv : words.get(english).get(parts_of_speech))
                             addLineToExcelByLevel(path, english, parts_of_speech, lv);
-                    }else{
-                        for(var p:words.get(english).keySet()){
-                            for(var lv:words.get(english).get(p))
-                            addLineToExcelByLevel(path, english, p, lv);
+                    } else {
+                        for (var p : words.get(english).keySet()) {
+                            for (var lv : words.get(english).get(p))
+                                addLineToExcelByLevel(path, english, p, lv);
                         }
                     }
                 } else {
@@ -719,7 +745,8 @@ public class Oxford {
             }
         }
     }
-    public static void createPhraseOPALExcel( HashMap<String, HashMap<String, HashSet<String>>>  words,String html, String path) {
+
+    public static void createPhraseOPALExcel(HashMap<String, HashMap<String, HashSet<String>>> words, String html, String path) {
         Document document = Jsoup.parse(html);
         Element ulElement = document.selectFirst("ul.top-g");
 
@@ -737,12 +764,12 @@ public class Oxford {
                 var a = li.getElementsByTag("a").getFirst();
                 String english = a.text().trim();
                 String level = "abc";
-                var parts_of_speech =  li.getElementsByClass("pos").getFirst().text();
+                var parts_of_speech = li.getElementsByClass("pos").getFirst().text();
                 if (words.containsKey(english)) {
                     if (words.get(english).get(parts_of_speech) != null) {
                         for (var lv : words.get(english).get(parts_of_speech))
                             addLineToExcelByLevel(path, english, parts_of_speech, lv);
-                    }else{
+                    } else {
                         addLineToExcelByLevel(path, english, parts_of_speech, level);
                         System.out.println(english + "\t" + level + "\t" + level);
                     }
@@ -760,15 +787,17 @@ public class Oxford {
 
     public static void createWordListsExcel() {
         String directoryPath = "Topics of Oxford/Word Lists";
-//        createOxford3000and5000Excel(Test.readFile("Oxford Word Lists data/Oxford 3000.txt"), directoryPath + "/" + "Oxford 3000");
-//        createOxford3000and5000Excel(Test.readFile("Oxford Word Lists data/Oxford 5000.txt"), directoryPath + "/" + "Oxford 5000");
+        createOxford3000and5000Excel(Test.readFile("Oxford Word Lists data/Oxford 3000.txt"), directoryPath + "/" + "Oxford 3000");
+        createOxford3000and5000Excel(Test.readFile("Oxford Word Lists data/Oxford 5000.txt"), directoryPath + "/" + "Oxford 5000");
         var words = allwords();
-//        createOxfordPhraseListExcel(words,Test.readFile("Oxford Word Lists data/Oxford Phrase List.txt"), directoryPath + "/" + "Oxford Phrase List");
-        createOPALExcel(words,Test.readFile("Oxford Word Lists data/OPAL written words.txt"), directoryPath + "/" + "OPAL written words");
-        createOPALExcel(words,Test.readFile("Oxford Word Lists data/OPAL spoken words.txt"), directoryPath + "/" + "OPAL spoken words");
-        createOPALExcel(words,Test.readFile("Oxford Word Lists data/OPAL Academic written words.txt"), directoryPath + "/" + "OPAL Academic written words");
-        createOPALExcel(words,Test.readFile("Oxford Word Lists data/OPAL Academic spoken words.txt"), directoryPath + "/" + "OPAL Academic spoken words");
-        createOPALExcel(words,Test.readFile("Oxford Word Lists data/OPAL written phrases.txt"), directoryPath + "/" + "OPAL written phrases");
+        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL written words.txt"), directoryPath + "/" + "OPAL written words");
+        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL written phrases.txt"), directoryPath + "/" + "OPAL written phrases");
+        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL spoken words.txt"), directoryPath + "/" + "OPAL spoken words");
+        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL spoken phrases.txt"), directoryPath + "/" + "OPAL spoken phrases");
+        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL Academic written words.txt"), directoryPath + "/" + "OPAL Academic written words");
+        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL Academic written phrases.txt"), directoryPath + "/" + "OPAL Academic written phrases");
+        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL Academic spoken words.txt"), directoryPath + "/" + "OPAL Academic spoken words");
+        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL Academic spoken phrases.txt"), directoryPath + "/" + "OPAL Academic spoken phrases");
     }
 
 
