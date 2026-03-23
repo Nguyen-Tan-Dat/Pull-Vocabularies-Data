@@ -12,6 +12,50 @@ public class TopicImporter {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/cic";
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "160500";
+    public static HashSet<String> databaseEnglish() {
+        HashSet<String> data = new HashSet<>();
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            if (connection != null) {
+                String sqlQuery = "SELECT word FROM english";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(sqlQuery);
+                while (resultSet.next()) {
+                    String name = resultSet.getString("word");
+                    data.add(name);
+                }
+                resultSet.close();
+                statement.close();
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Không thể kết nối đến cơ sở dữ liệu!");
+            e.printStackTrace();
+        }
+        return data;
+    }
+    public static HashSet<String> databaseEnglishWhere(String where) {
+        HashSet<String> data = new HashSet<>();
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            if (connection != null) {
+                String sqlQuery = "SELECT word FROM english Where "+where;
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(sqlQuery);
+                while (resultSet.next()) {
+                    String name = resultSet.getString("word");
+                    data.add(name);
+                }
+                resultSet.close();
+                statement.close();
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Không thể kết nối đến cơ sở dữ liệu!");
+            e.printStackTrace();
+        }
+        return data;
+    }
 
     // Cache dữ liệu để tránh truy vấn lặp lại
     private static final Map<String, Integer> topicCache = new HashMap<>();
@@ -23,7 +67,9 @@ public class TopicImporter {
     public static void main(String[] args) {
         HashSet<String> filePaths = new HashSet<>();
 //        filePaths.add("output json/all.json");
-        filePaths.add("output json/Oxford all.json");
+//        filePaths.add("output json/Oxford topics.json");
+        filePaths.add("output json/Oxford word list.json");
+        filePaths.add("output json/Oxford topics.json");
 //        filePaths.add("output json/Vocabulary in use Elementary.json");
 //        filePaths.add("output json/Vocabulary in use Upper-intermediate.json");
 //        filePaths.add("output json/Vocabulary in use Pre-Intermediate.json");
@@ -34,6 +80,8 @@ public class TopicImporter {
         for (var filePath : filePaths) {
             try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
                 conn.setAutoCommit(false); // Giao dịch tăng hiệu năng
+                // GỌI Ở ĐÂY: Xóa dữ liệu cũ của user trước khi nạp đống file mới
+//                clearTopics(conn, userId);
                 preloadTopics(conn, userId);
                 preloadVocabularies(conn);
                 preloadVocabulariesTopics(conn);
@@ -45,6 +93,35 @@ public class TopicImporter {
             }
         }
 
+    }
+
+    private static void clearTopics(Connection conn, int userId) throws SQLException {
+        System.out.println("Wait... Đang dọn dẹp dữ liệu cũ cho user: " + userId);
+
+        // 1. Xóa các liên kết trong bảng vocabularies_topics của các topic thuộc về user này
+        String deleteLinksSql = """
+        DELETE FROM vocabularies_topics 
+        WHERE topic IN (SELECT id FROM topics WHERE of_user = ?)
+    """;
+
+        // 2. Xóa các topic của user này
+        String deleteTopicsSql = "DELETE FROM topics WHERE of_user = ?";
+
+        try (PreparedStatement st1 = conn.prepareStatement(deleteLinksSql);
+             PreparedStatement st2 = conn.prepareStatement(deleteTopicsSql)) {
+
+            st1.setInt(1, userId);
+            int linksDeleted = st1.executeUpdate();
+
+            st2.setInt(1, userId);
+            int topicsDeleted = st2.executeUpdate();
+
+            System.out.println("✅ Đã xóa " + linksDeleted + " liên kết từ vựng và " + topicsDeleted + " topics cũ.");
+
+            // Quan trọng: Phải clear cache sau khi xóa DB để tránh cache cũ làm sai lệch logic insert
+            topicCache.clear();
+            vocabTopicCache.clear();
+        }
     }
 
     private static void preloadTopics(Connection conn, int userId) throws SQLException {

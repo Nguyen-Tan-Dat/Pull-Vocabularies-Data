@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class Elllo {
     public static void main(String[] args) {
 //        pullTopics();
-        var ens = Test.databaseEnglish();
+        var ens = TopicImporter.databaseEnglish();
 
         var list=extractWords(Test.readFile("list.txt"));
 //        var list = reafile("list.txt");
@@ -123,7 +123,7 @@ public class Elllo {
     }
 
     private static HashMap<String, Object> writeListeningTopic(String topic) {
-        var ens = Test.databaseEnglish();
+        var ens = TopicImporter.databaseEnglish();
         File[] oxfSubdirectories = Oxford.getDirectories("Oxford topics");
         File[] camSubdirectories = Oxford.getDirectories("Cambridge word lists");
         File[] subdirectories = new File[oxfSubdirectories.length + camSubdirectories.length];

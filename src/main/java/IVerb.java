@@ -13,7 +13,7 @@ import java.util.List;
 
 public class IVerb {
     public static void main(String[] args) {
-        var ens= Test.databaseEnglish();
+        var ens= TopicImporter.databaseEnglish();
         ArrayList<String[]> eData = new ArrayList<>();
         String excelFilePath = "IVerb.xlsx";
         try (FileInputStream fis = new FileInputStream(new File(excelFilePath));
@@ -45,7 +45,7 @@ public class IVerb {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        var database = Test.databaseEnglish();
+        var database = TopicImporter.databaseEnglish();
         int count = 0;
         ArrayList<String[]> rs = new ArrayList<>();
         for (var i : eData) {

@@ -312,43 +312,6 @@ public class Test {
         }
     }
 
-
-    public static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/cic";
-    public static final String USERNAME = "postgres";
-    public static final String PASSWORD = "160500";
-
-    public static HashSet<String> databaseEnglish() {
-        HashSet<String> data = new HashSet<>();
-        try {
-            // Kết nối với cơ sở dữ liệu
-            Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
-            if (connection != null) {
-                String sqlQuery = "SELECT * FROM english where phonetic=''";
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(sqlQuery);
-                while (resultSet.next()) {
-                    // Đọc các cột từ ResultSet bằng các phương thức get<kiểu dữ liệu cột>()
-                    int id = resultSet.getInt("id");
-                    String name = resultSet.getString("word");
-                    // Đọc các cột khác tương tự
-                    data.add(name);
-                    // In ra dữ liệu
-//                    System.out.println("ID: " + id + ", Name: " + name);
-                }
-
-                // Đóng ResultSet, Statement và Connection sau khi sử dụng xong
-                resultSet.close();
-                statement.close();
-                connection.close();
-            }
-        } catch (SQLException e) {
-            System.out.println("Không thể kết nối đến cơ sở dữ liệu!");
-            e.printStackTrace();
-        }
-        return data;
-    }
-
-
     public static String readFile(String fileName) {
         StringBuilder content = new StringBuilder();
 

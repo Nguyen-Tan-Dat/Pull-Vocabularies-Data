@@ -13,7 +13,7 @@ public class JsonImporter {
     // Đường dẫn kết nối database
     static final String dbUrl = "jdbc:mysql://localhost:3306/cic";
     static final String dbUser = "root"; // Thay bằng tên người dùng của bạn
-    static final String dbPassword = Test.PASSWORD; // Thay bằng mật khẩu của bạn
+    static final String dbPassword = "160500"; // Thay bằng mật khẩu của bạn
     static final String jsonFilePath = "C:\\Users\\Dat\\PhpstormProjects\\Draft_java-code\\output json\\Topics of Oxford.json"; // Đường dẫn đến file JSON
 
     public static void main(String[] args) {

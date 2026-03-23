@@ -1,0 +1,9 @@
+Backup database:
+    - backup schema
+    pg_dump -U postgres -h localhost -p 5432 -s -d cic -f sql/cic_schema.sql
+    - backup database
+    pg_dump -U postgres -h localhost -p 5432 -d cic -f "C:\Users\Nguyen Tan Dat\PhpstormProjects\CIC-website\sql\cic-backup.sql
+Import database:
+    psql -U postgres -h localhost -p 5432 -d cic -f "C:\Users\Nguyen Tan Dat\PhpstormProjects\CIC-website\sql\cic-database.sql"
+    psql -U postgres -h localhost -p 5432 -d cic3 -f "C:\Users\Nguyen Tan Dat\PhpstormProjects\CIC-website\sql\cic-database3.sql"
+

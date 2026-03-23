@@ -14,9 +14,10 @@ import static org.apache.commons.lang3.StringUtils.capitalize;
 
 public class Oxford {
     static void main() {
-//        createTopicsOfOxfordExcel();
+        createTopicsOfOxfordExcel();
 //        createWordListsExcel();
-        createTopics();
+//        createTopics();
+//        createWordList();
 //        createEmptyData();
     }
 
@@ -191,7 +192,7 @@ public class Oxford {
     public static void createTopics() {
         String pathRoot = "Topics of Oxford";
         ArrayList<String> excelFiles = listExcelFiles(pathRoot);
-        var ens = Test.databaseEnglish();
+        var ens = TopicImporter.databaseEnglish();
         HashMap<String, HashSet<String[]>> partOfSpeechMap = new HashMap<>();
         String[] partsOfSpeech = {
                 "indefinite article", "preposition", "adverb", "noun", "verb", "adjective",
@@ -227,12 +228,112 @@ public class Oxford {
                                 lv = row.getCell(2).getStringCellValue().toLowerCase();
                             } catch (Exception _) {
                             }
-//                            if (!lv.equals("b1")
-//                            ) continue;
+                            if (!lv.equals("b1")&&!lv.equals("a1")&&!lv.equals("a2")&&!lv.equals("b2")
+                            ) continue;
+                            if (!ens.contains(english)) {
+                                System.out.println(file+"\t"+english + "\t" + parts_of_speech + "\t" + lv);
+                            }
+//                            if (lv.equals("")) System.out.println(english + "\t" + parts_of_speech + "\t" + lv);
+                            switch (lv) {
+                                case "a1" -> a1.add(new String[]{english, parts_of_speech});
+                                case "a2" -> a2.add(new String[]{english, parts_of_speech});
+                                case "b1" -> b1.add(new String[]{english, parts_of_speech});
+                                case "b2" -> b2.add(new String[]{english, parts_of_speech});
+                                case "c1" -> c1.add(new String[]{english, parts_of_speech});
+                                case "c2" -> c2.add(new String[]{english, parts_of_speech});
+                            }
+                            if (partOfSpeechMap.containsKey(parts_of_speech)) {
+                                partOfSpeechMap.get(parts_of_speech).add(new String[]{english, parts_of_speech});
+                            }
+                            all.add(new String[]{english, parts_of_speech});
+                            rootname = name.split(">")[0].trim();
+                                list.add(new String[]{english, parts_of_speech});
+                        } catch (Exception e) {
+                            System.out.println("Lỗi ở file: " + file);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(file.toString());
+            }
+//            if (!list.isEmpty()) {
+//                HashMap<String, Object> row = new HashMap<>();
+//                row.put("name", name );
+//                row.put("vs", list);
+//                data.add(row);
+//            }
+            HashMap<String, Object> row1 = new HashMap<>();
+            row1.put("name", "A1-B2 > "+rootname );
+            row1.put("vs", list);
+            data.add(row1);
+//            if (!rootname.startsWith("Word Lists")) {
+//                HashMap<String, Object> row2 = new HashMap<>();
+//                row2.put("name", "Oxford all topics");
+//                row2.put("vs", list);
+//                data.add(row2);
+//            } else {
+//                HashMap<String, Object> row2 = new HashMap<>();
+//                row2.put("name", "Oxford Word Lists");
+//                row2.put("vs", list);
+//                data.add(row2);
+//            }
+        }
+//        data.add(Map.of("name", "A1", "vs", a1));
+//        data.add(Map.of("name", "A2", "vs", a2));
+//        data.add(Map.of("name", "B1", "vs", b1));
+//        data.add(Map.of("name", "B2", "vs", b2));
+//        data.add(Map.of("name", "C1", "vs", c1));
+//        data.add(Map.of("name", "C2", "vs", c2));
+//        for (var entry : partOfSpeechMap.entrySet()) {
+//            data.add(Map.of("name", capitalize(entry.getKey()), "vs", entry.getValue()));
+//        }
+//        data.add(Map.of("name", "Oxford all", "vs", all));
+        Test.writeTopics(data, "Oxford topics");
+    }
+    public static void createWordList() {
+        String pathRoot = "Oxford Word Lists data";
+        ArrayList<String> excelFiles = listExcelFiles(pathRoot);
+        var ens = TopicImporter.databaseEnglish();
+        HashMap<String, HashSet<String[]>> partOfSpeechMap = new HashMap<>();
+        String[] partsOfSpeech = {
+                "indefinite article", "preposition", "adverb", "noun", "verb", "adjective",
+                "pronoun", "determiner", "conjunction", "auxiliary verb", "exclamation",
+                "modal verb", "number", "ordinal number", "definite article",
+                "infinitive marker", "phrase", "linking verb"
+        };
+        for (String pos : partsOfSpeech) {
+            partOfSpeechMap.put(pos, new HashSet<>());
+        }
+        HashSet<String[]> a1 = new HashSet<>();
+        HashSet<String[]> a2 = new HashSet<>();
+        HashSet<String[]> b1 = new HashSet<>();
+        HashSet<String[]> b2 = new HashSet<>();
+        HashSet<String[]> c1 = new HashSet<>();
+        HashSet<String[]> c2 = new HashSet<>();
+        HashSet<String[]> all = new HashSet<>();
+        ArrayList<Object> data = new ArrayList<>();
+
+        for (String file : excelFiles) {
+            var name = pathToTopic(pathRoot, file);
+            String rootname = "";
+            HashSet<String[]> list = new HashSet<>();
+            try (Workbook workbook = new XSSFWorkbook(file)) {
+                for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+                    Sheet sheet = workbook.getSheetAt(i);
+                    for (Row row : sheet) {
+                        try {
+                            String english = row.getCell(0).getStringCellValue().trim();
+                            String parts_of_speech = row.getCell(1).getStringCellValue().toLowerCase();
+                            String lv = "";
+                            try {
+                                lv = row.getCell(2).getStringCellValue().toLowerCase();
+                            } catch (Exception _) {
+                            }
                             if (!ens.contains(english)) {
                                 System.out.println(english + "\t" + parts_of_speech + "\t" + lv);
                             }
-                            if (lv.equals("")) System.out.println(english + "\t" + parts_of_speech + "\t" + lv);
+//                            if (lv.equals("")) System.out.println(english + "\t" + parts_of_speech + "\t" + lv);
                             switch (lv) {
                                 case "a1" -> a1.add(new String[]{english, parts_of_speech});
                                 case "a2" -> a2.add(new String[]{english, parts_of_speech});
@@ -256,16 +357,6 @@ public class Oxford {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (!list.isEmpty()) {
-                HashMap<String, Object> row = new HashMap<>();
-                row.put("name", name );
-                row.put("vs", list);
-                data.add(row);
-            }
-            HashMap<String, Object> row1 = new HashMap<>();
-            row1.put("name", rootname );
-            row1.put("vs", list);
-            data.add(row1);
             if (!rootname.startsWith("Word Lists")) {
                 HashMap<String, Object> row2 = new HashMap<>();
                 row2.put("name", "Oxford all topics");
@@ -288,7 +379,7 @@ public class Oxford {
             data.add(Map.of("name", capitalize(entry.getKey()), "vs", entry.getValue()));
         }
         data.add(Map.of("name", "Oxford all", "vs", all));
-        Test.writeTopics(data, "Oxford all");
+        Test.writeTopics(data, "Oxford word list");
     }
 
     public static void writeVocabulariesToExcel(String path, List<HashMap<String, String>> vocabularies) {

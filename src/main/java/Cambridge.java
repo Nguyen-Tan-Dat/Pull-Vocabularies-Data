@@ -68,7 +68,7 @@ public class Cambridge {
         }
     }
     private static void writeAdvancedTopics() {
-        var ens = Test.databaseEnglish();
+        var ens = TopicImporter.databaseEnglish();
         String filePath = "Cambridge vocabularies in use data/Advanced.txt";
         HashMap<Integer, Set<String>> vocabMap = readAcademicVocabularies(filePath);
         var topics= getAdvancedTopics();
@@ -249,7 +249,7 @@ public class Cambridge {
     }
 
     private static void writeAcademicTopics() {
-        var ens = Test.databaseEnglish();
+        var ens = TopicImporter.databaseEnglish();
         String filePath = "Cambridge vocabularies in use data/Academic 1.txt";
         HashMap<Integer, Set<String>> vocabMap = readAcademicVocabularies(filePath);
         var topics=getAcademicTopics();
@@ -745,7 +745,7 @@ public class Cambridge {
         String filePath = "Cambridge vocabularies in use data/Vocabularies For IELTS.txt";
 
         // Tập hợp toàn bộ từ trong database để kiểm tra tồn tại
-        var ens = Test.databaseEnglish();
+        var ens = TopicImporter.databaseEnglish();
 
         try {
             // Lấy danh sách từ vựng chia theo từng bài học hoặc topic
@@ -872,7 +872,7 @@ public class Cambridge {
     }
 
     private static void writeElementaryTopics() {
-        var ens= Test.databaseEnglish();
+        var ens= TopicImporter.databaseEnglish();
         String filePath = "Cambridge vocabularies in use data/Elementary.txt";
         HashMap<Integer, Set<String>> vocabMap = readElementaryVocabularies(filePath);
         HashSet<String> set = new HashSet<>();
@@ -918,7 +918,7 @@ public class Cambridge {
         var text = Test.readPdf("vocabularies clone/Cambridge Vocabularies/Word List.pdf"
         );
         var list = Elllo.extractWords(text);
-        var ens = Test.databaseEnglish();
+        var ens = TopicImporter.databaseEnglish();
         HashSet<String> set = new HashSet<>();
         for (var i : ens) {
             if (list.contains(i)) {
@@ -937,7 +937,7 @@ public class Cambridge {
 
 
     private static void writeGrammarTopic() {
-        var ens = Test.databaseEnglish();
+        var ens = TopicImporter.databaseEnglish();
         ArrayList<Object> data = new ArrayList<>();
         File[] oxfSubdirectories = Oxford.getDirectories("Oxford topics");
         File[] camSubdirectories = Oxford.getDirectories("Cambridge word lists");

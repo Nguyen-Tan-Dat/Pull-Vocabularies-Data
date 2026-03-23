@@ -20,7 +20,7 @@ import java.util.Map;
 public class Database {
     static final String DB_URL = "jdbc:postgresql://localhost:5432/cic";
     static final String DB_USER = "postgres"; // Thay bằng tên người dùng của bạn
-    static final String DB_PASSWORD = Test.PASSWORD; // Thay bằng mật khẩu của bạn
+    static final String DB_PASSWORD = "160500"; // Thay bằng mật khẩu của bạn
     static final String jsonFilePath = "output json/Topics of Oxford.json"; // Đường dẫn đến file JSON
 
     public static void main(String[] args) {
@@ -28,7 +28,7 @@ public class Database {
         updatePhonetics();
     }
     public static void updatePhonetics(){
-        var ens=Test.databaseEnglish();
+        var ens=TopicImporter.databaseEnglishWhere("phonetic=''");
         for(var i: ens){
             updatePhonetic(i);
         }
@@ -79,7 +79,7 @@ public class Database {
 
         try {
             // Kết nối với database
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cic", "postgres", Test.PASSWORD);
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cic", "postgres", DB_PASSWORD);
             connection.setAutoCommit(false); // Dùng transaction
             HashMap<String, Integer> es = JsonImporter.getEnglish(connection);
             HashMap<Integer, HashMap<String, Integer>> vs = JsonImporter.getVocabularies(connection);
@@ -250,7 +250,7 @@ public class Database {
                 "LEFT JOIN vocabularies_topics vt ON t.id = vt.topic " +
                 "GROUP BY t.name";
 
-        try (Connection conn = DriverManager.getConnection(Test.DATABASE_URL, Test.USERNAME, Test.PASSWORD);
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement pstmt = conn.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
 
