@@ -14,10 +14,10 @@ import static org.apache.commons.lang3.StringUtils.capitalize;
 
 public class Oxford {
     static void main() {
-        createTopicsOfOxfordExcel();
+//        createTopicsOfOxfordExcel();
 //        createWordListsExcel();
 //        createTopics();
-//        createWordList();
+        createWordList();
 //        createEmptyData();
     }
 
@@ -357,6 +357,7 @@ public class Oxford {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             if (!rootname.startsWith("Word Lists")) {
                 HashMap<String, Object> row2 = new HashMap<>();
                 row2.put("name", "Oxford all topics");
@@ -367,6 +368,10 @@ public class Oxford {
                 row2.put("name", "Oxford Word Lists");
                 row2.put("vs", list);
                 data.add(row2);
+                HashMap<String, Object> topic = new HashMap<>();
+                topic.put("name", name);
+                topic.put("vs", list);
+                data.add(topic);
             }
         }
         data.add(Map.of("name", "A1", "vs", a1));
@@ -877,18 +882,18 @@ public class Oxford {
     }
 
     public static void createWordListsExcel() {
-        String directoryPath = "Topics of Oxford/Word Lists";
+        String directoryPath = "Oxford Word Lists data/Word Lists";
         createOxford3000and5000Excel(Test.readFile("Oxford Word Lists data/Oxford 3000.txt"), directoryPath + "/" + "Oxford 3000");
         createOxford3000and5000Excel(Test.readFile("Oxford Word Lists data/Oxford 5000.txt"), directoryPath + "/" + "Oxford 5000");
-        var words = allwords();
-        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL written words.txt"), directoryPath + "/" + "OPAL written words");
-        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL written phrases.txt"), directoryPath + "/" + "OPAL written phrases");
-        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL spoken words.txt"), directoryPath + "/" + "OPAL spoken words");
-        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL spoken phrases.txt"), directoryPath + "/" + "OPAL spoken phrases");
-        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL Academic written words.txt"), directoryPath + "/" + "OPAL Academic written words");
-        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL Academic written phrases.txt"), directoryPath + "/" + "OPAL Academic written phrases");
-        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL Academic spoken words.txt"), directoryPath + "/" + "OPAL Academic spoken words");
-        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL Academic spoken phrases.txt"), directoryPath + "/" + "OPAL Academic spoken phrases");
+//        var words = allwords();
+//        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL written words.txt"), directoryPath + "/" + "OPAL written words");
+//        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL written phrases.txt"), directoryPath + "/" + "OPAL written phrases");
+//        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL spoken words.txt"), directoryPath + "/" + "OPAL spoken words");
+//        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL spoken phrases.txt"), directoryPath + "/" + "OPAL spoken phrases");
+//        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL Academic written words.txt"), directoryPath + "/" + "OPAL Academic written words");
+//        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL Academic written phrases.txt"), directoryPath + "/" + "OPAL Academic written phrases");
+//        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL Academic spoken words.txt"), directoryPath + "/" + "OPAL Academic spoken words");
+//        createOPALExcel(words, Test.readFile("Oxford Word Lists data/OPAL Academic spoken phrases.txt"), directoryPath + "/" + "OPAL Academic spoken phrases");
     }
 
 
